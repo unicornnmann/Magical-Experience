@@ -2,6 +2,8 @@
 
 Discord Community • [Invite](https://discord.gg/WeruZTAM)
 
+**Script**:
+
 ```lua
 local Module = {};
 
