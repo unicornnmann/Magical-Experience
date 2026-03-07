@@ -25610,7 +25610,7 @@ local AKAdmin = Tabs.Workspace:AddButton({
     end
 })
 
-local Stalkie = Tabs.Workspace:AddButton({
+local = Tabs.Workspace:AddButton({
     Title = "Onyx",
     Description = "I Love Biscuit",
 
