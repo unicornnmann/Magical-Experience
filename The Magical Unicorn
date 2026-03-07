@@ -25603,20 +25603,20 @@ local Section = Tabs.Workspace:AddSection("Scripts")
 
 local AKAdmin = Tabs.Workspace:AddButton({
     Title = "AK Admin",
-    Description = "The most known script on tiktok",
+    Description = "Best For Reanimation",
 
     Callback = function()
         loadstring(game:HttpGet("https://absent.wtf/AKADMIN.lua"))();
     end
 })
 
-local Stalkiee = Tabs.Workspace:AddButton({
-    Title = "Stalkie",
-    Description = "The second most known script on tiktok",
+local Stalkie = Tabs.Workspace:AddButton({
+    Title = "Onyx",
+    Description = "I Love Biscuit",
 
     Callback = function()
         repeat task.wait() until game.Players.LocalPlayer
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/0riginalWarrior/Stalkie/refs/heads/main/roblox.lua"))()
+loadstring(game:HttpGet('https://onyxv2.vercel.app/main.lua'))()
     end
 })
 
