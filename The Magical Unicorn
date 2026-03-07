@@ -23948,9 +23948,7 @@ end)
 
 local Section = Tabs.Workspace:AddSection("Anti Lag")
 
-local Section = Tabs.Workspace:AddSection("Camera/Fly")
-
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Workspace:AddButton({
     Title = "Performance Boost Mild",
     Description = "Mild Fps Boost",
 
@@ -24408,7 +24406,7 @@ OptimizedSystem()
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Workspace:AddButton({
     Title = "Performance Boost Extreme",
     Description = "Extreme Fps Boost",
 
@@ -24490,6 +24488,8 @@ end)
 
     end
 })
+
+local Section = Tabs.Workspace:AddSection("Camera/Fly")
 
 local IYAdmin = Tabs.Workspace:AddButton({
     Title = "Directional Fly",
