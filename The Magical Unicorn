@@ -40,10 +40,14 @@ local Window = Fluent:CreateWindow({
 local Tabs = {
     Player = Window:AddTab({ Title = "Player", Icon = "user" }),
     Workspace = Window:AddTab({ Title = "Workspace", Icon = "hard-drive" }),
-    Tools = Window:AddTab({ Title = "Tools", Icon = "chevrons-up" }),
-    Emotes = Window:AddTab({ Title = "Emotes", Icon = "person-standing" }),
-    Exploits = Window:AddTab({ Title = "Exploits", Icon = "scroll" }),
-    Keybinds = Window:AddTab({ Title = "Keybinds", Icon = "box" })
+    Assets = Window:AddTab({ Title = "Assets", Icon = "building" }),
+    Baseplates = Window:AddTab({ Title = "Baseplate", Icon = "scan" }),
+    Ramps = Window:AddTab({ Title = "Ramps", Icon = "triangle" }),
+    Tools = Window:AddTab({ Title = "Tools", Icon = "wrench" }),
+    Exploits = Window:AddTab({ Title = "Shaders", Icon = "trees" }),
+    Emotes = Window:AddTab({ Title = "Avatar", Icon = "person-standing" }),
+    Misc = Window:AddTab({ Title = "Misc", Icon = "link" }),
+    Keybinds = Window:AddTab({ Title = "Keybinds", Icon = "info" })
 }
 
 Window:SelectTab(1)
@@ -362,9 +366,9 @@ local JumppowerSlider = Tabs.Player:AddSlider("Slider", {
     end
 })
 
-local Section = Tabs.Exploits:AddSection("Avatar")
+local Section = Tabs.Emotes:AddSection("Avatar")
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Emotes:AddButton({
     Title = "Amimation Copy",
     Description = "Hold E on player to copy animatio only works if they are r15",
 
@@ -465,7 +469,7 @@ end)
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Emotes:AddButton({
     Title = "Avatar Changer",
     Description = "Client Sided Only",
 
@@ -16803,9 +16807,11 @@ loadstring(game:HttpGet("https://pastebin.com/raw/egZEzqdN"))()
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
+local PlayerSection = Tabs.Misc:AddSection("Drugs/Alcohol")
+
+local IYAdmin = Tabs.Misc:AddButton({
     Title = "Get High",
-    Description = "Get Fuckede Up In Roblox",
+    Description = "Get Fucked Up - X to vommit",
 
     Callback = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/zxkuhl/smoke-ur-lungs-out-till-their-black/refs/heads/main/smoke.lua"))()
@@ -16921,15 +16927,6 @@ end
 --]]
 
 
-
-
-
-
-
-
-
-
-
 wait(.5)
 
 local key = Enum.KeyCode.X -- The key required to start/stop the vomit
@@ -16964,9 +16961,9 @@ game.StarterGui:SetCore("SendNotification", {
     end
 })
 
-local TeleportSection = Tabs.Exploits:AddSection("Misc")
+local PlayerSection = Tabs.Misc:AddSection("Misc")
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Misc:AddButton({
     Title = "Elevator",
     Description = "Creates a platform that rises up",
 
@@ -17083,7 +17080,7 @@ print("OwneradminReall Platform Loadstring Başarıyla Çalıştı!")
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Misc:AddButton({
     Title = "Fish",
     Description = "Become a fish",
 
@@ -17253,7 +17250,7 @@ coroutine.wrap(ZJMFNS_fake_script)()
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Misc:AddButton({
     Title = "Snake",
     Description = "Become a snake",
 
@@ -17318,9 +17315,9 @@ end)
     end
 })
 
-local TeleportSection = Tabs.Player:AddSection("Delete Assets")
+local TeleportSection = Tabs.Assets:AddSection("Delete Assets")
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Assets:AddButton({
     Title = "Delete Assets",
     Description = "Deletes The Assets",
 
@@ -17341,9 +17338,9 @@ end
     end
 })
 
-local TeleportSection = Tabs.Player:AddSection("Assets")
+local TeleportSection = Tabs.Assets:AddSection("Assets")
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Assets:AddButton({
     Title = "Racetrack",
     Description = "Spawns a Racetrack",
 
@@ -17495,7 +17492,7 @@ insertModel(115595982148147)
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Assets:AddButton({
     Title = "City Islands",
     Description = "Spawns a Small City",
 
@@ -17647,7 +17644,7 @@ insertModel(11486778910)
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Assets:AddButton({
     Title = "Glasshouse",
     Description = "Pairs With Crossroads",
 
@@ -17799,7 +17796,7 @@ insertModel(11359728337)
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Assets:AddButton({
     Title = "Crossroads",
     Description = "Pairs With Glasshouse",
 
@@ -17951,7 +17948,7 @@ insertModel(11359616807)
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Assets:AddButton({
     Title = "Treehouse",
     Description = "Spawns Treehouse In the corner",
 
@@ -18103,7 +18100,7 @@ insertModel(7860328354)
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Assets:AddButton({
     Title = "Speedrun 4",
     Description = "Added like 10 levels from it",
 
@@ -19705,7 +19702,7 @@ insertModel(11644854117)
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Assets:AddButton({
     Title = "Strip Club",
     Description = "Unicorn Touchy Time",
 
@@ -21452,7 +21449,7 @@ insertModel(94613191055940)
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Assets:AddButton({
     Title = "Stage",
     Description = "Spawns a stage with seats",
 
@@ -21749,9 +21746,279 @@ insertModel(43228316)
     end
 })
 
-local TeleportSection = Tabs.Player:AddSection("R6")
+local TeleportSection = Tabs.Assets:AddSection("Car")
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Assets:AddButton({
+    Title = "Car",
+    Description = "Spawns in a Car",
+
+    Callback = function()
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+-- CarController (LocalPlayer executor) - safe input handling with ContextActionService
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local ContextActionService = game:GetService("ContextActionService")
+
+local player = Players.LocalPlayer
+if not player then error("Run this as LocalPlayer") end
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local root = character:WaitForChild("HumanoidRootPart")
+
+-- Cleanup previous instances and bindings
+local ACTION_THROTTLE = "CarThrottleAction_v1"
+local ACTION_STEER = "CarSteerAction_v1"
+local HEARTBEAT_BIND_NAME = "CarHeartbeat_v1"
+
+local function cleanupPrevious()
+    -- remove previous car
+    local prevCar = workspace:FindFirstChild("HingeCar")
+    if prevCar then prevCar:Destroy() end
+    -- remove previous tool
+    local prevTool = player.Backpack:FindFirstChild("CarController") or player.Character:FindFirstChild("CarController")
+    if prevTool then prevTool:Destroy() end
+    -- unbind actions if still bound
+    pcall(function() ContextActionService:UnbindAction(ACTION_THROTTLE) end)
+    pcall(function() ContextActionService:UnbindAction(ACTION_STEER) end)
+end
+cleanupPrevious()
+
+-- Car factory
+local function spawnCar(atCFrame)
+    atCFrame = atCFrame or (root.CFrame + root.CFrame.LookVector * 10 + Vector3.new(0, 3, 0))
+    local car = Instance.new("Model")
+    car.Name = "HingeCar"
+    car.Parent = workspace
+
+    local body = Instance.new("Part")
+    body.Name = "Body"
+    body.Size = Vector3.new(6, 1.5, 10)
+    body.Anchored = false
+    body.CanCollide = true
+    body.CFrame = atCFrame
+    body.Parent = car
+    car.PrimaryPart = body
+
+    local function createWheel(offsetX, offsetZ)
+        local wheel = Instance.new("Part")
+        wheel.Name = "Wheel"
+        wheel.Size = Vector3.new(1, 3, 3)
+        wheel.Shape = Enum.PartType.Cylinder
+        wheel.CanCollide = true
+        wheel.Anchored = false
+        wheel.Parent = car
+        wheel.CFrame = body.CFrame * CFrame.new(offsetX, -1, offsetZ) * CFrame.Angles(0, 0, math.rad(90))
+
+        local attBody = Instance.new("Attachment")
+        attBody.Parent = body
+        attBody.Position = Vector3.new(offsetX, -1, offsetZ)
+
+        local attWheel = Instance.new("Attachment")
+        attWheel.Parent = wheel
+        attWheel.Position = Vector3.new(0, 0, 0)
+
+        local hinge = Instance.new("HingeConstraint")
+        hinge.Attachment0 = attBody
+        hinge.Attachment1 = attWheel
+        hinge.Parent = wheel
+        hinge.ActuatorType = Enum.ActuatorType.None
+        hinge.LimitsEnabled = false
+
+        return wheel
+    end
+
+    createWheel(-2.5, -3)
+    createWheel( 2.5, -3)
+    createWheel(-2.5,  3)
+    createWheel( 2.5,  3)
+
+    local driveAttachment = Instance.new("Attachment")
+    driveAttachment.Parent = body
+    driveAttachment.Position = Vector3.new(0, 0, 0)
+
+    local vectorForce = Instance.new("VectorForce")
+    vectorForce.Attachment0 = driveAttachment
+    vectorForce.RelativeTo = Enum.ActuatorRelativeTo.World
+    vectorForce.ApplyAtCenterOfMass = true
+    vectorForce.Parent = body
+
+    local angVel = Instance.new("BodyAngularVelocity")
+    angVel.MaxTorque = Vector3.new(0, math.huge, 0)
+    angVel.AngularVelocity = Vector3.new(0,0,0)
+    angVel.Parent = body
+
+    for _, v in ipairs(car:GetDescendants()) do
+        if v:IsA("BasePart") then
+            v.Anchored = false
+            v.CanCollide = true
+            v.Massless = false
+        end
+    end
+
+    -- best-effort network owner
+    pcall(function()
+        for _, v in ipairs(car:GetDescendants()) do
+            if v:IsA("BasePart") then
+                v:SetNetworkOwner(player)
+            end
+        end
+    end)
+
+    return car, body, vectorForce, angVel
+end
+
+-- Create initial car
+local car, body, vectorForce, angVel = spawnCar()
+
+-- Create tool
+local tool = Instance.new("Tool")
+tool.Name = "CarController"
+tool.RequiresHandle = false
+tool.CanBeDropped = false
+tool.Parent = player.Backpack
+
+-- Driving state
+local controlling = false
+local throttle = 0
+local steer = 0
+local braking = false
+
+local MAX_FORCE = 7000
+local MAX_ANGULAR = 3.5
+local IDLE_ANGULAR = 1.2
+
+-- Save original movement values
+local originalWalkSpeed = humanoid.WalkSpeed
+local originalJumpPower = humanoid.JumpPower
+local originalAutoRotate = humanoid.AutoRotate
+
+-- ContextAction handlers (return Enum.ContextActionResult)
+local function throttleAction(actionName, inputState, inputObject)
+    if inputState == Enum.UserInputState.Begin or inputState == Enum.UserInputState.Change then
+        if inputObject.UserInputType == Enum.UserInputType.Keyboard then
+            local k = inputObject.KeyCode
+            if k == Enum.KeyCode.W then throttle = 1 end
+            if k == Enum.KeyCode.S then throttle = -1 end
+        elseif inputObject.UserInputType == Enum.UserInputType.Gamepad1 then
+            local pos = inputObject.Position
+            if pos then throttle = -pos.Y end
+        end
+    elseif inputState == Enum.UserInputState.End then
+        -- reset when key released
+        if inputObject.UserInputType == Enum.UserInputType.Keyboard then
+            local k = inputObject.KeyCode
+            if k == Enum.KeyCode.W or k == Enum.KeyCode.S then throttle = 0 end
+        else
+            throttle = 0
+        end
+    end
+    return Enum.ContextActionResult.Sink
+end
+
+local function steerAction(actionName, inputState, inputObject)
+    if inputState == Enum.UserInputState.Begin or inputState == Enum.UserInputState.Change then
+        if inputObject.UserInputType == Enum.UserInputType.Keyboard then
+            local k = inputObject.KeyCode
+            if k == Enum.KeyCode.A then steer = -1 end
+            if k == Enum.KeyCode.D then steer = 1 end
+        elseif inputObject.UserInputType == Enum.UserInputType.Gamepad1 then
+            local pos = inputObject.Position
+            if pos then steer = pos.X end
+        end
+    elseif inputState == Enum.UserInputState.End then
+        if inputObject.UserInputType == Enum.UserInputType.Keyboard then
+            local k = inputObject.KeyCode
+            if k == Enum.KeyCode.A or k == Enum.KeyCode.D then steer = 0 end
+        else
+            steer = 0
+        end
+    end
+    return Enum.ContextActionResult.Sink
+end
+
+-- Heartbeat loop handle
+local heartbeatConn = nil
+local function startHeartbeat()
+    if heartbeatConn then return end
+    heartbeatConn = RunService.Heartbeat:Connect(function()
+        if not controlling or not body or not vectorForce or not angVel then return end
+        local effThrottle = throttle
+        if braking then effThrottle = 0 end
+        local forward = body.CFrame.LookVector
+        local drive = forward * effThrottle * MAX_FORCE
+        vectorForce.Force = Vector3.new(drive.X, 0, drive.Z)
+        local speedFactor = math.clamp(math.abs(effThrottle), 0, 1)
+        local targetAngular = IDLE_ANGULAR * (1 - speedFactor) + MAX_ANGULAR * speedFactor
+        local yaw = -steer * targetAngular
+        angVel.AngularVelocity = Vector3.new(0, yaw, 0)
+    end)
+end
+
+local function stopHeartbeat()
+    if heartbeatConn then
+        heartbeatConn:Disconnect()
+        heartbeatConn = nil
+    end
+end
+
+-- Equip / Unequip
+tool.Equipped:Connect(function()
+    controlling = true
+    -- disable movement but keep other systems intact
+    humanoid.WalkSpeed = 0
+    humanoid.JumpPower = 0
+    humanoid.AutoRotate = false
+
+    -- bind actions at high priority so they only affect while equipped
+    ContextActionService:BindActionAtPriority(ACTION_THROTTLE, throttleAction, false, Enum.ContextActionPriority.High.Value, Enum.KeyCode.W, Enum.KeyCode.S, Enum.UserInputType.Gamepad1)
+    ContextActionService:BindActionAtPriority(ACTION_STEER, steerAction, false, Enum.ContextActionPriority.High.Value, Enum.KeyCode.A, Enum.KeyCode.D, Enum.UserInputType.Gamepad1)
+
+    startHeartbeat()
+end)
+
+tool.Unequipped:Connect(function()
+    controlling = false
+    throttle = 0
+    steer = 0
+    braking = false
+
+    -- restore movement
+    humanoid.WalkSpeed = originalWalkSpeed
+    humanoid.JumpPower = originalJumpPower
+    humanoid.AutoRotate = originalAutoRotate
+
+    -- unbind actions
+    pcall(function() ContextActionService:UnbindAction(ACTION_THROTTLE) end)
+    pcall(function() ContextActionService:UnbindAction(ACTION_STEER) end)
+
+    -- stop heartbeat and clear forces
+    stopHeartbeat()
+    if vectorForce then vectorForce.Force = Vector3.new(0,0,0) end
+    if angVel then angVel.AngularVelocity = Vector3.new(0,0,0) end
+end)
+
+-- Tool activation: spawn a fresh car (destroys previous)
+tool.Activated:Connect(function()
+    if car and car.Parent then car:Destroy() end
+    car, body, vectorForce, angVel = spawnCar(root.CFrame + root.CFrame.LookVector * 10 + Vector3.new(0,3,0))
+    -- ensure heartbeat uses new body
+    if controlling then
+        stopHeartbeat()
+        startHeartbeat()
+    end
+end)
+
+-- Place tool in backpack and auto-equip
+tool.Parent = player.Backpack
+pcall(function() player.Character.Humanoid:EquipTool(tool) end)
+
+print("CarController ready. Equip tool to control the car. Click to spawn a new car.")
+    end
+})
+
+local IYAdmin = Tabs.Misc:AddButton({
     Title = "No Legs",
     Description = "Legless",
 
@@ -21796,7 +22063,7 @@ end)
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Misc:AddButton({
     Title = "No Arms",
     Description = "Armless",
 
@@ -21837,7 +22104,7 @@ player.CharacterAdded:Connect(removeArms)
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Misc:AddButton({
     Title = "No Head",
     Description = "Headless",
 
@@ -21878,7 +22145,7 @@ end
     end
 })
 
-local TeleportSection = Tabs.Player:AddSection("Random Shit")
+local TeleportSection = Tabs.Player:AddSection("Simple")
 
 -- [[ Face Fuck ]]
 Tabs.Player:AddButton({
@@ -22001,7 +22268,7 @@ Tabs.Player:AddButton({
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Emotes:AddButton({
     Title = "Unicorn Postion Saver",
     Description = "Create different TP save points",
 
@@ -22414,7 +22681,7 @@ CreateMainUI()
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Misc:AddButton({
     Title = "Text Draw",
     Description = "Draw In Chat",
 
@@ -22428,7 +22695,7 @@ loadstring(game:HttpGet('https://pastebin.com/raw/q6WWVCKC'))()
 
 -- [[ ADMIN SCRIPT WHEN PEOPLE CHAT ]]
 
-local AdminChatScript = Tabs.Player:AddButton({
+local AdminChatScript = Tabs.Misc:AddButton({
     Title = "Admin Chat Script",
     Description = "Click Me",
 
@@ -22637,15 +22904,6 @@ local AdminChatScript = Tabs.Player:AddButton({
 
             handleCommand(msg.Text)
         end)
-    end
-})
-
-local IYAdmin = Tabs.Player:AddButton({
-    Title = "Infinite Yeild",
-    Description = "Comand Line",
-
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))();
     end
 })
 
@@ -22885,7 +23143,7 @@ local Slider = Tabs.Player:AddSlider("Slider", {
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Misc:AddButton({
     Title = "Doom",
     Description = "Play Doom in Roblox",
 
@@ -22894,7 +23152,7 @@ local IYAdmin = Tabs.Player:AddButton({
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
+local IYAdmin = Tabs.Misc:AddButton({
     Title = "Minecraft",
     Description = "Play Minecraft in Roblox",
 
@@ -22905,282 +23163,12 @@ game:GetService("SoundService").MCMusicSound.Volume = 0.01
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
-    Title = "Car",
-    Description = "Spawns in a car",
-
-    Callback = function()
---[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
--- CarController (LocalPlayer executor) - safe input handling with ContextActionService
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local ContextActionService = game:GetService("ContextActionService")
-
-local player = Players.LocalPlayer
-if not player then error("Run this as LocalPlayer") end
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:WaitForChild("Humanoid")
-local root = character:WaitForChild("HumanoidRootPart")
-
--- Cleanup previous instances and bindings
-local ACTION_THROTTLE = "CarThrottleAction_v1"
-local ACTION_STEER = "CarSteerAction_v1"
-local HEARTBEAT_BIND_NAME = "CarHeartbeat_v1"
-
-local function cleanupPrevious()
-    -- remove previous car
-    local prevCar = workspace:FindFirstChild("HingeCar")
-    if prevCar then prevCar:Destroy() end
-    -- remove previous tool
-    local prevTool = player.Backpack:FindFirstChild("CarController") or player.Character:FindFirstChild("CarController")
-    if prevTool then prevTool:Destroy() end
-    -- unbind actions if still bound
-    pcall(function() ContextActionService:UnbindAction(ACTION_THROTTLE) end)
-    pcall(function() ContextActionService:UnbindAction(ACTION_STEER) end)
-end
-cleanupPrevious()
-
--- Car factory
-local function spawnCar(atCFrame)
-    atCFrame = atCFrame or (root.CFrame + root.CFrame.LookVector * 10 + Vector3.new(0, 3, 0))
-    local car = Instance.new("Model")
-    car.Name = "HingeCar"
-    car.Parent = workspace
-
-    local body = Instance.new("Part")
-    body.Name = "Body"
-    body.Size = Vector3.new(6, 1.5, 10)
-    body.Anchored = false
-    body.CanCollide = true
-    body.CFrame = atCFrame
-    body.Parent = car
-    car.PrimaryPart = body
-
-    local function createWheel(offsetX, offsetZ)
-        local wheel = Instance.new("Part")
-        wheel.Name = "Wheel"
-        wheel.Size = Vector3.new(1, 3, 3)
-        wheel.Shape = Enum.PartType.Cylinder
-        wheel.CanCollide = true
-        wheel.Anchored = false
-        wheel.Parent = car
-        wheel.CFrame = body.CFrame * CFrame.new(offsetX, -1, offsetZ) * CFrame.Angles(0, 0, math.rad(90))
-
-        local attBody = Instance.new("Attachment")
-        attBody.Parent = body
-        attBody.Position = Vector3.new(offsetX, -1, offsetZ)
-
-        local attWheel = Instance.new("Attachment")
-        attWheel.Parent = wheel
-        attWheel.Position = Vector3.new(0, 0, 0)
-
-        local hinge = Instance.new("HingeConstraint")
-        hinge.Attachment0 = attBody
-        hinge.Attachment1 = attWheel
-        hinge.Parent = wheel
-        hinge.ActuatorType = Enum.ActuatorType.None
-        hinge.LimitsEnabled = false
-
-        return wheel
-    end
-
-    createWheel(-2.5, -3)
-    createWheel( 2.5, -3)
-    createWheel(-2.5,  3)
-    createWheel( 2.5,  3)
-
-    local driveAttachment = Instance.new("Attachment")
-    driveAttachment.Parent = body
-    driveAttachment.Position = Vector3.new(0, 0, 0)
-
-    local vectorForce = Instance.new("VectorForce")
-    vectorForce.Attachment0 = driveAttachment
-    vectorForce.RelativeTo = Enum.ActuatorRelativeTo.World
-    vectorForce.ApplyAtCenterOfMass = true
-    vectorForce.Parent = body
-
-    local angVel = Instance.new("BodyAngularVelocity")
-    angVel.MaxTorque = Vector3.new(0, math.huge, 0)
-    angVel.AngularVelocity = Vector3.new(0,0,0)
-    angVel.Parent = body
-
-    for _, v in ipairs(car:GetDescendants()) do
-        if v:IsA("BasePart") then
-            v.Anchored = false
-            v.CanCollide = true
-            v.Massless = false
-        end
-    end
-
-    -- best-effort network owner
-    pcall(function()
-        for _, v in ipairs(car:GetDescendants()) do
-            if v:IsA("BasePart") then
-                v:SetNetworkOwner(player)
-            end
-        end
-    end)
-
-    return car, body, vectorForce, angVel
-end
-
--- Create initial car
-local car, body, vectorForce, angVel = spawnCar()
-
--- Create tool
-local tool = Instance.new("Tool")
-tool.Name = "CarController"
-tool.RequiresHandle = false
-tool.CanBeDropped = false
-tool.Parent = player.Backpack
-
--- Driving state
-local controlling = false
-local throttle = 0
-local steer = 0
-local braking = false
-
-local MAX_FORCE = 7000
-local MAX_ANGULAR = 3.5
-local IDLE_ANGULAR = 1.2
-
--- Save original movement values
-local originalWalkSpeed = humanoid.WalkSpeed
-local originalJumpPower = humanoid.JumpPower
-local originalAutoRotate = humanoid.AutoRotate
-
--- ContextAction handlers (return Enum.ContextActionResult)
-local function throttleAction(actionName, inputState, inputObject)
-    if inputState == Enum.UserInputState.Begin or inputState == Enum.UserInputState.Change then
-        if inputObject.UserInputType == Enum.UserInputType.Keyboard then
-            local k = inputObject.KeyCode
-            if k == Enum.KeyCode.W then throttle = 1 end
-            if k == Enum.KeyCode.S then throttle = -1 end
-        elseif inputObject.UserInputType == Enum.UserInputType.Gamepad1 then
-            local pos = inputObject.Position
-            if pos then throttle = -pos.Y end
-        end
-    elseif inputState == Enum.UserInputState.End then
-        -- reset when key released
-        if inputObject.UserInputType == Enum.UserInputType.Keyboard then
-            local k = inputObject.KeyCode
-            if k == Enum.KeyCode.W or k == Enum.KeyCode.S then throttle = 0 end
-        else
-            throttle = 0
-        end
-    end
-    return Enum.ContextActionResult.Sink
-end
-
-local function steerAction(actionName, inputState, inputObject)
-    if inputState == Enum.UserInputState.Begin or inputState == Enum.UserInputState.Change then
-        if inputObject.UserInputType == Enum.UserInputType.Keyboard then
-            local k = inputObject.KeyCode
-            if k == Enum.KeyCode.A then steer = -1 end
-            if k == Enum.KeyCode.D then steer = 1 end
-        elseif inputObject.UserInputType == Enum.UserInputType.Gamepad1 then
-            local pos = inputObject.Position
-            if pos then steer = pos.X end
-        end
-    elseif inputState == Enum.UserInputState.End then
-        if inputObject.UserInputType == Enum.UserInputType.Keyboard then
-            local k = inputObject.KeyCode
-            if k == Enum.KeyCode.A or k == Enum.KeyCode.D then steer = 0 end
-        else
-            steer = 0
-        end
-    end
-    return Enum.ContextActionResult.Sink
-end
-
--- Heartbeat loop handle
-local heartbeatConn = nil
-local function startHeartbeat()
-    if heartbeatConn then return end
-    heartbeatConn = RunService.Heartbeat:Connect(function()
-        if not controlling or not body or not vectorForce or not angVel then return end
-        local effThrottle = throttle
-        if braking then effThrottle = 0 end
-        local forward = body.CFrame.LookVector
-        local drive = forward * effThrottle * MAX_FORCE
-        vectorForce.Force = Vector3.new(drive.X, 0, drive.Z)
-        local speedFactor = math.clamp(math.abs(effThrottle), 0, 1)
-        local targetAngular = IDLE_ANGULAR * (1 - speedFactor) + MAX_ANGULAR * speedFactor
-        local yaw = -steer * targetAngular
-        angVel.AngularVelocity = Vector3.new(0, yaw, 0)
-    end)
-end
-
-local function stopHeartbeat()
-    if heartbeatConn then
-        heartbeatConn:Disconnect()
-        heartbeatConn = nil
-    end
-end
-
--- Equip / Unequip
-tool.Equipped:Connect(function()
-    controlling = true
-    -- disable movement but keep other systems intact
-    humanoid.WalkSpeed = 0
-    humanoid.JumpPower = 0
-    humanoid.AutoRotate = false
-
-    -- bind actions at high priority so they only affect while equipped
-    ContextActionService:BindActionAtPriority(ACTION_THROTTLE, throttleAction, false, Enum.ContextActionPriority.High.Value, Enum.KeyCode.W, Enum.KeyCode.S, Enum.UserInputType.Gamepad1)
-    ContextActionService:BindActionAtPriority(ACTION_STEER, steerAction, false, Enum.ContextActionPriority.High.Value, Enum.KeyCode.A, Enum.KeyCode.D, Enum.UserInputType.Gamepad1)
-
-    startHeartbeat()
-end)
-
-tool.Unequipped:Connect(function()
-    controlling = false
-    throttle = 0
-    steer = 0
-    braking = false
-
-    -- restore movement
-    humanoid.WalkSpeed = originalWalkSpeed
-    humanoid.JumpPower = originalJumpPower
-    humanoid.AutoRotate = originalAutoRotate
-
-    -- unbind actions
-    pcall(function() ContextActionService:UnbindAction(ACTION_THROTTLE) end)
-    pcall(function() ContextActionService:UnbindAction(ACTION_STEER) end)
-
-    -- stop heartbeat and clear forces
-    stopHeartbeat()
-    if vectorForce then vectorForce.Force = Vector3.new(0,0,0) end
-    if angVel then angVel.AngularVelocity = Vector3.new(0,0,0) end
-end)
-
--- Tool activation: spawn a fresh car (destroys previous)
-tool.Activated:Connect(function()
-    if car and car.Parent then car:Destroy() end
-    car, body, vectorForce, angVel = spawnCar(root.CFrame + root.CFrame.LookVector * 10 + Vector3.new(0,3,0))
-    -- ensure heartbeat uses new body
-    if controlling then
-        stopHeartbeat()
-        startHeartbeat()
-    end
-end)
-
--- Place tool in backpack and auto-equip
-tool.Parent = player.Backpack
-pcall(function() player.Character.Humanoid:EquipTool(tool) end)
-
-print("CarController ready. Equip tool to control the car. Click to spawn a new car.")
-    end
-})
-
 -- [[ Workspace Section ]]
 
 
-local Section = Tabs.Workspace:AddSection("Players")
+local Section = Tabs.Emotes:AddSection("Players")
 
-local IYAdmin = Tabs.Workspace:AddButton({
+local IYAdmin = Tabs.Emotes:AddButton({
     Title = "2D Players",
     Description = "Turns Everyone 2D",
 
@@ -23252,7 +23240,7 @@ end
     end
 })
 
-local IYAdmin = Tabs.Workspace:AddButton({
+local IYAdmin = Tabs.Emotes:AddButton({
     Title = "Player Attach",
     Description = "Attach To Anyone From Any Distance",
 
@@ -23264,7 +23252,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ImHim800/Attach-scrip
     end
 })
 
-local IYAdmin = Tabs.Workspace:AddButton({
+local IYAdmin = Tabs.Emotes:AddButton({
     Title = "Profile Checker",
     Description = "Allows you to view profiles in game",
 
@@ -23276,7 +23264,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Skulxpx/Skulx-Loader/
     end
 })
 
-local IYAdmin = Tabs.Workspace:AddButton({
+local IYAdmin = Tabs.Emotes:AddButton({
     Title = "Player Finder",
     Description = "Slowly Brings you to a player",
 
@@ -23530,7 +23518,7 @@ end)
     end
 })
 
-local IYAdmin = Tabs.Workspace:AddButton({
+local IYAdmin = Tabs.Emotes:AddButton({
     Title = "Player Info",
     Description = "Shows Usernames - Click TP",
 
@@ -23943,549 +23931,6 @@ end)
 Players.PlayerRemoving:Connect(function(Parameter)
     RemoveMarker(Parameter)
 end)
-    end
-})
-
-local Section = Tabs.Workspace:AddSection("Anti Lag")
-
-local IYAdmin = Tabs.Workspace:AddButton({
-    Title = "Performance Boost Mild",
-    Description = "Mild Fps Boost",
-
-    Callback = function()
---[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
-
---[[
-    Hey
-]]
-
--- ╔══════════════════╗
--- ║         SERVICES
--- ╚══════════════════╝
-local Players      = game:GetService("Players")
-local RunService   = game:GetService("RunService")
-local TweenService = game:GetService("TweenService")
-local HttpService  = game:GetService("HttpService")
-local CoreGui      = game:GetService("CoreGui")
-
-local player = Players.LocalPlayer
-
--- ╔════════════════════════╗
--- ║     GUI stuuf 
--- ╚════════════════════════╝
-local guiParent
-pcall(function()
-    if gethui then
-        guiParent = gethui()
-    elseif cloneref then
-        guiParent = cloneref(CoreGui)
-    else
-        guiParent = player:WaitForChild("PlayerGui")
-    end
-end)
-
-local notificationGui = Instance.new("ScreenGui")
-notificationGui.Name = "SMVLL_Notif_" .. HttpService:GenerateGUID(false):sub(1, 8)
-notificationGui.ResetOnSpawn = false
-notificationGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-pcall(function() notificationGui.Parent = guiParent end)
-
--- Configuration Constants
-local activeNotifications = {}
-local CONSTANTS = {
-    WIDTH = 280,
-    HEIGHT = 90,
-    PADDING = 15,
-    THEME_COLOR = Color3.fromRGB(0, 255, 200),
-    BG_COLOR = Color3.fromRGB(20, 20, 25),
-    TEXT_COLOR = Color3.fromRGB(255, 255, 255),
-    SUBTEXT_COLOR = Color3.fromRGB(180, 180, 180),
-    ANIMATION_SPEED = 0.4
-}
-
--- ╔══════════════════════════╗
--- ║     notif.  
--- ╚══════════════════════════╝
-local function UpdateNotifications()
-    for index, data in ipairs(activeNotifications) do
-        local targetY = -CONSTANTS.PADDING - ((index - 1) * (CONSTANTS.HEIGHT + CONSTANTS.PADDING))
-        
-        TweenService:Create(data.Container, TweenInfo.new(CONSTANTS.ANIMATION_SPEED, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
-            Position = UDim2.new(1, -CONSTANTS.PADDING, 1, targetY)
-        }):Play()
-    end
-end
-
-local function ShowNotification(titleText, messageText, duration)
-    duration = duration or 6
-
-    local container = Instance.new("Frame")
-    container.Size = UDim2.new(0, CONSTANTS.WIDTH, 0, CONSTANTS.HEIGHT)
-    container.Position = UDim2.new(1, 350, 1, -CONSTANTS.PADDING)
-    container.AnchorPoint = Vector2.new(1, 1)
-    container.BackgroundTransparency = 1
-    container.Parent = notificationGui
-
-    local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(1, 0, 1, 0)
-    frame.Position = UDim2.new(0.5, 0, 0.5, 0)
-    frame.AnchorPoint = Vector2.new(0.5, 0.5)
-    frame.BackgroundColor3 = CONSTANTS.BG_COLOR
-    frame.BorderSizePixel = 0
-    frame.Parent = container
-
-    Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 8)
-
-    local stroke = Instance.new("UIStroke")
-    stroke.Color = Color3.fromRGB(40, 40, 45)
-    stroke.Thickness = 1
-    stroke.Parent = frame
-
-    local topAccent = Instance.new("Frame")
-    topAccent.Size = UDim2.new(1, 0, 0, 2)
-    topAccent.BackgroundColor3 = CONSTANTS.THEME_COLOR
-    topAccent.BorderSizePixel = 0
-    topAccent.Parent = frame
-
-    local titleLabel = Instance.new("TextLabel")
-    titleLabel.Size = UDim2.new(1, -50, 0, 25)
-    titleLabel.Position = UDim2.new(0, 15, 0, 10)
-    titleLabel.BackgroundTransparency = 1
-    titleLabel.Text = titleText
-    titleLabel.TextColor3 = CONSTANTS.TEXT_COLOR
-    titleLabel.Font = Enum.Font.GothamBold
-    titleLabel.TextSize = 16
-    titleLabel.TextXAlignment = Enum.TextXAlignment.Left
-    titleLabel.Parent = frame
-
-    local messageLabel = Instance.new("TextLabel")
-    messageLabel.Size = UDim2.new(1, -30, 0, 40)
-    messageLabel.Position = UDim2.new(0, 15, 0, 35)
-    messageLabel.BackgroundTransparency = 1
-    messageLabel.Text = messageText
-    messageLabel.TextColor3 = CONSTANTS.SUBTEXT_COLOR
-    messageLabel.Font = Enum.Font.GothamMedium
-    messageLabel.TextSize = 13
-    messageLabel.TextWrapped = true
-    messageLabel.TextXAlignment = Enum.TextXAlignment.Left
-    messageLabel.TextYAlignment = Enum.TextYAlignment.Top
-    messageLabel.Parent = frame
-
-    local closeBtn = Instance.new("TextButton")
-    closeBtn.Size = UDim2.new(0, 24, 0, 24)
-    closeBtn.Position = UDim2.new(1, -10, 0, 10)
-    closeBtn.AnchorPoint = Vector2.new(1, 0)
-    closeBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
-    closeBtn.Text = "X"
-    closeBtn.TextColor3 = Color3.fromRGB(150, 150, 150)
-    closeBtn.Font = Enum.Font.GothamBold
-    closeBtn.TextSize = 12
-    closeBtn.AutoButtonColor = false
-    closeBtn.Parent = frame
-
-    Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 6)
-
-    local dots = {}
-    local closed = false
-
-    for i = 1, 3 do
-        local dot = Instance.new("Frame")
-        dot.Size = UDim2.new(0, 6, 0, 6)
-        dot.Position = UDim2.new(0, 15 + (i - 1) * 14, 1, -18)
-        dot.AnchorPoint = Vector2.new(0.5, 0.5)
-        dot.BackgroundColor3 = CONSTANTS.THEME_COLOR
-        dot.BorderSizePixel = 0
-        dot.Parent = frame
-        
-        Instance.new("UICorner", dot).CornerRadius = UDim.new(1, 0)
-        dots[i] = dot
-
-        task.delay((i - 1) * 0.15, function()
-            if not closed then
-                TweenService:Create(dot, TweenInfo.new(0.6, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true), {
-                    Position = UDim2.new(0, dot.Position.X.Offset, 1, -22)
-                }):Play()
-            end
-        end)
-    end
-
-    local notifData = {Container = container}
-    table.insert(activeNotifications, 1, notifData)
-    UpdateNotifications()
-
-    TweenService:Create(frame, TweenInfo.new(2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true), {
-        Rotation = 1.2,
-        Position = UDim2.new(0.5, 0, 0.5, -3)
-    }):Play()
-
-    closeBtn.MouseEnter:Connect(function()
-        TweenService:Create(closeBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(220, 50, 50), TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-    end)
-    closeBtn.MouseLeave:Connect(function()
-        TweenService:Create(closeBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(30, 30, 35), TextColor3 = Color3.fromRGB(150, 150, 150)}):Play()
-    end)
-
-    local function CloseNotification()
-        if closed then return end
-        closed = true
-
-        local targetIndex = table.find(activeNotifications, notifData)
-        if targetIndex then
-            table.remove(activeNotifications, targetIndex)
-            UpdateNotifications()
-        end
-
-        local tweenOut = TweenService:Create(container, TweenInfo.new(CONSTANTS.ANIMATION_SPEED, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {
-            Position = UDim2.new(1, 350, container.Position.Y.Scale, container.Position.Y.Offset)
-        })
-        tweenOut:Play()
-        tweenOut.Completed:Wait()
-        container:Destroy()
-    end
-
-    closeBtn.MouseButton1Click:Connect(CloseNotification)
-
-    local interval = duration / 3
-    for i = 3, 1, -1 do
-        task.delay(interval * (4 - i), function()
-            if not closed and dots[i] then
-                local popTween = TweenService:Create(dots[i], TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
-                    Size = UDim2.new(0, 0, 0, 0),
-                    BackgroundTransparency = 1
-                })
-                popTween:Play()
-                
-                if i == 1 then
-                    popTween.Completed:Wait()
-                    if not closed then CloseNotification() end
-                end
-            end
-        end)
-    end
-end
-
--- ╔════════════════════╗
--- ║       FFLAGS.
--- ╚════════════════════╝
-local flagtables = {
-    -- Performance & Task Scheduler
-    ["DFIntTaskSchedulerTargetFps"] = "9999",
-    ["FIntTaskSchedulerAutoThreadLimit"] = "6",
-    ["FIntTaskSchedulerAsyncTasksMinimumThreadCount"] = "2",
-    ["FIntTaskSchedulerMaxNumOfJobs"] = "86",
-    ["FIntTaskSchedulerThreadMin"] = "1",
-
-    -- DFFlags
-    ["DFFlagBrowserTrackerIdTelemetryEnabled"] = "False",
-    ["DFFlagPreloadAsyncSupportTexturePack"] = "True",
-    ["DFFlagTextureQualityOverrideEnabled"] = "True",
-    ["DFFlagVideoCaptureServiceEnabled"] = "False",
-    ["DFFlagSampleAndRefreshRakPing"] = "True",
-    ["DFFlagRakNetUseSlidingWindow4"] = "True",
-    ["DFFlagCoreScriptTelemetry2"] = "False",
-    ["DFFlagEnableSoundPreloading"] = "True",
-    ["DFFlagOptimizePartsInPart"] = "True",
-    ["DFFlagDisableDPIScale"] = "True",
-    ["DFFlagDebugPerfMode"] = "True",
-
-    -- Network / RakNet
-    ["DFIntRaknetBandwidthInfluxHundredthsPercentageV2"] = "10000",
-    ["DFIntRakNetClockDriftAdjustmentPerPingMillisecond"] = "100",
-    ["DFIntRaknetBandwidthPingSendEveryXSeconds"] = "1",
-    ["DFIntRakNetNakResendDelayRttPercent"] = "50",
-    ["DFIntRakNetNakResendDelayMsMax"] = "100",
-    ["DFIntRakNetNakResendDelayMs"] = "10",
-    ["DFIntRakNetResendRttMultiple"] = "1",
-    ["DFIntRakNetSelectTimeoutMs"] = "1",
-    ["DFIntRakNetLoopMs"] = "1",
-    ["DFIntRakNetMinAckGrowthPercent"] = "0",
-    ["DFIntRakNetMtuValue1InBytes"] = "1280",
-    ["DFIntRakNetMtuValue2InBytes"] = "1240",
-    ["DFIntRakNetMtuValue3InBytes"] = "1200",
-    ["DFIntConnectionMTUSize"] = "1260",
-
-    -- Client Packet / Networking
-    ["DFIntMaxReceiveToDeserializeLatencyMilliseconds"] = "15",
-    ["DFIntNetworkInDeserializeLimitGameplayMsClient"] = "6",
-    ["DFIntNetworkInProcessLimitGameplayMsClient"] = "6",
-    ["DFIntClientPacketHealthyAllocationPercent"] = "20",
-    ["DFIntClientPacketMaxFrameMicroseconds"] = "200",
-    ["DFIntClientPacketExcessMicroseconds"] = "1000",
-    ["DFIntClientPacketMinMicroseconds"] = "1",
-    ["DFIntClientPacketMaxDelayMs"] = "11",
-    ["DFIntMaxWaitTimeBeforeForcePacketProcessMS"] = "1",
-    ["DFIntMaxProcessPacketsStepsPerCyclic"] = "5000",
-    ["DFIntMaxProcessPacketsStepsAccumulated"] = "0",
-    ["DFIntMaxProcessPacketsJobScaling"] = "10000",
-    ["DFIntLargePacketQueueSizeCutoffMB"] = "1000",
-    ["DFIntLargePacketQueueSizeCutoffMB"] = "1000",
-    ["DFIntDataSenderRate"] = "1000",
-    ["DFIntDataSenderMaxBandwidthBps"] = "2147483647",
-    ["DFIntDataSenderMaxJoinBandwidthBps"] = "2147483647",
-    ["DFIntS2PhysicsSenderRate"] = "1000",
-    ["DFIntS2NumPhysicsPacketsPerStep"] = "100",
-    ["DFIntPhysicsSenderMaxBandwidthBps"] = "2147483647",
-    ["DFIntPhysicsSenderMaxBandwidthBpsScaling"] = "1000",
-    ["FIntPGSAngularDampingPermilPersecond"] = "0",
-    ["DFFlagPhysicsSkipNonRealTimeHumanoidForceCalc2"] = "True",
-    ["FFlagDebugDisplayFPS"] = "True",
-
-    -- SignalR
-    ["DFIntSignalRHubConnectionHeartbeatTimerRateMs"] = "1000",
-    ["DFIntSignalRHubConnectionBaseRetryTimeMs"] = "100",
-    ["DFIntSignalRCoreKeepAlivePingPeriodMs"] = "250",
-    ["DFIntSignalRCoreServerTimeoutMs"] = "11100",
-    ["DFIntSignalRCoreTimerMs"] = "750",
-    ["DFIntSignalRCoreRpcQueueSize"] = "256",
-
-    -- Animation / Rendering
-    ["DFIntAnimationLodFacsVisibilityDenominator"] = "0",
-    ["DFIntAnimationLodFacsDistanceMin"] = "0",
-    ["DFIntAnimationLodFacsDistanceMax"] = "0",
-    ["DFIntDebugFRMQualityLevelOverride"] = "1",
-    ["DFIntDebugDynamicRenderKiloPixels"] = "1100",
-    ["DFIntDebugRestrictGCDistance"] = "1",
-
-
-    -- Wait Timers
-    ["DFIntWaitOnUpdateNetworkLoopEndedMS"] = "100",
-    ["DFIntWaitOnRecvFromLoopEndedMS"] = "100",
-
-    -- FInt Rendering / Graphics
-    ["FIntRenderMaxShadowAtlasUsageBeforeDownscale"] = "80",
-    ["FIntRenderShadowMapDepthCacheMemLimit"] = "192",
-    ["FIntUITextureMaxRenderTextureSize"] = "1024",
-    ["FIntRakNetResendBufferArrayLength"] = "128",
-    ["FIntTerrainOTAMaxTextureSize"] = "1024",
-    ["FIntOcclusionWorkerThreadCount"] = "5",
-    ["FIntDefaultMeshCacheSizeMB"] = "256",
-    ["FIntRobloxGuiBlurIntensity"] = "0",
-    ["FIntTerrainArraySliceSize"] = "0",
-    ["FIntDebugForceMSAASamples"] = "1",
-    ["FIntRenderShadowmapBias"] = "0",
-    ["FIntFRMMaxGrassDistance"] = "0",
-    ["FIntFRMMinGrassDistance"] = "0",
-    ["FIntGrassMovementReducedMotionFactor"] = "0",
-    ["FIntDebugTextureManagerSkipMips"] = "7",
-    ["FIntPerformanceTelemetryQueueProcessLimit"] = "0",
-    ["FIntTelemetryProfilerFrequency"] = "0",
-    ["FIntRenderLocalLightFadeInMs"] = "0",
-    ["FIntReportDeviceInfoRollout"] = "0",
-    
-    -- FFlags
-    ["FFlagRenderAllocateShadowMapResourcesOnDemand"] = "True",
-    ["FFlagSpecifyNetworkReplicatorScopeForItems"] = "True",
-    ["FFlagTaskSchedulerLimitTargetFpsTo2402"] = "False",
-    ["FFlagHandleAltEnterFullscreenManually"] = "False",
-    ["FFlagGameBasicSettingsFramerateCap5"] = "False",
-    ["FFlagSpecifyNetworkReplicatorScope"] = "True",
-    ["FFlagSendRenderFidelityTelemetry2"] = "False",
-    ["FFlagRenderGpuTextureCompressor"] = "True",
-    ["FFlagBaseThreadPoolUseRuntime2"] = "True",
-    ["FFlagCacheTextBoundsInGuiText"] = "True",
-    ["FFlagEnableTelemetryService1"] = "False",
-    ["FFlagDebugGraphicsPreferD3D11"] = "True",
-    ["FFlagPerfDataOnTelemetryV2"] = "False",
-    ["FFlagOpenTelemetryEnabled2"] = "False",
-    ["FFlagRbxStorageUseMemCache"] = "True",
-    ["FFlagDebugForceGenerateHSR"] = "True",
-    ["FFlagRenderInitShadowmaps"] = "True",
-    ["FFlagFastGPULightCulling3"] = "True",
-    ["FFlagDebugSkyGray"] = "True",
-    ["FFlagDebugRenderingSetDeterministic"] = "True",
-    ["FLogNetwork"] = "7"
-}
-
--- ╔══════════════════════════════════════╗
--- ║     4. INJECTION DES FFLAGS          ║
--- ╚══════════════════════════════════════╝
-local function formatFlag(z)
-    z = z:gsub("^DFInt", "")
-    z = z:gsub("^DFFlag", "")
-    z = z:gsub("^FFlag", "")
-    z = z:gsub("^FInt", "")
-    z = z:gsub("FString", "")
-    z = z:gsub("FLog", "")
-    return z
-end
-
-ShowNotification("Support or nah?", "Checking executor compatibility...", 4)
-task.wait(1)
-
-if not setfflag then
-    ShowNotification("Unsupported", "Executor does not support setfflag. Aborting.", 6)
-    return
-end
-
-ShowNotification("Supported", "Applying FFlag performance configuration...", 10)
-
-task.spawn(function()
-    local start = os.clock()
-    local injectedCount = 0
-
-    for k, v in pairs(flagtables) do
-        -- Anti-crash: yeild léger
-        for i = 1, 5 do RunService.RenderStepped:Wait() end
-        
-        pcall(function()
-            local formatted = formatFlag(k)
-            if getfflag(formatted) then
-                setfflag(formatted, v)
-                injectedCount = injectedCount + 1
-            elseif getfflag(k) then
-                setfflag(k, v)
-                injectedCount = injectedCount + 1
-            end
-        end)
-    end
-
-    local elapsed = string.format("%.2f", os.clock() - start)
-    ShowNotification("Overhaul Loaded", injectedCount .. " FFlags successfully injected in " .. elapsed .. "s.", 10)
-
-    -- ╔═════════════════════════╗
-    -- ║    CONFIRMATION CONSOLE
-    -- ╚═════════════════════════╝
-    print("╔════════════════════════════════════════╗")
-    print("║    UR MOM OVERHAUL")
-    print("║   UI System    → Initialized")
-    print("║   Compatibility→ Verified")
-    print("║   FFlags Set   → " .. string.format("%02d", injectedCount) .. " flags")
-    print("║   Time Taken   → " .. elapsed .. "s")
-    print("╚════════════════════════════════════════╝")
-end)
-
---[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
-local function OptimizedSystem()
-    
-    pcall(function()
-        local Physics = settings():GetService("Physics")
-        local Network = settings():GetService("Network")
-        
-        Physics.PhysicsEnvironmentalThrottle = Enum.EnviromentalPhysicsThrottle.DefaultAuto
-        
-        workspace.InterpolationThrottling = Enum.InterpolationThrottlingMode.Enable
-        workspace.Retargeting = Enum.NetworkAnimatorRetargetingMode.Disabled 
-        
-        Network.IncomingReplicationLag = 0
-    end)
-
-    _G.BackdoorCache = {}
-    task.defer(function() 
-        local targets = {game:GetService("ReplicatedStorage"), workspace}
-        local scanCount = 0
-        
-        for _, service in ipairs(targets) do
-            for _, v in ipairs(service:GetDescendants()) do 
-                if v:IsA("RemoteEvent") then
-                    table.insert(_G.BackdoorCache, v)
-                end
-                
-                scanCount = scanCount + 1
-                if scanCount % 150 == 0 then 
-                    task.wait() 
-                end
-            end
-        end
-        print("[Immortal Engine]: Secured " .. #_G.BackdoorCache .. " Remotes.")
-    end)
-
-    task.spawn(function()
-        while true do
-            task.wait(60)
-            -- collectgarbage() crash
-            pcall(function() gcinfo() end) 
-        end
-    end)
-end
-
-OptimizedSystem()
-    end
-})
-
-local IYAdmin = Tabs.Workspace:AddButton({
-    Title = "Performance Boost Extreme",
-    Description = "Extreme Fps Boost",
-
-    Callback = function()
---[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
-local l=game:GetService("Lighting")
-local p=game:GetService("Players")
-local t=workspace:FindFirstChildOfClass("Terrain")
-
-if not game:IsLoaded() then repeat task.wait() until game:IsLoaded() end
-pcall(function()
-	for _,v in pairs(l:GetChildren())do
-		if v:IsA("PostEffect")or v:IsA("Atmosphere")or v:IsA("Sky")
-		or v:IsA("BloomEffect")or v:IsA("BlurEffect")
-		or v:IsA("SunRaysEffect")or v:IsA("ColorCorrectionEffect")then
-			v:Destroy()
-		end
-	end
-	for k,v in pairs({
-		GlobalShadows=false,EnvironmentSpecularScale=0,EnvironmentDiffuseScale=0,
-		Brightness=1,FogEnd=1e9,ShadowSoftness=0,ClockTime=12,
-		OutdoorAmbient=Color3.new(.5,.5,.5)
-	})do l[k]=v end
-end)
-
-if t then
-	pcall(function()
-		for k,v in pairs({
-			WaterWaveSize=0,WaterWaveSpeed=0,WaterReflectance=0,
-			WaterTransparency=1,Decoration=false
-		})do t[k]=v end
-	end)
-end
-
-local function simp(v)
-	pcall(function()
-		if v:IsA("BasePart")or v:IsA("MeshPart")or v:IsA("UnionOperation")then
-			v.Material=Enum.Material.SmoothPlastic v.Reflectance=0
-			if v:IsA("BasePart")then v.CastShadow=false end
-			if v:IsA("MeshPart")then v.TextureID="" v.RenderFidelity=Enum.RenderFidelity.Performance end
-		elseif v:IsA("Decal")or v:IsA("Texture")or v:IsA("SurfaceAppearance")then
-			v:Destroy()
-		elseif v:IsA("ParticleEmitter")or v:IsA("Trail")or v:IsA("Beam")
-		or v:IsA("Smoke")or v:IsA("Fire")or v:IsA("Sparkles")or v:IsA("Light")then
-			v.Enabled=false
-		end
-	end)
-end
-
-for _,v in pairs(workspace:GetDescendants())do simp(v)end
-workspace.DescendantAdded:Connect(function(v)task.defer(simp,v)end)
-
-local function opt(c)
-	for _,v in pairs(c:GetDescendants())do
-		pcall(function()
-			if v:IsA("Accessory")or v:IsA("Clothing")or v:IsA("ShirtGraphic")then
-				v:Destroy()
-			elseif v:IsA("BasePart")then
-				v.Material=Enum.Material.SmoothPlastic v.Reflectance=0
-			end
-		end)
-	end
-end
-
-for _,pl in pairs(p:GetPlayers())do
-	if pl.Character then opt(pl.Character)end
-	pl.CharacterAdded:Connect(opt)
-end
-p.PlayerAdded:Connect(function(pl)pl.CharacterAdded:Connect(opt)end)
-
-pcall(function()
-	settings().Rendering.QualityLevel=Enum.QualityLevel.Level01
-	settings().Rendering.MeshPartDetailLevel=Enum.MeshPartDetailLevel.Low
-	settings().Rendering.EagerBulkExecution=false
-end)
-
-
     end
 })
 
@@ -25121,9 +24566,604 @@ end)
     end
 })
 
-local Section = Tabs.Exploits:AddSection("Delete")
+local Section = Tabs.Workspace:AddSection("Scripts")
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local AKAdmin = Tabs.Workspace:AddButton({
+    Title = "AK Admin",
+    Description = "Best For Reanimation",
+
+    Callback = function()
+        loadstring(game:HttpGet("https://absent.wtf/AKADMIN.lua"))();
+    end
+})
+
+local stalkie = Tabs.Workspace:AddButton({
+    Title = "Onyx",
+    Description = "I Love Biscuit",
+
+    Callback = function()
+        repeat task.wait() until game.Players.LocalPlayer
+loadstring(game:HttpGet('https://onyxv2.vercel.app/main.lua'))()
+    end
+})
+
+local IYAdmin = Tabs.Workspace:AddButton({
+    Title = "Infinite Yeild",
+    Description = "Comand Line",
+
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))();
+    end
+})
+
+local Section = Tabs.Workspace:AddSection("Anti Lag")
+
+local IYAdmin = Tabs.Workspace:AddButton({
+    Title = "Anti Pause",
+    Description = "Removes Pause Screen",
+
+    Callback = function()
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+-- ANTI-GAMEPLAY PAUSED SCREEN
+local GuiService = game:GetService("GuiService")
+local RunService = game:GetService("RunService")
+
+-- 1. Disable the built-in pause GUI immediately
+GuiService:SetGameplayPausedNotificationEnabled(false)
+
+
+print("Gameplay Paused Screen Disabled.")
+    end
+})
+
+local IYAdmin = Tabs.Workspace:AddButton({
+    Title = "Performance Boost Mild",
+    Description = "Mild Fps Boost",
+
+    Callback = function()
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+
+--[[
+    Hey
+]]
+
+-- ╔══════════════════╗
+-- ║         SERVICES
+-- ╚══════════════════╝
+local Players      = game:GetService("Players")
+local RunService   = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+local HttpService  = game:GetService("HttpService")
+local CoreGui      = game:GetService("CoreGui")
+
+local player = Players.LocalPlayer
+
+-- ╔════════════════════════╗
+-- ║     GUI stuuf 
+-- ╚════════════════════════╝
+local guiParent
+pcall(function()
+    if gethui then
+        guiParent = gethui()
+    elseif cloneref then
+        guiParent = cloneref(CoreGui)
+    else
+        guiParent = player:WaitForChild("PlayerGui")
+    end
+end)
+
+local notificationGui = Instance.new("ScreenGui")
+notificationGui.Name = "SMVLL_Notif_" .. HttpService:GenerateGUID(false):sub(1, 8)
+notificationGui.ResetOnSpawn = false
+notificationGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+pcall(function() notificationGui.Parent = guiParent end)
+
+-- Configuration Constants
+local activeNotifications = {}
+local CONSTANTS = {
+    WIDTH = 280,
+    HEIGHT = 90,
+    PADDING = 15,
+    THEME_COLOR = Color3.fromRGB(0, 255, 200),
+    BG_COLOR = Color3.fromRGB(20, 20, 25),
+    TEXT_COLOR = Color3.fromRGB(255, 255, 255),
+    SUBTEXT_COLOR = Color3.fromRGB(180, 180, 180),
+    ANIMATION_SPEED = 0.4
+}
+
+-- ╔══════════════════════════╗
+-- ║     notif.  
+-- ╚══════════════════════════╝
+local function UpdateNotifications()
+    for index, data in ipairs(activeNotifications) do
+        local targetY = -CONSTANTS.PADDING - ((index - 1) * (CONSTANTS.HEIGHT + CONSTANTS.PADDING))
+        
+        TweenService:Create(data.Container, TweenInfo.new(CONSTANTS.ANIMATION_SPEED, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+            Position = UDim2.new(1, -CONSTANTS.PADDING, 1, targetY)
+        }):Play()
+    end
+end
+
+local function ShowNotification(titleText, messageText, duration)
+    duration = duration or 6
+
+    local container = Instance.new("Frame")
+    container.Size = UDim2.new(0, CONSTANTS.WIDTH, 0, CONSTANTS.HEIGHT)
+    container.Position = UDim2.new(1, 350, 1, -CONSTANTS.PADDING)
+    container.AnchorPoint = Vector2.new(1, 1)
+    container.BackgroundTransparency = 1
+    container.Parent = notificationGui
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(1, 0, 1, 0)
+    frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+    frame.AnchorPoint = Vector2.new(0.5, 0.5)
+    frame.BackgroundColor3 = CONSTANTS.BG_COLOR
+    frame.BorderSizePixel = 0
+    frame.Parent = container
+
+    Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 8)
+
+    local stroke = Instance.new("UIStroke")
+    stroke.Color = Color3.fromRGB(40, 40, 45)
+    stroke.Thickness = 1
+    stroke.Parent = frame
+
+    local topAccent = Instance.new("Frame")
+    topAccent.Size = UDim2.new(1, 0, 0, 2)
+    topAccent.BackgroundColor3 = CONSTANTS.THEME_COLOR
+    topAccent.BorderSizePixel = 0
+    topAccent.Parent = frame
+
+    local titleLabel = Instance.new("TextLabel")
+    titleLabel.Size = UDim2.new(1, -50, 0, 25)
+    titleLabel.Position = UDim2.new(0, 15, 0, 10)
+    titleLabel.BackgroundTransparency = 1
+    titleLabel.Text = titleText
+    titleLabel.TextColor3 = CONSTANTS.TEXT_COLOR
+    titleLabel.Font = Enum.Font.GothamBold
+    titleLabel.TextSize = 16
+    titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+    titleLabel.Parent = frame
+
+    local messageLabel = Instance.new("TextLabel")
+    messageLabel.Size = UDim2.new(1, -30, 0, 40)
+    messageLabel.Position = UDim2.new(0, 15, 0, 35)
+    messageLabel.BackgroundTransparency = 1
+    messageLabel.Text = messageText
+    messageLabel.TextColor3 = CONSTANTS.SUBTEXT_COLOR
+    messageLabel.Font = Enum.Font.GothamMedium
+    messageLabel.TextSize = 13
+    messageLabel.TextWrapped = true
+    messageLabel.TextXAlignment = Enum.TextXAlignment.Left
+    messageLabel.TextYAlignment = Enum.TextYAlignment.Top
+    messageLabel.Parent = frame
+
+    local closeBtn = Instance.new("TextButton")
+    closeBtn.Size = UDim2.new(0, 24, 0, 24)
+    closeBtn.Position = UDim2.new(1, -10, 0, 10)
+    closeBtn.AnchorPoint = Vector2.new(1, 0)
+    closeBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
+    closeBtn.Text = "X"
+    closeBtn.TextColor3 = Color3.fromRGB(150, 150, 150)
+    closeBtn.Font = Enum.Font.GothamBold
+    closeBtn.TextSize = 12
+    closeBtn.AutoButtonColor = false
+    closeBtn.Parent = frame
+
+    Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 6)
+
+    local dots = {}
+    local closed = false
+
+    for i = 1, 3 do
+        local dot = Instance.new("Frame")
+        dot.Size = UDim2.new(0, 6, 0, 6)
+        dot.Position = UDim2.new(0, 15 + (i - 1) * 14, 1, -18)
+        dot.AnchorPoint = Vector2.new(0.5, 0.5)
+        dot.BackgroundColor3 = CONSTANTS.THEME_COLOR
+        dot.BorderSizePixel = 0
+        dot.Parent = frame
+        
+        Instance.new("UICorner", dot).CornerRadius = UDim.new(1, 0)
+        dots[i] = dot
+
+        task.delay((i - 1) * 0.15, function()
+            if not closed then
+                TweenService:Create(dot, TweenInfo.new(0.6, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true), {
+                    Position = UDim2.new(0, dot.Position.X.Offset, 1, -22)
+                }):Play()
+            end
+        end)
+    end
+
+    local notifData = {Container = container}
+    table.insert(activeNotifications, 1, notifData)
+    UpdateNotifications()
+
+    TweenService:Create(frame, TweenInfo.new(2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true), {
+        Rotation = 1.2,
+        Position = UDim2.new(0.5, 0, 0.5, -3)
+    }):Play()
+
+    closeBtn.MouseEnter:Connect(function()
+        TweenService:Create(closeBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(220, 50, 50), TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+    end)
+    closeBtn.MouseLeave:Connect(function()
+        TweenService:Create(closeBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(30, 30, 35), TextColor3 = Color3.fromRGB(150, 150, 150)}):Play()
+    end)
+
+    local function CloseNotification()
+        if closed then return end
+        closed = true
+
+        local targetIndex = table.find(activeNotifications, notifData)
+        if targetIndex then
+            table.remove(activeNotifications, targetIndex)
+            UpdateNotifications()
+        end
+
+        local tweenOut = TweenService:Create(container, TweenInfo.new(CONSTANTS.ANIMATION_SPEED, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {
+            Position = UDim2.new(1, 350, container.Position.Y.Scale, container.Position.Y.Offset)
+        })
+        tweenOut:Play()
+        tweenOut.Completed:Wait()
+        container:Destroy()
+    end
+
+    closeBtn.MouseButton1Click:Connect(CloseNotification)
+
+    local interval = duration / 3
+    for i = 3, 1, -1 do
+        task.delay(interval * (4 - i), function()
+            if not closed and dots[i] then
+                local popTween = TweenService:Create(dots[i], TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
+                    Size = UDim2.new(0, 0, 0, 0),
+                    BackgroundTransparency = 1
+                })
+                popTween:Play()
+                
+                if i == 1 then
+                    popTween.Completed:Wait()
+                    if not closed then CloseNotification() end
+                end
+            end
+        end)
+    end
+end
+
+-- ╔════════════════════╗
+-- ║       FFLAGS.
+-- ╚════════════════════╝
+local flagtables = {
+    -- Performance & Task Scheduler
+    ["DFIntTaskSchedulerTargetFps"] = "9999",
+    ["FIntTaskSchedulerAutoThreadLimit"] = "6",
+    ["FIntTaskSchedulerAsyncTasksMinimumThreadCount"] = "2",
+    ["FIntTaskSchedulerMaxNumOfJobs"] = "86",
+    ["FIntTaskSchedulerThreadMin"] = "1",
+
+    -- DFFlags
+    ["DFFlagBrowserTrackerIdTelemetryEnabled"] = "False",
+    ["DFFlagPreloadAsyncSupportTexturePack"] = "True",
+    ["DFFlagTextureQualityOverrideEnabled"] = "True",
+    ["DFFlagVideoCaptureServiceEnabled"] = "False",
+    ["DFFlagSampleAndRefreshRakPing"] = "True",
+    ["DFFlagRakNetUseSlidingWindow4"] = "True",
+    ["DFFlagCoreScriptTelemetry2"] = "False",
+    ["DFFlagEnableSoundPreloading"] = "True",
+    ["DFFlagOptimizePartsInPart"] = "True",
+    ["DFFlagDisableDPIScale"] = "True",
+    ["DFFlagDebugPerfMode"] = "True",
+
+    -- Network / RakNet
+    ["DFIntRaknetBandwidthInfluxHundredthsPercentageV2"] = "10000",
+    ["DFIntRakNetClockDriftAdjustmentPerPingMillisecond"] = "100",
+    ["DFIntRaknetBandwidthPingSendEveryXSeconds"] = "1",
+    ["DFIntRakNetNakResendDelayRttPercent"] = "50",
+    ["DFIntRakNetNakResendDelayMsMax"] = "100",
+    ["DFIntRakNetNakResendDelayMs"] = "10",
+    ["DFIntRakNetResendRttMultiple"] = "1",
+    ["DFIntRakNetSelectTimeoutMs"] = "1",
+    ["DFIntRakNetLoopMs"] = "1",
+    ["DFIntRakNetMinAckGrowthPercent"] = "0",
+    ["DFIntRakNetMtuValue1InBytes"] = "1280",
+    ["DFIntRakNetMtuValue2InBytes"] = "1240",
+    ["DFIntRakNetMtuValue3InBytes"] = "1200",
+    ["DFIntConnectionMTUSize"] = "1260",
+
+    -- Client Packet / Networking
+    ["DFIntMaxReceiveToDeserializeLatencyMilliseconds"] = "15",
+    ["DFIntNetworkInDeserializeLimitGameplayMsClient"] = "6",
+    ["DFIntNetworkInProcessLimitGameplayMsClient"] = "6",
+    ["DFIntClientPacketHealthyAllocationPercent"] = "20",
+    ["DFIntClientPacketMaxFrameMicroseconds"] = "200",
+    ["DFIntClientPacketExcessMicroseconds"] = "1000",
+    ["DFIntClientPacketMinMicroseconds"] = "1",
+    ["DFIntClientPacketMaxDelayMs"] = "11",
+    ["DFIntMaxWaitTimeBeforeForcePacketProcessMS"] = "1",
+    ["DFIntMaxProcessPacketsStepsPerCyclic"] = "5000",
+    ["DFIntMaxProcessPacketsStepsAccumulated"] = "0",
+    ["DFIntMaxProcessPacketsJobScaling"] = "10000",
+    ["DFIntLargePacketQueueSizeCutoffMB"] = "1000",
+    ["DFIntLargePacketQueueSizeCutoffMB"] = "1000",
+    ["DFIntDataSenderRate"] = "1000",
+    ["DFIntDataSenderMaxBandwidthBps"] = "2147483647",
+    ["DFIntDataSenderMaxJoinBandwidthBps"] = "2147483647",
+    ["DFIntS2PhysicsSenderRate"] = "1000",
+    ["DFIntS2NumPhysicsPacketsPerStep"] = "100",
+    ["DFIntPhysicsSenderMaxBandwidthBps"] = "2147483647",
+    ["DFIntPhysicsSenderMaxBandwidthBpsScaling"] = "1000",
+    ["FIntPGSAngularDampingPermilPersecond"] = "0",
+    ["DFFlagPhysicsSkipNonRealTimeHumanoidForceCalc2"] = "True",
+    ["FFlagDebugDisplayFPS"] = "True",
+
+    -- SignalR
+    ["DFIntSignalRHubConnectionHeartbeatTimerRateMs"] = "1000",
+    ["DFIntSignalRHubConnectionBaseRetryTimeMs"] = "100",
+    ["DFIntSignalRCoreKeepAlivePingPeriodMs"] = "250",
+    ["DFIntSignalRCoreServerTimeoutMs"] = "11100",
+    ["DFIntSignalRCoreTimerMs"] = "750",
+    ["DFIntSignalRCoreRpcQueueSize"] = "256",
+
+    -- Animation / Rendering
+    ["DFIntAnimationLodFacsVisibilityDenominator"] = "0",
+    ["DFIntAnimationLodFacsDistanceMin"] = "0",
+    ["DFIntAnimationLodFacsDistanceMax"] = "0",
+    ["DFIntDebugFRMQualityLevelOverride"] = "1",
+    ["DFIntDebugDynamicRenderKiloPixels"] = "1100",
+    ["DFIntDebugRestrictGCDistance"] = "1",
+
+
+    -- Wait Timers
+    ["DFIntWaitOnUpdateNetworkLoopEndedMS"] = "100",
+    ["DFIntWaitOnRecvFromLoopEndedMS"] = "100",
+
+    -- FInt Rendering / Graphics
+    ["FIntRenderMaxShadowAtlasUsageBeforeDownscale"] = "80",
+    ["FIntRenderShadowMapDepthCacheMemLimit"] = "192",
+    ["FIntUITextureMaxRenderTextureSize"] = "1024",
+    ["FIntRakNetResendBufferArrayLength"] = "128",
+    ["FIntTerrainOTAMaxTextureSize"] = "1024",
+    ["FIntOcclusionWorkerThreadCount"] = "5",
+    ["FIntDefaultMeshCacheSizeMB"] = "256",
+    ["FIntRobloxGuiBlurIntensity"] = "0",
+    ["FIntTerrainArraySliceSize"] = "0",
+    ["FIntDebugForceMSAASamples"] = "1",
+    ["FIntRenderShadowmapBias"] = "0",
+    ["FIntFRMMaxGrassDistance"] = "0",
+    ["FIntFRMMinGrassDistance"] = "0",
+    ["FIntGrassMovementReducedMotionFactor"] = "0",
+    ["FIntDebugTextureManagerSkipMips"] = "7",
+    ["FIntPerformanceTelemetryQueueProcessLimit"] = "0",
+    ["FIntTelemetryProfilerFrequency"] = "0",
+    ["FIntRenderLocalLightFadeInMs"] = "0",
+    ["FIntReportDeviceInfoRollout"] = "0",
+    
+    -- FFlags
+    ["FFlagRenderAllocateShadowMapResourcesOnDemand"] = "True",
+    ["FFlagSpecifyNetworkReplicatorScopeForItems"] = "True",
+    ["FFlagTaskSchedulerLimitTargetFpsTo2402"] = "False",
+    ["FFlagHandleAltEnterFullscreenManually"] = "False",
+    ["FFlagGameBasicSettingsFramerateCap5"] = "False",
+    ["FFlagSpecifyNetworkReplicatorScope"] = "True",
+    ["FFlagSendRenderFidelityTelemetry2"] = "False",
+    ["FFlagRenderGpuTextureCompressor"] = "True",
+    ["FFlagBaseThreadPoolUseRuntime2"] = "True",
+    ["FFlagCacheTextBoundsInGuiText"] = "True",
+    ["FFlagEnableTelemetryService1"] = "False",
+    ["FFlagDebugGraphicsPreferD3D11"] = "True",
+    ["FFlagPerfDataOnTelemetryV2"] = "False",
+    ["FFlagOpenTelemetryEnabled2"] = "False",
+    ["FFlagRbxStorageUseMemCache"] = "True",
+    ["FFlagDebugForceGenerateHSR"] = "True",
+    ["FFlagRenderInitShadowmaps"] = "True",
+    ["FFlagFastGPULightCulling3"] = "True",
+    ["FFlagDebugSkyGray"] = "True",
+    ["FFlagDebugRenderingSetDeterministic"] = "True",
+    ["FLogNetwork"] = "7"
+}
+
+-- ╔══════════════════════════════════════╗
+-- ║     4. INJECTION DES FFLAGS          ║
+-- ╚══════════════════════════════════════╝
+local function formatFlag(z)
+    z = z:gsub("^DFInt", "")
+    z = z:gsub("^DFFlag", "")
+    z = z:gsub("^FFlag", "")
+    z = z:gsub("^FInt", "")
+    z = z:gsub("FString", "")
+    z = z:gsub("FLog", "")
+    return z
+end
+
+ShowNotification("Support or nah?", "Checking executor compatibility...", 4)
+task.wait(1)
+
+if not setfflag then
+    ShowNotification("Unsupported", "Executor does not support setfflag. Aborting.", 6)
+    return
+end
+
+ShowNotification("Supported", "Applying FFlag performance configuration...", 10)
+
+task.spawn(function()
+    local start = os.clock()
+    local injectedCount = 0
+
+    for k, v in pairs(flagtables) do
+        -- Anti-crash: yeild léger
+        for i = 1, 5 do RunService.RenderStepped:Wait() end
+        
+        pcall(function()
+            local formatted = formatFlag(k)
+            if getfflag(formatted) then
+                setfflag(formatted, v)
+                injectedCount = injectedCount + 1
+            elseif getfflag(k) then
+                setfflag(k, v)
+                injectedCount = injectedCount + 1
+            end
+        end)
+    end
+
+    local elapsed = string.format("%.2f", os.clock() - start)
+    ShowNotification("Overhaul Loaded", injectedCount .. " FFlags successfully injected in " .. elapsed .. "s.", 10)
+
+    -- ╔═════════════════════════╗
+    -- ║    CONFIRMATION CONSOLE
+    -- ╚═════════════════════════╝
+    print("╔════════════════════════════════════════╗")
+    print("║    UR MOM OVERHAUL")
+    print("║   UI System    → Initialized")
+    print("║   Compatibility→ Verified")
+    print("║   FFlags Set   → " .. string.format("%02d", injectedCount) .. " flags")
+    print("║   Time Taken   → " .. elapsed .. "s")
+    print("╚════════════════════════════════════════╝")
+end)
+
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+local function OptimizedSystem()
+    
+    pcall(function()
+        local Physics = settings():GetService("Physics")
+        local Network = settings():GetService("Network")
+        
+        Physics.PhysicsEnvironmentalThrottle = Enum.EnviromentalPhysicsThrottle.DefaultAuto
+        
+        workspace.InterpolationThrottling = Enum.InterpolationThrottlingMode.Enable
+        workspace.Retargeting = Enum.NetworkAnimatorRetargetingMode.Disabled 
+        
+        Network.IncomingReplicationLag = 0
+    end)
+
+    _G.BackdoorCache = {}
+    task.defer(function() 
+        local targets = {game:GetService("ReplicatedStorage"), workspace}
+        local scanCount = 0
+        
+        for _, service in ipairs(targets) do
+            for _, v in ipairs(service:GetDescendants()) do 
+                if v:IsA("RemoteEvent") then
+                    table.insert(_G.BackdoorCache, v)
+                end
+                
+                scanCount = scanCount + 1
+                if scanCount % 150 == 0 then 
+                    task.wait() 
+                end
+            end
+        end
+        print("[Immortal Engine]: Secured " .. #_G.BackdoorCache .. " Remotes.")
+    end)
+
+    task.spawn(function()
+        while true do
+            task.wait(60)
+            -- collectgarbage() crash
+            pcall(function() gcinfo() end) 
+        end
+    end)
+end
+
+OptimizedSystem()
+    end
+})
+
+local IYAdmin = Tabs.Workspace:AddButton({
+    Title = "Performance Boost Extreme",
+    Description = "Extreme Fps Boost",
+
+    Callback = function()
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+local l=game:GetService("Lighting")
+local p=game:GetService("Players")
+local t=workspace:FindFirstChildOfClass("Terrain")
+
+if not game:IsLoaded() then repeat task.wait() until game:IsLoaded() end
+pcall(function()
+	for _,v in pairs(l:GetChildren())do
+		if v:IsA("PostEffect")or v:IsA("Atmosphere")or v:IsA("Sky")
+		or v:IsA("BloomEffect")or v:IsA("BlurEffect")
+		or v:IsA("SunRaysEffect")or v:IsA("ColorCorrectionEffect")then
+			v:Destroy()
+		end
+	end
+	for k,v in pairs({
+		GlobalShadows=false,EnvironmentSpecularScale=0,EnvironmentDiffuseScale=0,
+		Brightness=1,FogEnd=1e9,ShadowSoftness=0,ClockTime=12,
+		OutdoorAmbient=Color3.new(.5,.5,.5)
+	})do l[k]=v end
+end)
+
+if t then
+	pcall(function()
+		for k,v in pairs({
+			WaterWaveSize=0,WaterWaveSpeed=0,WaterReflectance=0,
+			WaterTransparency=1,Decoration=false
+		})do t[k]=v end
+	end)
+end
+
+local function simp(v)
+	pcall(function()
+		if v:IsA("BasePart")or v:IsA("MeshPart")or v:IsA("UnionOperation")then
+			v.Material=Enum.Material.SmoothPlastic v.Reflectance=0
+			if v:IsA("BasePart")then v.CastShadow=false end
+			if v:IsA("MeshPart")then v.TextureID="" v.RenderFidelity=Enum.RenderFidelity.Performance end
+		elseif v:IsA("Decal")or v:IsA("Texture")or v:IsA("SurfaceAppearance")then
+			v:Destroy()
+		elseif v:IsA("ParticleEmitter")or v:IsA("Trail")or v:IsA("Beam")
+		or v:IsA("Smoke")or v:IsA("Fire")or v:IsA("Sparkles")or v:IsA("Light")then
+			v.Enabled=false
+		end
+	end)
+end
+
+for _,v in pairs(workspace:GetDescendants())do simp(v)end
+workspace.DescendantAdded:Connect(function(v)task.defer(simp,v)end)
+
+local function opt(c)
+	for _,v in pairs(c:GetDescendants())do
+		pcall(function()
+			if v:IsA("Accessory")or v:IsA("Clothing")or v:IsA("ShirtGraphic")then
+				v:Destroy()
+			elseif v:IsA("BasePart")then
+				v.Material=Enum.Material.SmoothPlastic v.Reflectance=0
+			end
+		end)
+	end
+end
+
+for _,pl in pairs(p:GetPlayers())do
+	if pl.Character then opt(pl.Character)end
+	pl.CharacterAdded:Connect(opt)
+end
+p.PlayerAdded:Connect(function(pl)pl.CharacterAdded:Connect(opt)end)
+
+pcall(function()
+	settings().Rendering.QualityLevel=Enum.QualityLevel.Level01
+	settings().Rendering.MeshPartDetailLevel=Enum.MeshPartDetailLevel.Low
+	settings().Rendering.EagerBulkExecution=false
+end)
+
+
+    end
+})
+
+local Section = Tabs.Ramps:AddSection("Delete")
+
+local Section = Tabs.Baseplates:AddSection("Delete")
+
+local IYAdmin = Tabs.Ramps:AddButton({
     Title = "Delete Platform/Ramp",
     Description = "Deletes The Platform/Ramp",
 
@@ -25132,7 +25172,7 @@ game.Workspace.Wedge:Destroy()
     end
 })
 
-local DelBaseplate = Tabs.Exploits:AddButton({
+local DelBaseplate = Tabs.Baseplates:AddButton({
     Title = "Delete Baseplate/Path",
     Description = "Deletes The Baseplate/Path",
 
@@ -25143,9 +25183,68 @@ local DelBaseplate = Tabs.Exploits:AddButton({
     end
 })
 
-local Section = Tabs.Exploits:AddSection("Paths")
+local Section = Tabs.Baseplates:AddSection("Baseplate")
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Baseplates:AddButton({
+    Title = "Low End Baseplate",
+    Description = "Makes a baseplate",
+
+    Callback = function()
+local Terrain = game:GetService("Workspace").Terrain
+
+Terrain:Clear()
+
+Terrain:SetMaterialColor(Enum.Material.Asphalt, Color3.fromRGB(255, 105, 180))
+
+Terrain:FillBlock(
+    CFrame.new(8, -4.59, -482),
+    Vector3.new(5000, 5, 5000),
+    Enum.Material.Asphalt
+)
+    end
+})
+
+local IYAdmin = Tabs.Baseplates:AddButton({
+    Title = "Mid Range Baseplate",
+    Description = "Makes a baseplate",
+
+    Callback = function()
+local Terrain = game:GetService("Workspace").Terrain
+
+Terrain:Clear()
+
+Terrain:SetMaterialColor(Enum.Material.Asphalt, Color3.fromRGB(255, 105, 180))
+
+Terrain:FillBlock(
+    CFrame.new(8, -4.59, -482),
+    Vector3.new(10000, 5, 10000),
+    Enum.Material.Asphalt
+)
+    end
+})
+
+local IYAdmin = Tabs.Baseplates:AddButton({
+    Title = "High End Baseplate",
+    Description = "Makes a baseplate",
+
+    Callback = function()
+local Terrain = game:GetService("Workspace").Terrain
+
+Terrain:Clear()
+
+Terrain:SetMaterialColor(Enum.Material.Asphalt, Color3.fromRGB(255, 105, 180))
+
+Terrain:FillBlock(
+    CFrame.new(8, -4.59, -482),
+    Vector3.new(20000, 5, 20000),
+    Enum.Material.Asphalt
+)
+    end
+})
+
+local Section = Tabs.Baseplates:AddSection("Paths")
+
+local IYAdmin = Tabs.Baseplates:AddButton({
     Title = "Cave Path",
     Description = "Creates a Path to Cave",
 
@@ -25164,7 +25263,7 @@ Terrain:FillBlock(
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Baseplates:AddButton({
     Title = "Cave Baseplate",
     Description = "Creates a Baseplate around the Cave",
 
@@ -25183,7 +25282,7 @@ Terrain:FillBlock(
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Baseplates:AddButton({
     Title = "Mic Location Path",
     Description = "Creates a Path to the Mic Location",
 
@@ -25202,7 +25301,7 @@ Terrain:FillBlock(
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Baseplates:AddButton({
     Title = "Mic Location Baseplate",
     Description = "Creates a Baseplate around the Mic Locationw",
 
@@ -25221,68 +25320,9 @@ Terrain:FillBlock(
     end
 })
 
-local Section = Tabs.Exploits:AddSection("Baseplate")
+local Section = Tabs.Ramps:AddSection("Small Ramps")
 
-local IYAdmin = Tabs.Exploits:AddButton({
-    Title = "LowEndBaseplate",
-    Description = "Makes a baseplate",
-
-    Callback = function()
-local Terrain = game:GetService("Workspace").Terrain
-
-Terrain:Clear()
-
-Terrain:SetMaterialColor(Enum.Material.Asphalt, Color3.fromRGB(255, 105, 180))
-
-Terrain:FillBlock(
-    CFrame.new(8, -4.59, -482),
-    Vector3.new(5000, 5, 5000),
-    Enum.Material.Asphalt
-)
-    end
-})
-
-local IYAdmin = Tabs.Exploits:AddButton({
-    Title = "MidRange Baseplate",
-    Description = "Makes a baseplate",
-
-    Callback = function()
-local Terrain = game:GetService("Workspace").Terrain
-
-Terrain:Clear()
-
-Terrain:SetMaterialColor(Enum.Material.Asphalt, Color3.fromRGB(255, 105, 180))
-
-Terrain:FillBlock(
-    CFrame.new(8, -4.59, -482),
-    Vector3.new(10000, 5, 10000),
-    Enum.Material.Asphalt
-)
-    end
-})
-
-local IYAdmin = Tabs.Exploits:AddButton({
-    Title = "HighEnd Baseplate",
-    Description = "Makes a baseplate",
-
-    Callback = function()
-local Terrain = game:GetService("Workspace").Terrain
-
-Terrain:Clear()
-
-Terrain:SetMaterialColor(Enum.Material.Asphalt, Color3.fromRGB(255, 105, 180))
-
-Terrain:FillBlock(
-    CFrame.new(8, -4.59, -482),
-    Vector3.new(20000, 5, 20000),
-    Enum.Material.Asphalt
-)
-    end
-})
-
-local Section = Tabs.Exploits:AddSection("Small Ramps")
-
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Ramps:AddButton({
     Title = "Small Ramp 1",
     Description = "Ramp Type 1",
 
@@ -25308,7 +25348,7 @@ Wedge.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1, -45) 
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Ramps:AddButton({
     Title = "Small Ramp 2",
     Description = "Ramp Type 2",
 
@@ -25334,7 +25374,7 @@ Wedge.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1, -45) 
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Ramps:AddButton({
     Title = "Small Ramp 3",
     Description = "Ramp Type 3",
 
@@ -25361,9 +25401,9 @@ Wedge.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1, -45) 
 })
 
 
-local Section = Tabs.Exploits:AddSection("Big Ramps")
+local Section = Tabs.Ramps:AddSection("Big Ramps")
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Ramps:AddButton({
     Title = "Big Ramp 1",
     Description = "Ramp Type 4",
 
@@ -25389,7 +25429,7 @@ Wedge.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1, -45) 
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Ramps:AddButton({
     Title = "Big Ramp 2",
     Description = "Ramp Type 5",
 
@@ -25415,7 +25455,7 @@ Wedge.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1, -45) 
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Ramps:AddButton({
     Title = "Big Ramp 3",
     Description = "Ramp Type 6",
 
@@ -25441,9 +25481,9 @@ Wedge.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1, -45) 
     end
 })
 
-local Section = Tabs.Exploits:AddSection("Flat Ramps")
+local Section = Tabs.Ramps:AddSection("Flat Ramps")
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Ramps:AddButton({
     Title = "Flat Ramp 1",
     Description = "Ramp Type 7",
 
@@ -25469,7 +25509,7 @@ Wedge.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1, -45) 
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Ramps:AddButton({
     Title = "Flat Ramp 2",
     Description = "Ramp Type 8",
 
@@ -25495,7 +25535,7 @@ Wedge.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1, -45) 
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Ramps:AddButton({
     Title = "Flat Ramp 3",
     Description = "Ramp Type 9",
 
@@ -25521,9 +25561,9 @@ Wedge.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1, -45) 
     end
 })
 
-local Section = Tabs.Exploits:AddSection("Platforms")
+local Section = Tabs.Ramps:AddSection("Platforms")
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Ramps:AddButton({
     Title = "Platform 1",
     Description = "Platform Type 1",
 
@@ -25548,7 +25588,7 @@ Wedge.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(1, -1, 0) *
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Ramps:AddButton({
     Title = "Platform 2",
     Description = "Platform Type 2",
 
@@ -25573,7 +25613,7 @@ Wedge.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(1, -1, 0) *
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
+local IYAdmin = Tabs.Ramps:AddButton({
     Title = "Platform 3",
     Description = "Platform Type 3",
 
@@ -25599,28 +25639,7 @@ Wedge.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(1, -1, 0) *
     end
 })
 
-local Section = Tabs.Workspace:AddSection("Scripts")
-
-local AKAdmin = Tabs.Workspace:AddButton({
-    Title = "AK Admin",
-    Description = "Best For Reanimation",
-
-    Callback = function()
-        loadstring(game:HttpGet("https://absent.wtf/AKADMIN.lua"))();
-    end
-})
-
-local stalkie = Tabs.Workspace:AddButton({
-    Title = "Onyx",
-    Description = "I Love Biscuit",
-
-    Callback = function()
-        repeat task.wait() until game.Players.LocalPlayer
-loadstring(game:HttpGet('https://onyxv2.vercel.app/main.lua'))()
-    end
-})
-
-local ChatBP = Tabs.Workspace:AddButton({
+local ChatBP = Tabs.Misc:AddButton({
     Title = "Chat Bypass",
     Description = "The key: typethisout",
 
@@ -25630,7 +25649,7 @@ local ChatBP = Tabs.Workspace:AddButton({
 })
 
 
-local IYAdmin = Tabs.Workspace:AddButton({
+local IYAdmin = Tabs.Misc:AddButton({
     Title = "In Game Executor",
     Description = "Execute scripts while in roblox",
 
@@ -26209,7 +26228,7 @@ local EmoteGUI = Tabs.Keybinds:AddButton({
     Description = "",
 })
 
-local Section = Tabs.Exploits:AddSection("Shaders")
+local Section = Tabs.Exploits:AddSection("Visuals")
 
 local IYAdmin = Tabs.Exploits:AddButton({
     Title = "Shaders",
@@ -26246,28 +26265,6 @@ end
 dofullbright()
 
 Light.LightingChanged:Connect(dofullbright)
-    end
-})
-
-local Section = Tabs.Exploits:AddSection("Simple")
-
-local IYAdmin = Tabs.Exploits:AddButton({
-    Title = "Anti Pause",
-    Description = "Removes Pause Screen",
-
-    Callback = function()
---[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
--- ANTI-GAMEPLAY PAUSED SCREEN
-local GuiService = game:GetService("GuiService")
-local RunService = game:GetService("RunService")
-
--- 1. Disable the built-in pause GUI immediately
-GuiService:SetGameplayPausedNotificationEnabled(false)
-
-
-print("Gameplay Paused Screen Disabled.")
     end
 })
 
@@ -26773,23 +26770,6 @@ while task.wait() do
     elseif MainGradient.Rotation < 0 then
         MainGradient.Rotation = 0
     end
-end
-    end
-})
-
-local IYAdmin = Tabs.Exploits:AddButton({
-    Title = "Game Crasher",
-    Description = "Crashes the game",
-
-    Callback = function()
---[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
--- If you liked my script join my discord
--- https://discord.gg/NCcTwpNQ2S 
-
-while true do
-    warn("crashing..")
 end
     end
 })
