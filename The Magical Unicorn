@@ -25279,11 +25279,11 @@ loadstring(game:HttpGet('https://onyxv2.vercel.app/main.lua'))()
 })
 
 local IYAdmin = Tabs.Workspace:AddButton({
-    Title = "Infinite Yeild",
-    Description = "Comand Line",
+    Title = "ZG Admin",
+    Description = "DaMonk The Goat",
 
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))();
+loadstring(game:HttpGet("https://pastebin.com/raw/fRnnhbAw"))()
     end
 })
 
