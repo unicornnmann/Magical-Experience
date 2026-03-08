@@ -53,6 +53,15 @@ local Tabs = {
 Window:SelectTab(1)
 
 local IYAdmin = Tabs.Player:AddButton({
+    Title = "UniAdmin",
+    Description = "Click ] To Open And Type - cmds to open search menu",
+
+    Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/UniAdmin/refs/heads/main/UniAdmin"))()
+    end
+})
+
+local IYAdmin = Tabs.Player:AddButton({
     Title = "VC BYPASS",
     Description = "Bypass The Roblox Voicechat Filter",
 
@@ -23934,6 +23943,180 @@ end)
     end
 })
 
+local Section = Tabs.Workspace:AddSection("Server")
+
+local IYAdmin = Tabs.Workspace:AddButton({
+    Title = "Server Hopper",
+    Description = "Pick a server to join",
+
+    Callback = function()
+-- ADVANCED SERVER BROWSER V4 (Identifiers, Hover-Info, and Persistent ID)
+local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local Player = Players.LocalPlayer
+
+local HISTORY_FILE = "join_history.json"
+local joinHistory = {}
+
+-- Load History
+local success, content = pcall(function() return readfile(HISTORY_FILE) end)
+if success then joinHistory = HttpService:JSONDecode(content) end
+
+-- PERSISTENT TOP-RIGHT INFO (Always Visible)
+local PersistentGui = Instance.new("ScreenGui", Player.PlayerGui)
+PersistentGui.Name = "CurrentServerDisplay"
+local CurrentIDLabel = Instance.new("TextLabel", PersistentGui)
+CurrentIDLabel.Size = UDim2.new(0, 300, 0, 0)
+CurrentIDLabel.Position = UDim2.new(50, 50, 50, 50)
+CurrentIDLabel.BackgroundTransparency = 1
+CurrentIDLabel.Text = "CURRENT JOBID: " .. (game.JobId ~= "" and game.JobId or "Studio/Local")
+CurrentIDLabel.TextColor3 = Color3.new(1, 1, 1)
+CurrentIDLabel.TextTransparency = 0.5
+CurrentIDLabel.TextXAlignment = Enum.TextXAlignment.Right
+CurrentIDLabel.Font = Enum.Font.Code
+CurrentIDLabel.TextSize = 14
+
+-- MAIN UI SETUP
+local ScreenGui = Instance.new("ScreenGui", Player.PlayerGui)
+ScreenGui.Name = ""
+
+local MainContainer = Instance.new("Frame", ScreenGui)
+MainContainer.Size = UDim2.new(0, 480, 0, 400) -- Slightly wider for the new buttons
+MainContainer.Position = UDim2.new(0.5, -240, 0.5, -200)
+MainContainer.BackgroundTransparency = 1
+
+local Frame = Instance.new("Frame", MainContainer)
+Frame.Size = UDim2.new(1, 0, 1, 0)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Frame.BorderSizePixel = 0
+
+local Title = Instance.new("TextLabel", Frame)
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Text = "SERVER BROWSER"
+Title.TextColor3 = Color3.new(1, 1, 1)
+Title.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+
+local ToggleBtn = Instance.new("TextButton", MainContainer)
+ToggleBtn.Size = UDim2.new(0, 30, 0, 30)
+ToggleBtn.Position = UDim2.new(1, -35, 0, 5)
+ToggleBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+ToggleBtn.Text = "-"
+ToggleBtn.TextColor3 = Color3.new(1, 1, 1)
+
+local ScrollingFrame = Instance.new("ScrollingFrame", Frame)
+ScrollingFrame.Size = UDim2.new(1, -20, 1, -60)
+ScrollingFrame.Position = UDim2.new(0, 10, 0, 50)
+ScrollingFrame.BackgroundTransparency = 1
+ScrollingFrame.ScrollBarThickness = 6
+
+local UIListLayout = Instance.new("UIListLayout", ScrollingFrame)
+UIListLayout.Padding = UDim.new(0, 5)
+
+-- DRAGGING LOGIC
+local dragging, dragStart, startPos
+ToggleBtn.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = MainContainer.Position
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+        local delta = input.Position - dragStart
+        MainContainer.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+end)
+
+ToggleBtn.MouseButton1Click:Connect(function()
+    Frame.Visible = not Frame.Visible
+    ToggleBtn.Text = Frame.Visible and "-" or "+"
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = false end
+end)
+
+-- REFRESH LOGIC
+local function refresh()
+    for _, child in pairs(ScrollingFrame:GetChildren()) do if child:IsA("Frame") then child:Destroy() end end
+
+    local url = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=50"
+    local ok, res = pcall(function() return game:HttpGet(url) end)
+
+    if ok then
+        local data = HttpService:JSONDecode(res)
+        for _, server in pairs(data.data) do
+            local sFrame = Instance.new("Frame", ScrollingFrame)
+            sFrame.Size = UDim2.new(1, -10, 0, 60)
+            sFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+
+            local lastJoined = joinHistory[server.id] or "Never"
+            
+            local info = Instance.new("TextLabel", sFrame)
+            info.Size = UDim2.new(0.6, 0, 1, 0)
+            info.Text = string.format(" Ping: %dms | Players: %d/%d\n Last Joined: %s", server.ping or 0, server.playing, server.maxPlayers, lastJoined)
+            info.TextColor3 = Color3.new(0.8, 0.8, 0.8)
+            info.TextSize = 12
+            info.BackgroundTransparency = 1
+            info.TextXAlignment = Enum.TextXAlignment.Left
+            info.Position = UDim2.new(0, 5, 0, 0)
+
+            -- THE "?" INFO BUTTON
+            local qBtn = Instance.new("TextButton", sFrame)
+            qBtn.Size = UDim2.new(0, 25, 0, 25)
+            qBtn.Position = UDim2.new(0.65, 0, 0.3, 0)
+            qBtn.Text = "?"
+            qBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+            qBtn.TextColor3 = Color3.new(1, 1, 1)
+
+            local idLabel = Instance.new("TextBox", sFrame) -- TextBox so you can copy the ID
+            idLabel.Size = UDim2.new(0.9, 0, 0, 20)
+            idLabel.Position = UDim2.new(0.05, 0, 1, -20)
+            idLabel.Text = server.id
+            idLabel.BackgroundTransparency = 0.2
+            idLabel.BackgroundColor3 = Color3.new(0,0,0)
+            idLabel.TextColor3 = Color3.new(1, 1, 0)
+            idLabel.Visible = false
+            idLabel.ClearTextOnFocus = false
+            idLabel.TextEditable = false
+
+            qBtn.MouseButton1Click:Connect(function()
+                idLabel.Visible = not idLabel.Visible
+            end)
+
+            local joinBtn = Instance.new("TextButton", sFrame)
+            joinBtn.Size = UDim2.new(0.25, 0, 0.5, 0)
+            joinBtn.Position = UDim2.new(0.72, 0, 0.25, 0)
+            joinBtn.Text = "JOIN"
+            joinBtn.BackgroundColor3 = Color3.fromRGB(0, 120, 200)
+
+            joinBtn.MouseButton1Click:Connect(function()
+                joinHistory[server.id] = os.date("%x %X")
+                writefile(HISTORY_FILE, HttpService:JSONEncode(joinHistory))
+                TeleportService:TeleportToPlaceInstance(game.PlaceId, server.id, Player)
+            end)
+        end
+        ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y)
+    end
+end
+
+refresh()
+    end
+})
+
+local IYAdmin = Tabs.Workspace:AddButton({
+    Title = "Low or High",
+    Description = "Server with the least and most",
+
+    Callback = function()
+loadstring(game:HttpGet("https://tsulnavhfrykjkbqiuaw.supabase.co/functions/v1/raw-script?id=85e09247-2cb2-4d3b-8e16-359eb3f2b99f"))()
+    end
+})
+
 local Section = Tabs.Workspace:AddSection("Camera/Fly")
 
 local IYAdmin = Tabs.Workspace:AddButton({
@@ -24563,6 +24746,514 @@ RunService.RenderStepped:Connect(function()
         end
     end
 end)
+    end
+})
+
+local IYAdmin = Tabs.Workspace:AddButton({
+    Title = "All View",
+    Description = "Small Cameras that allows you to see left right and behind you",
+
+    Callback = function()
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+-- MultiViewCamera.lua  v11
+-- StarterPlayerScripts > LocalScript
+
+local Players          = game:GetService("Players")
+local RunService       = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+
+local player    = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+local mainCam   = workspace.CurrentCamera
+
+-- ══════════════════════════════════════════
+--  ★ 使用者設定
+-- ══════════════════════════════════════════
+
+-- 偵測設定
+local TEAM_CHECK = false   -- true = 只標記敵對玩家（不同隊伍）
+local WALL_CHECK = false   -- true = 只在視線沒被牆壁遮擋時才標記
+
+-- 視窗尺寸（不需動）
+local W   = 196
+local H   = 126
+local BAR = 22
+local GAP = 6
+local PAD_RIGHT = 10
+local PAD_TOP   = 8
+
+-- 視角設定
+local CONFIGS = {
+    {name = "L", angle = math.rad( 60)},
+    {name = "B", angle = math.rad(180)},
+    {name = "R", angle = math.rad(-60)},
+}
+
+-- 圈圈設定
+local CIRCLE_BASE = 22
+local CIRCLE_MIN  = 8
+local CIRCLE_MAX  = 40
+local MAX_CIRCLES = 8
+
+-- ══════════════════════════════════════════
+--  橫幅位置（視窗從橫幅下方開始）
+-- ══════════════════════════════════════════
+local BANNER_H   = 36
+local BANNER_GAP = 4
+local WIN1_Y     = PAD_TOP + BANNER_H + BANNER_GAP
+
+-- ══════════════════════════════════════════
+--  ScreenGui
+-- ══════════════════════════════════════════
+local gui = Instance.new("ScreenGui")
+gui.Name           = "MultiViewGUI"
+gui.ResetOnSpawn   = false
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+gui.IgnoreGuiInset = true
+gui.Parent         = playerGui
+
+-- ══════════════════════════════════════════
+--  頂部橫幅（螢幕正上方置中）
+-- ══════════════════════════════════════════
+local BANNER_W = 480
+
+local topBanner = Instance.new("Frame")
+topBanner.Name             = "TopBanner"
+topBanner.Size             = UDim2.new(0, BANNER_W, 0, BANNER_H)
+topBanner.Position         = UDim2.new(0.5, -BANNER_W / 2, 0, PAD_TOP)
+topBanner.BackgroundColor3 = Color3.fromRGB(20, 5, 5)
+topBanner.BorderSizePixel  = 0
+topBanner.ZIndex           = 20
+topBanner.Visible          = false
+topBanner.Parent           = gui
+Instance.new("UICorner", topBanner).CornerRadius = UDim.new(0, 8)
+
+local bStroke = Instance.new("UIStroke", topBanner)
+bStroke.Color = Color3.fromRGB(255, 55, 55); bStroke.Thickness = 1.8
+
+-- 左側警示圖示
+local bIcon = Instance.new("TextLabel", topBanner)
+bIcon.Size = UDim2.new(0, 32, 1, 0); bIcon.Position = UDim2.new(0, 6, 0, 0)
+bIcon.BackgroundTransparency = 1; bIcon.Text = "[!]"
+bIcon.TextColor3 = Color3.fromRGB(255, 80, 80); bIcon.Font = Enum.Font.GothamBold
+bIcon.TextSize = 16; bIcon.ZIndex = 21
+
+-- 主要文字
+local bannerLabel = Instance.new("TextLabel", topBanner)
+bannerLabel.Size           = UDim2.new(1, -46, 1, 0)
+bannerLabel.Position       = UDim2.new(0, 40, 0, 0)
+bannerLabel.BackgroundTransparency = 1
+bannerLabel.Text           = ""
+bannerLabel.TextColor3     = Color3.fromRGB(255, 130, 130)
+bannerLabel.Font           = Enum.Font.GothamBold
+bannerLabel.TextSize       = 16               -- 大字
+bannerLabel.TextXAlignment = Enum.TextXAlignment.Left
+bannerLabel.TextTruncate   = Enum.TextTruncate.AtEnd
+bannerLabel.ZIndex         = 21
+
+-- 右側設定指示（TEAM / WALL 狀態）
+local settingLbl = Instance.new("TextLabel", topBanner)
+settingLbl.Size           = UDim2.new(0, 110, 1, 0)
+settingLbl.Position       = UDim2.new(1, -114, 0, 0)
+settingLbl.BackgroundTransparency = 1
+settingLbl.Font           = Enum.Font.Gotham
+settingLbl.TextSize       = 11
+settingLbl.TextXAlignment = Enum.TextXAlignment.Right
+settingLbl.ZIndex         = 21
+
+local function refreshSettingLbl()
+    local tc = TEAM_CHECK and "TEAM:ON" or "TEAM:OFF"
+    local wc = WALL_CHECK and "WALL:ON" or "WALL:OFF"
+    local tcColor = TEAM_CHECK and "rgb(255,210,60)" or "rgb(100,100,130)"
+    local wcColor = WALL_CHECK and "rgb(60,210,255)"  or "rgb(100,100,130)"
+    -- 不用 RichText，改用簡單組合
+    settingLbl.Text = tc .. "  " .. wc
+    settingLbl.TextColor3 = Color3.fromRGB(160, 160, 180)
+end
+refreshSettingLbl()
+
+-- ══════════════════════════════════════════
+--  拖曳
+-- ══════════════════════════════════════════
+local drag = nil
+UserInputService.InputChanged:Connect(function(inp)
+    if drag and inp.UserInputType == Enum.UserInputType.MouseMovement then
+        local d = inp.Position - drag.startMouse
+        drag.frame.Position = UDim2.new(
+            0, drag.startPos.X.Offset + d.X,
+            0, drag.startPos.Y.Offset + d.Y
+        )
+    end
+end)
+UserInputService.InputEnded:Connect(function(inp)
+    if inp.UserInputType == Enum.UserInputType.MouseButton1 then drag = nil end
+end)
+
+-- ══════════════════════════════════════════
+--  圈圈
+-- ══════════════════════════════════════════
+local function makeCircle(parent)
+    local c = Instance.new("Frame", parent)
+    c.BackgroundTransparency = 1; c.BorderSizePixel = 0
+    c.ZIndex = 15; c.Visible = false; c.AnchorPoint = Vector2.new(0.5, 0.5)
+    Instance.new("UICorner", c).CornerRadius = UDim.new(1, 0)
+    local st = Instance.new("UIStroke", c)
+    st.Color = Color3.fromRGB(255, 55, 55); st.Thickness = 2.2
+    local nl = Instance.new("TextLabel", c)
+    nl.Name = "NL"; nl.Size = UDim2.new(2.8, 0, 0, 13)
+    nl.Position = UDim2.new(-0.9, 0, 1, 2)
+    nl.BackgroundTransparency = 1
+    nl.TextColor3 = Color3.fromRGB(255, 200, 200)
+    nl.Font = Enum.Font.GothamBold; nl.TextSize = 9
+    nl.Text = ""; nl.TextTruncate = Enum.TextTruncate.AtEnd; nl.ZIndex = 16
+    return c, nl
+end
+
+-- ══════════════════════════════════════════
+--  建立視窗
+-- ══════════════════════════════════════════
+local windows = {}
+
+local function buildWindow(cfg, idx)
+    local py = WIN1_Y + (idx - 1) * (H + BAR + GAP)
+
+    local frame = Instance.new("Frame")
+    frame.Name = "Win"..idx
+    frame.Size = UDim2.new(0, W, 0, H + BAR)
+    frame.Position = UDim2.new(1, -(W + PAD_RIGHT), 0, py)
+    frame.BackgroundColor3 = Color3.fromRGB(8,10,18)
+    frame.BorderSizePixel = 0; frame.ZIndex = 5; frame.ClipsDescendants = false
+    frame.Parent = gui
+    Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 7)
+    local fst = Instance.new("UIStroke", frame)
+    fst.Color = Color3.fromRGB(45,115,255); fst.Thickness = 1.2; fst.Transparency = 0.2
+
+    local bar = Instance.new("Frame", frame)
+    bar.Name = "Bar"; bar.Size = UDim2.new(1,0,0,BAR)
+    bar.BackgroundColor3 = Color3.fromRGB(14,22,48); bar.BorderSizePixel = 0; bar.ZIndex = 6
+    Instance.new("UICorner", bar).CornerRadius = UDim.new(0, 7)
+    local fix = Instance.new("Frame", bar)
+    fix.Size = UDim2.new(1,0,0.5,0); fix.Position = UDim2.new(0,0,0.5,0)
+    fix.BackgroundColor3 = Color3.fromRGB(14,22,48); fix.BorderSizePixel = 0; fix.ZIndex = 6
+
+    local nameLbl = Instance.new("TextLabel", bar)
+    nameLbl.Size = UDim2.new(0,24,1,0); nameLbl.Position = UDim2.new(0,6,0,0)
+    nameLbl.BackgroundTransparency = 1; nameLbl.Text = cfg.name
+    nameLbl.TextColor3 = Color3.fromRGB(145,192,255); nameLbl.Font = Enum.Font.GothamBold
+    nameLbl.TextSize = 11; nameLbl.TextXAlignment = Enum.TextXAlignment.Left; nameLbl.ZIndex = 7
+
+    local fovLbl = Instance.new("TextLabel", bar)
+    fovLbl.Size = UDim2.new(0,52,1,0); fovLbl.Position = UDim2.new(0,30,0,0)
+    fovLbl.BackgroundTransparency = 1; fovLbl.Text = "FOV:70"
+    fovLbl.TextColor3 = Color3.fromRGB(65,145,255); fovLbl.Font = Enum.Font.Gotham
+    fovLbl.TextSize = 9; fovLbl.TextXAlignment = Enum.TextXAlignment.Left; fovLbl.ZIndex = 7
+
+    local closeBtn = Instance.new("TextButton", bar)
+    closeBtn.Size = UDim2.new(0,18,0,18); closeBtn.Position = UDim2.new(1,-21,0,2)
+    closeBtn.BackgroundColor3 = Color3.fromRGB(175,38,38); closeBtn.Text = "X"
+    closeBtn.TextColor3 = Color3.fromRGB(255,255,255); closeBtn.Font = Enum.Font.GothamBold
+    closeBtn.TextSize = 9; closeBtn.BorderSizePixel = 0; closeBtn.ZIndex = 8
+    Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 4)
+
+    local vp = Instance.new("ViewportFrame", frame)
+    vp.Name = "VP"; vp.Size = UDim2.new(1,0,1,-BAR); vp.Position = UDim2.new(0,0,0,BAR)
+    vp.BackgroundColor3 = Color3.fromRGB(20,20,30); vp.BorderSizePixel = 0
+    vp.LightColor = Color3.fromRGB(255,255,255); vp.LightDirection = Vector3.new(-1,-2,-1)
+    vp.Ambient = Color3.fromRGB(255,255,255); vp.ZIndex = 5; vp.ClipsDescendants = true
+    Instance.new("UICorner", vp).CornerRadius = UDim.new(0, 7)
+
+    local cc = Instance.new("Frame", vp)
+    cc.Name = "CC"; cc.Size = UDim2.new(1,0,1,0)
+    cc.BackgroundTransparency = 1; cc.BorderSizePixel = 0; cc.ZIndex = 14
+
+    local circles = {}
+    for i = 1, MAX_CIRCLES do
+        local c, nl = makeCircle(cc)
+        circles[i] = {frame = c, nl = nl}
+    end
+
+    local worldModel = Instance.new("WorldModel", vp)
+
+    local vpCam = Instance.new("Camera")
+    vpCam.CameraType = Enum.CameraType.Scriptable
+    vpCam.FieldOfView = mainCam.FieldOfView
+    vpCam.CFrame = mainCam.CFrame
+    vpCam.Parent = vp; vp.CurrentCamera = vpCam
+
+    bar.InputBegan:Connect(function(inp)
+        if inp.UserInputType == Enum.UserInputType.MouseButton1 then
+            drag = {frame = frame, startMouse = inp.Position, startPos = frame.Position}
+        end
+    end)
+
+    local reopenBtn = Instance.new("TextButton", gui)
+    reopenBtn.Size = UDim2.new(0,W,0,18)
+    reopenBtn.Position = UDim2.new(1, -(W+PAD_RIGHT), 0, py)
+    reopenBtn.BackgroundColor3 = Color3.fromRGB(14,22,48)
+    reopenBtn.Text = cfg.name.." [open]"
+    reopenBtn.TextColor3 = Color3.fromRGB(100,160,255); reopenBtn.Font = Enum.Font.GothamBold
+    reopenBtn.TextSize = 9; reopenBtn.BorderSizePixel = 0; reopenBtn.Visible = false; reopenBtn.ZIndex = 5
+    Instance.new("UICorner", reopenBtn).CornerRadius = UDim.new(0, 4)
+    closeBtn.MouseButton1Click:Connect(function()
+        frame.Visible = false; reopenBtn.Visible = true
+    end)
+    reopenBtn.MouseButton1Click:Connect(function()
+        frame.Visible = true; reopenBtn.Visible = false
+    end)
+
+    windows[idx] = {
+        name = cfg.name, frame = frame, vpCam = vpCam, vp = vp,
+        worldModel = worldModel, fovLbl = fovLbl, angle = cfg.angle,
+        circles = circles, hasPlayer = false,
+    }
+end
+
+for i, cfg in ipairs(CONFIGS) do buildWindow(cfg, i) end
+
+-- ══════════════════════════════════════════
+--  地圖 Clone
+-- ══════════════════════════════════════════
+local function cloneMapInto(wm)
+    local cs = {}
+    for _, p in pairs(Players:GetPlayers()) do
+        if p.Character then cs[p.Character] = true end
+    end
+    for _, obj in pairs(workspace:GetChildren()) do
+        if not obj:IsA("Camera") and not obj:IsA("Terrain") and not cs[obj] and obj.Archivable then
+            local ok, clone = pcall(function() return obj:Clone() end)
+            if ok and clone then
+                for _, s in pairs(clone:GetDescendants()) do
+                    if s:IsA("Script") or s:IsA("LocalScript") or s:IsA("ModuleScript") then
+                        pcall(function() s:Destroy() end)
+                    end
+                end
+                clone.Parent = wm
+            end
+        end
+    end
+end
+
+-- ══════════════════════════════════════════
+--  角色管理
+-- ══════════════════════════════════════════
+local charData = {}
+
+local function buildPartMap(real, clone)
+    local m = {}
+    for _, rp in pairs(real:GetDescendants()) do
+        if rp:IsA("BasePart") then
+            local cp = clone:FindFirstChild(rp.Name, true)
+            if cp and cp:IsA("BasePart") then m[rp] = cp end
+        end
+    end
+    return m
+end
+
+local function addChar(p, char)
+    if not char then return end
+    task.wait(0.5)
+    if not char.Parent then return end
+    char.Archivable = true
+    for _, d in pairs(char:GetDescendants()) do pcall(function() d.Archivable = true end) end
+    local uid = tostring(p.UserId)
+    if charData[uid] then
+        for _, c in pairs(charData[uid].clones) do pcall(function() c:Destroy() end) end
+        charData[uid] = nil
+    end
+    local data = {realChar = char, clones = {}, partMap = {}}
+    charData[uid] = data
+    for _, win in pairs(windows) do
+        local ok, clone = pcall(function() return char:Clone() end)
+        if ok and clone then
+            for _, s in pairs(clone:GetDescendants()) do
+                if s:IsA("Script") or s:IsA("LocalScript") or s:IsA("ModuleScript") then
+                    pcall(function() s:Destroy() end)
+                end
+            end
+            for _, part in pairs(clone:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    part.LocalTransparencyModifier = 0
+                    part.Transparency = math.min(part.Transparency, 0.5)
+                end
+            end
+            clone.Name = "CHAR_"..uid; clone.Parent = win.worldModel
+            data.clones[win.worldModel]  = clone
+            data.partMap[win.worldModel] = buildPartMap(char, clone)
+        end
+    end
+end
+
+local function removeChar(p)
+    local uid = tostring(p.UserId)
+    if charData[uid] then
+        for _, c in pairs(charData[uid].clones) do pcall(function() c:Destroy() end) end
+        charData[uid] = nil
+    end
+end
+
+for _, p in pairs(Players:GetPlayers()) do
+    if p.Character then task.spawn(addChar, p, p.Character) end
+    p.CharacterAdded:Connect(function(c) addChar(p, c) end)
+    p.CharacterRemoving:Connect(function() removeChar(p) end)
+end
+Players.PlayerAdded:Connect(function(p)
+    p.CharacterAdded:Connect(function(c) addChar(p, c) end)
+    p.CharacterRemoving:Connect(function() removeChar(p) end)
+end)
+Players.PlayerRemoving:Connect(function(p) removeChar(p) end)
+
+task.spawn(function()
+    if not player.Character then player.CharacterAdded:Wait() end
+    player.Character:WaitForChild("HumanoidRootPart", 10)
+    task.wait(0.5)
+    for _, win in pairs(windows) do cloneMapInto(win.worldModel) end
+end)
+
+player.CharacterAdded:Connect(function(char)
+    char:WaitForChild("HumanoidRootPart", 10)
+    task.wait(0.5)
+    for _, win in pairs(windows) do
+        for _, child in pairs(win.worldModel:GetChildren()) do
+            if not string.find(child.Name, "CHAR_") then child:Destroy() end
+        end
+        cloneMapInto(win.worldModel)
+    end
+end)
+
+-- ══════════════════════════════════════════
+--  牆壁檢查（Raycast）
+--  從本地角色 HRP 射向目標 HRP，
+--  看中間是否有不透明的 BasePart 阻擋
+-- ══════════════════════════════════════════
+local raycastParams = RaycastParams.new()
+raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+
+local function isVisible(targetHRP)
+    local myChar = player.Character
+    if not myChar then return true end
+    local myHRP = myChar:FindFirstChild("HumanoidRootPart")
+    if not myHRP then return true end
+
+    -- 排除自己和目標的角色，避免射到自身
+    local exclude = {myChar, targetHRP.Parent}
+    raycastParams.FilterDescendantsInstances = exclude
+
+    local origin    = myHRP.Position
+    local direction = targetHRP.Position - origin
+    local result    = workspace:Raycast(origin, direction, raycastParams)
+
+    -- 沒打到任何東西 = 可見；打到東西表示被牆擋住
+    return result == nil
+end
+
+-- ══════════════════════════════════════════
+--  判斷是否標記
+-- ══════════════════════════════════════════
+local function shouldMark(p, hrp)
+    if p == player then return false end
+    if TEAM_CHECK and player.Team == p.Team then return false end
+    if WALL_CHECK and not isVisible(hrp) then return false end
+    return true
+end
+
+-- ══════════════════════════════════════════
+--  投影 3D → VP 2D
+-- ══════════════════════════════════════════
+local function projectToVP(vpCam, vp, worldPos)
+    local sp, onScreen = vpCam:WorldToViewportPoint(worldPos)
+    if not onScreen or sp.Z <= 0 then return nil, nil end
+    local vs = vpCam.ViewportSize
+    if vs.X == 0 or vs.Y == 0 then return nil, nil end
+    local rx, ry = sp.X / vs.X, sp.Y / vs.Y
+    if rx < 0 or rx > 1 or ry < 0 or ry > 1 then return nil, nil end
+    local ab = vp.AbsoluteSize
+    return Vector2.new(rx * ab.X, ry * ab.Y), sp.Z
+end
+
+-- ══════════════════════════════════════════
+--  RenderStepped
+-- ══════════════════════════════════════════
+RunService.RenderStepped:Connect(function()
+    local cf  = mainCam.CFrame
+    local fov = mainCam.FieldOfView
+
+    for _, win in pairs(windows) do
+        win.hasPlayer = false
+        if win.frame.Visible then
+            win.vpCam.CFrame      = cf * CFrame.Angles(0, win.angle, 0)
+            win.vpCam.FieldOfView = fov
+            win.fovLbl.Text       = "FOV:" .. tostring(math.floor(fov + 0.5))
+        end
+    end
+
+    -- 角色同步
+    for _, data in pairs(charData) do
+        local rc = data.realChar
+        if rc and rc.Parent then
+            for _, win in pairs(windows) do
+                if win.frame.Visible then
+                    local pm = data.partMap[win.worldModel]
+                    if pm then
+                        for rp, cp in pairs(pm) do
+                            if rp.Parent and cp.Parent then
+                                cp.CFrame = rp.CFrame
+                                cp.LocalTransparencyModifier = 0
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    -- 偵測 + 圈圈
+    for _, win in pairs(windows) do
+        if not win.frame.Visible then
+            for _, c in pairs(win.circles) do c.frame.Visible = false end
+        else
+            local ci = 0
+            for _, p in pairs(Players:GetPlayers()) do
+                if p.Character then
+                    local hrp = p.Character:FindFirstChild("HumanoidRootPart")
+                    if hrp and shouldMark(p, hrp) then
+                        local pos2D, depth = projectToVP(win.vpCam, win.vp, hrp.Position)
+                        if pos2D then
+                            ci = ci + 1
+                            if ci <= MAX_CIRCLES then
+                                local obj = win.circles[ci]
+                                local r = math.clamp(CIRCLE_BASE * (10 / math.max(depth, 1)), CIRCLE_MIN, CIRCLE_MAX)
+                                obj.frame.Size     = UDim2.new(0, r*2, 0, r*2)
+                                obj.frame.Position = UDim2.new(0, pos2D.X, 0, pos2D.Y)
+                                obj.frame.Visible  = true
+                                obj.nl.Text        = p.DisplayName
+                                win.hasPlayer      = true
+                            end
+                        end
+                    end
+                end
+            end
+            for i = ci + 1, MAX_CIRCLES do win.circles[i].frame.Visible = false end
+        end
+    end
+
+    -- 橫幅（置中頂部）
+    local found = {}
+    for _, win in pairs(windows) do
+        if win.hasPlayer then table.insert(found, win.name) end
+    end
+    if #found > 0 then
+        topBanner.Visible  = true
+        bannerLabel.Text   = "Player spotted:  " .. table.concat(found, "   |   ")
+    else
+        topBanner.Visible = false
+    end
+end)
+
+print("[MultiViewCamera v11] OK")
+print("  TEAM_CHECK = " .. tostring(TEAM_CHECK))
+print("  WALL_CHECK = " .. tostring(WALL_CHECK))
     end
 })
 
@@ -26220,7 +26911,7 @@ local EmoteGUI = Tabs.Keybinds:AddButton({
     Description = "",
 })
 local EmoteGUI = Tabs.Keybinds:AddButton({
-    Title = "; to CMD",
+    Title = "] to CMD",
     Description = "",
 })
 local EmoteGUI = Tabs.Keybinds:AddButton({
@@ -27228,6 +27919,7 @@ task.spawn(function()
 end)
     end
 })
+
 local IYAdmin = Tabs.Exploits:AddButton({
     Title = "CMD",
     Description = "CMD",
