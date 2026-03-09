@@ -14838,26 +14838,6 @@ local Slider = Tabs.Player:AddSlider("Slider", {
     end
 })
 
-local IYAdmin = Tabs.Misc:AddButton({
-    Title = "Doom",
-    Description = "Play Doom in Roblox",
-
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))();
-    end
-})
-
-local IYAdmin = Tabs.Misc:AddButton({
-    Title = "Minecraft",
-    Description = "Play Minecraft in Roblox",
-
-    Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Biem6ondo/mc/refs/heads/main/STARTUP"))()
-
-game:GetService("SoundService").MCMusicSound.Volume = 0.01
-    end
-})
-
 -- [[ Workspace Section ]]
 
 
