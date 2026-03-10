@@ -15612,174 +15612,803 @@ end)
 local Section = Tabs.Workspace:AddSection("Server")
 
 local IYAdmin = Tabs.Workspace:AddButton({
-    Title = "Server Hopper",
-    Description = "Pick a server to join",
+    Title = "Lowest Server",
+    Description = "Find Lowest Server",
 
     Callback = function()
--- ADVANCED SERVER BROWSER V4 (Identifiers, Hover-Info, and Persistent ID)
-local HttpService = game:GetService("HttpService")
-local TeleportService = game:GetService("TeleportService")
-local Players = game:GetService("Players")
-local UserInputService = game:GetService("UserInputService")
-local Player = Players.LocalPlayer
+local ts=game:GetService("TeleportService")
+local hs=game:GetService("HttpService")
+local ps=game:GetService("Players")
+local tw=game:GetService("TweenService")
+local lp=ps.LocalPlayer
 
-local HISTORY_FILE = "join_history.json"
-local joinHistory = {}
+local vf="VisitedServers_"..game.PlaceId..".json"
+local mn=1
+local mx=math.floor(ps.MaxPlayers*0.3)
+local ms=1
+local mr=15
+local sp=8
+local sb={}
 
--- Load History
-local success, content = pcall(function() return readfile(HISTORY_FILE) end)
-if success then joinHistory = HttpService:JSONDecode(content) end
+local as=0.6
+local es=Enum.EasingStyle.Quart
+local ed=Enum.EasingDirection.Out
 
--- PERSISTENT TOP-RIGHT INFO (Always Visible)
-local PersistentGui = Instance.new("ScreenGui", Player.PlayerGui)
-PersistentGui.Name = "CurrentServerDisplay"
-local CurrentIDLabel = Instance.new("TextLabel", PersistentGui)
-CurrentIDLabel.Size = UDim2.new(0, 300, 0, 0)
-CurrentIDLabel.Position = UDim2.new(50, 50, 50, 50)
-CurrentIDLabel.BackgroundTransparency = 1
-CurrentIDLabel.Text = "CURRENT JOBID: " .. (game.JobId ~= "" and game.JobId or "Studio/Local")
-CurrentIDLabel.TextColor3 = Color3.new(1, 1, 1)
-CurrentIDLabel.TextTransparency = 0.5
-CurrentIDLabel.TextXAlignment = Enum.TextXAlignment.Right
-CurrentIDLabel.Font = Enum.Font.Code
-CurrentIDLabel.TextSize = 14
+local sg=Instance.new("ScreenGui")
+sg.Name="TeleportStatusGui"
+sg.ResetOnSpawn=false
+sg.ZIndexBehavior=Enum.ZIndexBehavior.Sibling
+sg.Parent=game:GetService("CoreGui")
 
--- MAIN UI SETUP
-local ScreenGui = Instance.new("ScreenGui", Player.PlayerGui)
-ScreenGui.Name = ""
+local bf=Instance.new("Frame")
+bf.Name="BackdropFrame"
+bf.Size=UDim2.new(0,280,0,110)
+bf.Position=UDim2.new(0.5,-140,0.05,0)
+bf.BackgroundColor3=Color3.fromRGB(0,0,0)
+bf.BackgroundTransparency=0.7
+bf.BorderSizePixel=0
+bf.Parent=sg
 
-local MainContainer = Instance.new("Frame", ScreenGui)
-MainContainer.Size = UDim2.new(0, 480, 0, 400) -- Slightly wider for the new buttons
-MainContainer.Position = UDim2.new(0.5, -240, 0.5, -200)
-MainContainer.BackgroundTransparency = 1
+local bc=Instance.new("UICorner")
+bc.CornerRadius=UDim.new(0,12)
+bc.Parent=bf
 
-local Frame = Instance.new("Frame", MainContainer)
-Frame.Size = UDim2.new(1, 0, 1, 0)
-Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-Frame.BorderSizePixel = 0
+local cf=Instance.new("Frame")
+cf.Name="ContentFrame"
+cf.Size=UDim2.new(1,-16,1,-16)
+cf.Position=UDim2.new(0,8,0,8)
+cf.BackgroundTransparency=1
+cf.Parent=bf
 
-local Title = Instance.new("TextLabel", Frame)
-Title.Size = UDim2.new(1, 0, 0, 40)
-Title.Text = "SERVER BROWSER"
-Title.TextColor3 = Color3.new(1, 1, 1)
-Title.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+local at=Instance.new("TextLabel")
+at.Name="AdminText"
+at.Size=UDim2.new(0,80,0,12)
+at.Position=UDim2.new(0,0,0,0)
+at.BackgroundTransparency=1
+at.Text="AK ADMIN"
+at.TextColor3=Color3.fromRGB(255,255,255)
+at.TextSize=10
+at.Font=Enum.Font.GothamBold
+at.TextXAlignment=Enum.TextXAlignment.Left
+at.TextTransparency=0.3
+at.Parent=cf
 
-local ToggleBtn = Instance.new("TextButton", MainContainer)
-ToggleBtn.Size = UDim2.new(0, 30, 0, 30)
-ToggleBtn.Position = UDim2.new(1, -35, 0, 5)
-ToggleBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-ToggleBtn.Text = "-"
-ToggleBtn.TextColor3 = Color3.new(1, 1, 1)
+local tt=Instance.new("TextLabel")
+tt.Name="TitleText"
+tt.Size=UDim2.new(1,-80,0,18)
+tt.Position=UDim2.new(0,0,0,14)
+tt.BackgroundTransparency=1
+tt.Text="Serverhop Lowest"
+tt.TextColor3=Color3.fromRGB(255,255,255)
+tt.TextSize=14
+tt.Font=Enum.Font.GothamBold
+tt.TextXAlignment=Enum.TextXAlignment.Left
+tt.TextTransparency=0.2
+tt.Parent=cf
 
-local ScrollingFrame = Instance.new("ScrollingFrame", Frame)
-ScrollingFrame.Size = UDim2.new(1, -20, 1, -60)
-ScrollingFrame.Position = UDim2.new(0, 10, 0, 50)
-ScrollingFrame.BackgroundTransparency = 1
-ScrollingFrame.ScrollBarThickness = 6
+local st=Instance.new("TextLabel")
+st.Name="StatusText"
+st.Size=UDim2.new(1,0,0,24)
+st.Position=UDim2.new(0,0,0,34)
+st.BackgroundTransparency=1
+st.Text="Initializing..."
+st.TextColor3=Color3.fromRGB(200,200,200)
+st.TextSize=11
+st.Font=Enum.Font.Gotham
+st.TextWrapped=true
+st.TextYAlignment=Enum.TextYAlignment.Top
+st.TextXAlignment=Enum.TextXAlignment.Left
+st.TextTransparency=0.3
+st.Parent=cf
 
-local UIListLayout = Instance.new("UIListLayout", ScrollingFrame)
-UIListLayout.Padding = UDim.new(0, 5)
+local pc=Instance.new("Frame")
+pc.Name="ProgressContainer"
+pc.Size=UDim2.new(1,0,0,4)
+pc.Position=UDim2.new(0,0,0,62)
+pc.BackgroundColor3=Color3.fromRGB(0,0,0)
+pc.BackgroundTransparency=0.8
+pc.BorderSizePixel=0
+pc.Parent=cf
 
--- DRAGGING LOGIC
-local dragging, dragStart, startPos
-ToggleBtn.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragging = true
-        dragStart = input.Position
-        startPos = MainContainer.Position
-    end
+local p1=Instance.new("UICorner")
+p1.CornerRadius=UDim.new(1,0)
+p1.Parent=pc
+
+local pb=Instance.new("Frame")
+pb.Name="ProgressBar"
+pb.Size=UDim2.new(0,0,1,0)
+pb.BackgroundColor3=Color3.fromRGB(255,255,255)
+pb.BackgroundTransparency=0.6
+pb.BorderSizePixel=0
+pb.Parent=pc
+
+local p2=Instance.new("UICorner")
+p2.CornerRadius=UDim.new(1,0)
+p2.Parent=pb
+
+local cb=Instance.new("TextButton")
+cb.Name="CloseButton"
+cb.Size=UDim2.new(0,18,0,18)
+cb.Position=UDim2.new(1,-18,0,0)
+cb.BackgroundColor3=Color3.fromRGB(0,0,0)
+cb.BackgroundTransparency=0.7
+cb.BorderSizePixel=0
+cb.Text="×"
+cb.TextColor3=Color3.fromRGB(255,255,255)
+cb.TextSize=14
+cb.Font=Enum.Font.GothamBold
+cb.TextTransparency=0.3
+cb.Parent=cf
+
+local c1=Instance.new("UICorner")
+c1.CornerRadius=UDim.new(1,0)
+c1.Parent=cb
+
+cb.MouseEnter:Connect(function()
+tw:Create(cb,TweenInfo.new(0.2,es,ed),{BackgroundTransparency=0.4}):Play()
 end)
 
-UserInputService.InputChanged:Connect(function(input)
-    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-        local delta = input.Position - dragStart
-        MainContainer.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-    end
+cb.MouseLeave:Connect(function()
+tw:Create(cb,TweenInfo.new(0.2,es,ed),{BackgroundTransparency=0.7}):Play()
 end)
 
-ToggleBtn.MouseButton1Click:Connect(function()
-    Frame.Visible = not Frame.Visible
-    ToggleBtn.Text = Frame.Visible and "-" or "+"
+cb.MouseButton1Click:Connect(function()
+local fo=tw:Create(bf,TweenInfo.new(0.3,es,ed),{BackgroundTransparency=1})
+fo:Play()
+fo.Completed:Connect(function()
+sg:Destroy()
+end)
 end)
 
-UserInputService.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = false end
+local rb=Instance.new("TextButton")
+rb.Name="RetryButton"
+rb.Size=UDim2.new(0,90,0,22)
+rb.Position=UDim2.new(0.5,-45,1,-28)
+rb.BackgroundColor3=Color3.fromRGB(0,0,0)
+rb.BackgroundTransparency=0.7
+rb.BorderSizePixel=0
+rb.Text="Search Again"
+rb.TextColor3=Color3.fromRGB(255,255,255)
+rb.TextSize=10
+rb.Font=Enum.Font.GothamSemibold
+rb.TextTransparency=0.3
+rb.Parent=cf
+
+local r1=Instance.new("UICorner")
+r1.CornerRadius=UDim.new(0,6)
+r1.Parent=rb
+
+rb.MouseEnter:Connect(function()
+tw:Create(rb,TweenInfo.new(0.2,es,ed),{BackgroundTransparency=0.5}):Play()
 end)
 
--- REFRESH LOGIC
-local function refresh()
-    for _, child in pairs(ScrollingFrame:GetChildren()) do if child:IsA("Frame") then child:Destroy() end end
+rb.MouseLeave:Connect(function()
+tw:Create(rb,TweenInfo.new(0.2,es,ed),{BackgroundTransparency=0.7}):Play()
+end)
 
-    local url = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=50"
-    local ok, res = pcall(function() return game:HttpGet(url) end)
-
-    if ok then
-        local data = HttpService:JSONDecode(res)
-        for _, server in pairs(data.data) do
-            local sFrame = Instance.new("Frame", ScrollingFrame)
-            sFrame.Size = UDim2.new(1, -10, 0, 60)
-            sFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-
-            local lastJoined = joinHistory[server.id] or "Never"
-            
-            local info = Instance.new("TextLabel", sFrame)
-            info.Size = UDim2.new(0.6, 0, 1, 0)
-            info.Text = string.format(" Ping: %dms | Players: %d/%d\n Last Joined: %s", server.ping or 0, server.playing, server.maxPlayers, lastJoined)
-            info.TextColor3 = Color3.new(0.8, 0.8, 0.8)
-            info.TextSize = 12
-            info.BackgroundTransparency = 1
-            info.TextXAlignment = Enum.TextXAlignment.Left
-            info.Position = UDim2.new(0, 5, 0, 0)
-
-            -- THE "?" INFO BUTTON
-            local qBtn = Instance.new("TextButton", sFrame)
-            qBtn.Size = UDim2.new(0, 25, 0, 25)
-            qBtn.Position = UDim2.new(0.65, 0, 0.3, 0)
-            qBtn.Text = "?"
-            qBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-            qBtn.TextColor3 = Color3.new(1, 1, 1)
-
-            local idLabel = Instance.new("TextBox", sFrame) -- TextBox so you can copy the ID
-            idLabel.Size = UDim2.new(0.9, 0, 0, 20)
-            idLabel.Position = UDim2.new(0.05, 0, 1, -20)
-            idLabel.Text = server.id
-            idLabel.BackgroundTransparency = 0.2
-            idLabel.BackgroundColor3 = Color3.new(0,0,0)
-            idLabel.TextColor3 = Color3.new(1, 1, 0)
-            idLabel.Visible = false
-            idLabel.ClearTextOnFocus = false
-            idLabel.TextEditable = false
-
-            qBtn.MouseButton1Click:Connect(function()
-                idLabel.Visible = not idLabel.Visible
-            end)
-
-            local joinBtn = Instance.new("TextButton", sFrame)
-            joinBtn.Size = UDim2.new(0.25, 0, 0.5, 0)
-            joinBtn.Position = UDim2.new(0.72, 0, 0.25, 0)
-            joinBtn.Text = "JOIN"
-            joinBtn.BackgroundColor3 = Color3.fromRGB(0, 120, 200)
-
-            joinBtn.MouseButton1Click:Connect(function()
-                joinHistory[server.id] = os.date("%x %X")
-                writefile(HISTORY_FILE, HttpService:JSONEncode(joinHistory))
-                TeleportService:TeleportToPlaceInstance(game.PlaceId, server.id, Player)
-            end)
-        end
-        ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y)
-    end
+local function an(m,p)
+local tf=tw:Create(st,TweenInfo.new(0.2,es,ed),{TextTransparency=0.8})
+tf:Play()
+tf.Completed:Connect(function()
+st.Text=m
+tw:Create(st,TweenInfo.new(0.2,es,ed),{TextTransparency=0.3}):Play()
+end)
+local pt=tw:Create(pb,TweenInfo.new(as,es,ed),{Size=UDim2.new(math.max(0.02,p),0,1,0)})
+pt:Play()
 end
 
-refresh()
+local function lv()
+local s,r=pcall(function()
+if not isfolder("ServerHistory")then
+makefolder("ServerHistory")
+end
+local fp="ServerHistory/"..vf
+if isfile(fp)then
+return hs:JSONDecode(readfile(fp))
+else
+return{}
+end
+end)
+return s and r or{}
+end
+
+local function sv(vs)
+pcall(function()
+if not isfolder("ServerHistory")then
+makefolder("ServerHistory")
+end
+local fp="ServerHistory/"..vf
+writefile(fp,hs:JSONEncode(vs))
+end)
+end
+
+local function ac(vs)
+local cg=game.JobId
+if cg~=""then
+vs[cg]={timestamp=os.time(),playerCount=#ps:GetPlayers()}
+sv(vs)
+end
+end
+
+local function ga()
+local al={}
+local cr=""
+local pg=0
+local ma=3
+repeat
+local s,r=false,nil
+local rc=0
+repeat
+rc=rc+1
+s,r=pcall(function()
+local u="https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100"
+if cr~=""then
+u=u.."&cursor="..cr
+end
+return hs:JSONDecode(game:HttpGet(u))
+end)
+if not s then
+wait(rc*0.5)
+end
+until s or rc>=ma
+if s and r and r.data then
+for _,sv in ipairs(r.data)do
+if sv.id and sv.playing and sv.maxPlayers then
+table.insert(al,sv)
+end
+end
+cr=r.nextPageCursor or""
+pg=pg+1
+an("Fetching page "..pg.."/"..sp,0.1+(pg/sp)*0.3)
+wait(0.1)
+else
+cr=""
+end
+until cr=="" or pg>=sp
+return al
+end
+
+local function fl(sl,vs,ex)
+ex=ex or{}
+local bs=nil
+local lp=999999
+local sc=0
+local cd={}
+for _,sv in pairs(sl)do
+sc=sc+1
+if ex[sv.id]or sb[sv.id]or sv.id==game.JobId then
+continue
+end
+local pc=sv.playing or 0
+local mp=sv.maxPlayers or ps.MaxPlayers
+local sa=mp-pc
+if pc<mn or sa<ms then
+continue
+end
+if pc>mx then
+continue
+end
+if pc<lp then
+lp=pc
+end
+local pr=pc*-100
+if vs[sv.id]then
+local ta=os.time()-vs[sv.id].timestamp
+if ta<1800 then
+pr=pr-500
+elseif ta<3600 then
+pr=pr-200
+end
+else
+pr=pr+100
+end
+table.insert(cd,{server=sv,priority=pr,playerCount=pc})
+end
+table.sort(cd,function(a,b)
+return a.priority>b.priority
+end)
+if #cd>0 then
+bs=cd[1].server
+return bs,cd[1].priority,lp
+end
+return nil,0,lp
+end
+
+local ft={}
+local tg=nil
+local rc=0
+
+ts.TeleportInitFailed:Connect(function(pl,tr,em)
+if pl==lp then
+local fr=tr.Name
+if fr=="GameEnded"or fr=="GameFull"or fr=="Unauthorized"then
+if rc<mr then
+rc=rc+1
+an("Finding alternative... ("..rc.."/"..mr..")",0.4)
+if tg and tg.id then
+ft[tg.id]=true
+end
+spawn(function()
+wait(1)
+th()
+end)
+else
+an("No server found after "..mr.." attempts.",1)
+end
+else
+an("Teleport failed: "..fr,1)
+end
+end
+end)
+
+function th()
+an("Initializing search...",0.05)
+local vs=lv()
+ac(vs)
+an("Fetching server list...",0.1)
+local al=ga()
+if #al==0 then
+an("No servers available.",1)
+return
+end
+an("Analyzing "..#al.." servers...",0.4)
+local tg,sp,lf=fl(al,vs,ft)
+local at=0
+while not tg and at<3 do
+at=at+1
+an("Expanding search... ("..at.."/3)",0.6)
+if at>=2 then
+vs={}
+end
+local om=mx
+mx=math.max(1,mx+(at*5))
+tg,sp,lf=fl(al,vs,ft)
+mx=om
+end
+if tg then
+local pc=tg.playing
+local sa=(tg.maxPlayers or ps.MaxPlayers)-pc
+an("Found server: "..pc.." players",0.9)
+wait(0.8)
+an("Joining server...",1)
+local s,e=pcall(function()
+ts:TeleportToPlaceInstance(game.PlaceId,tg.id,lp)
+end)
+if not s and rc<mr then
+rc=rc+1
+ft[tg.id]=true
+an("Connection failed. Retrying...",0.5)
+spawn(function()
+wait(1)
+th()
+end)
+end
+else
+an("No suitable servers found.",1)
+end
+end
+
+rb.MouseButton1Click:Connect(function()
+rc=0
+ft={}
+an("Restarting search...",0.05)
+spawn(th)
+end)
+
+bf.Size=UDim2.new(0,240,0,90)
+bf.Position=UDim2.new(0.5,-120,0.05,10)
+bf.BackgroundTransparency=1
+
+local ea=tw:Create(bf,TweenInfo.new(0.8,es,ed),{Size=UDim2.new(0,280,0,110),Position=UDim2.new(0.5,-140,0.05,0),BackgroundTransparency=0.7})
+ea:Play()
+
+spawn(function()
+wait(0.5)
+th()
+end)
     end
 })
 
 local IYAdmin = Tabs.Workspace:AddButton({
-    Title = "Low or High",
-    Description = "Server with the least and most",
+    Title = "Highest Server",
+    Description = "Find Highest Server",
 
     Callback = function()
-loadstring(game:HttpGet("https://tsulnavhfrykjkbqiuaw.supabase.co/functions/v1/raw-script?id=85e09247-2cb2-4d3b-8e16-359eb3f2b99f"))()
+local ts=game:GetService("TeleportService")
+local hs=game:GetService("HttpService")
+local ps=game:GetService("Players")
+local tw=game:GetService("TweenService")
+local lp=ps.LocalPlayer
+
+local vf="VisitedServers_"..game.PlaceId..".json"
+local mn=8
+local mx=math.floor(ps.MaxPlayers*0.95)
+local ms=1
+local mr=15
+local sp=8
+local sb={}
+
+local as=0.6
+local es=Enum.EasingStyle.Quart
+local ed=Enum.EasingDirection.Out
+
+local sg=Instance.new("ScreenGui")
+sg.Name="TeleportStatusGui"
+sg.ResetOnSpawn=false
+sg.ZIndexBehavior=Enum.ZIndexBehavior.Sibling
+sg.Parent=game:GetService("CoreGui")
+
+local bf=Instance.new("Frame")
+bf.Name="BackdropFrame"
+bf.Size=UDim2.new(0,280,0,110)
+bf.Position=UDim2.new(0.5,-140,0.05,0)
+bf.BackgroundColor3=Color3.fromRGB(0,0,0)
+bf.BackgroundTransparency=0.7
+bf.BorderSizePixel=0
+bf.Parent=sg
+
+local bc=Instance.new("UICorner")
+bc.CornerRadius=UDim.new(0,12)
+bc.Parent=bf
+
+local cf=Instance.new("Frame")
+cf.Name="ContentFrame"
+cf.Size=UDim2.new(1,-16,1,-16)
+cf.Position=UDim2.new(0,8,0,8)
+cf.BackgroundTransparency=1
+cf.Parent=bf
+
+local at=Instance.new("TextLabel")
+at.Name="AdminText"
+at.Size=UDim2.new(0,80,0,12)
+at.Position=UDim2.new(0,0,0,0)
+at.BackgroundTransparency=1
+at.Text="AK ADMIN"
+at.TextColor3=Color3.fromRGB(255,255,255)
+at.TextSize=10
+at.Font=Enum.Font.GothamBold
+at.TextXAlignment=Enum.TextXAlignment.Left
+at.TextTransparency=0.3
+at.Parent=cf
+
+local tt=Instance.new("TextLabel")
+tt.Name="TitleText"
+tt.Size=UDim2.new(1,-80,0,18)
+tt.Position=UDim2.new(0,0,0,14)
+tt.BackgroundTransparency=1
+tt.Text="Serverhop Most"
+tt.TextColor3=Color3.fromRGB(255,255,255)
+tt.TextSize=14
+tt.Font=Enum.Font.GothamBold
+tt.TextXAlignment=Enum.TextXAlignment.Left
+tt.TextTransparency=0.2
+tt.Parent=cf
+
+local st=Instance.new("TextLabel")
+st.Name="StatusText"
+st.Size=UDim2.new(1,0,0,24)
+st.Position=UDim2.new(0,0,0,34)
+st.BackgroundTransparency=1
+st.Text="Initializing..."
+st.TextColor3=Color3.fromRGB(200,200,200)
+st.TextSize=11
+st.Font=Enum.Font.Gotham
+st.TextWrapped=true
+st.TextYAlignment=Enum.TextYAlignment.Top
+st.TextXAlignment=Enum.TextXAlignment.Left
+st.TextTransparency=0.3
+st.Parent=cf
+
+local pc=Instance.new("Frame")
+pc.Name="ProgressContainer"
+pc.Size=UDim2.new(1,0,0,4)
+pc.Position=UDim2.new(0,0,0,62)
+pc.BackgroundColor3=Color3.fromRGB(0,0,0)
+pc.BackgroundTransparency=0.8
+pc.BorderSizePixel=0
+pc.Parent=cf
+
+local p1=Instance.new("UICorner")
+p1.CornerRadius=UDim.new(1,0)
+p1.Parent=pc
+
+local pb=Instance.new("Frame")
+pb.Name="ProgressBar"
+pb.Size=UDim2.new(0,0,1,0)
+pb.BackgroundColor3=Color3.fromRGB(255,255,255)
+pb.BackgroundTransparency=0.6
+pb.BorderSizePixel=0
+pb.Parent=pc
+
+local p2=Instance.new("UICorner")
+p2.CornerRadius=UDim.new(1,0)
+p2.Parent=pb
+
+local cb=Instance.new("TextButton")
+cb.Name="CloseButton"
+cb.Size=UDim2.new(0,18,0,18)
+cb.Position=UDim2.new(1,-18,0,0)
+cb.BackgroundColor3=Color3.fromRGB(0,0,0)
+cb.BackgroundTransparency=0.7
+cb.BorderSizePixel=0
+cb.Text="×"
+cb.TextColor3=Color3.fromRGB(255,255,255)
+cb.TextSize=14
+cb.Font=Enum.Font.GothamBold
+cb.TextTransparency=0.3
+cb.Parent=cf
+
+local c1=Instance.new("UICorner")
+c1.CornerRadius=UDim.new(1,0)
+c1.Parent=cb
+
+cb.MouseEnter:Connect(function()
+tw:Create(cb,TweenInfo.new(0.2,es,ed),{BackgroundTransparency=0.4}):Play()
+end)
+
+cb.MouseLeave:Connect(function()
+tw:Create(cb,TweenInfo.new(0.2,es,ed),{BackgroundTransparency=0.7}):Play()
+end)
+
+cb.MouseButton1Click:Connect(function()
+local fo=tw:Create(bf,TweenInfo.new(0.3,es,ed),{BackgroundTransparency=1})
+fo:Play()
+fo.Completed:Connect(function()
+sg:Destroy()
+end)
+end)
+
+local rb=Instance.new("TextButton")
+rb.Name="RetryButton"
+rb.Size=UDim2.new(0,90,0,22)
+rb.Position=UDim2.new(0.5,-45,1,-28)
+rb.BackgroundColor3=Color3.fromRGB(0,0,0)
+rb.BackgroundTransparency=0.7
+rb.BorderSizePixel=0
+rb.Text="Search Again"
+rb.TextColor3=Color3.fromRGB(255,255,255)
+rb.TextSize=10
+rb.Font=Enum.Font.GothamSemibold
+rb.TextTransparency=0.3
+rb.Parent=cf
+
+local r1=Instance.new("UICorner")
+r1.CornerRadius=UDim.new(0,6)
+r1.Parent=rb
+
+rb.MouseEnter:Connect(function()
+tw:Create(rb,TweenInfo.new(0.2,es,ed),{BackgroundTransparency=0.5}):Play()
+end)
+
+rb.MouseLeave:Connect(function()
+tw:Create(rb,TweenInfo.new(0.2,es,ed),{BackgroundTransparency=0.7}):Play()
+end)
+
+local function an(m,p)
+local tf=tw:Create(st,TweenInfo.new(0.2,es,ed),{TextTransparency=0.8})
+tf:Play()
+tf.Completed:Connect(function()
+st.Text=m
+tw:Create(st,TweenInfo.new(0.2,es,ed),{TextTransparency=0.3}):Play()
+end)
+local pt=tw:Create(pb,TweenInfo.new(as,es,ed),{Size=UDim2.new(math.max(0.02,p),0,1,0)})
+pt:Play()
+end
+
+local function lv()
+local s,r=pcall(function()
+if not isfolder("ServerHistory")then
+makefolder("ServerHistory")
+end
+local fp="ServerHistory/"..vf
+if isfile(fp)then
+return hs:JSONDecode(readfile(fp))
+else
+return{}
+end
+end)
+return s and r or{}
+end
+
+local function sv(vs)
+pcall(function()
+if not isfolder("ServerHistory")then
+makefolder("ServerHistory")
+end
+local fp="ServerHistory/"..vf
+writefile(fp,hs:JSONEncode(vs))
+end)
+end
+
+local function ac(vs)
+local cg=game.JobId
+if cg~=""then
+vs[cg]={timestamp=os.time(),playerCount=#ps:GetPlayers()}
+sv(vs)
+end
+end
+
+local function ga()
+local al={}
+local cr=""
+local pg=0
+local ma=3
+repeat
+local s,r=false,nil
+local rc=0
+repeat
+rc=rc+1
+s,r=pcall(function()
+local u="https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Desc&limit=100"
+if cr~=""then
+u=u.."&cursor="..cr
+end
+return hs:JSONDecode(game:HttpGet(u))
+end)
+if not s then
+wait(rc*0.5)
+end
+until s or rc>=ma
+if s and r and r.data then
+for _,sv in ipairs(r.data)do
+if sv.id and sv.playing and sv.maxPlayers then
+table.insert(al,sv)
+end
+end
+cr=r.nextPageCursor or""
+pg=pg+1
+an("Fetching page "..pg.."/"..sp,0.1+(pg/sp)*0.3)
+wait(0.1)
+else
+cr=""
+end
+until cr=="" or pg>=sp
+return al
+end
+
+local function fh(sl,vs,ex)
+ex=ex or{}
+local bs=nil
+local hp=0
+local sc=0
+local cd={}
+for _,sv in pairs(sl)do
+sc=sc+1
+if ex[sv.id]or sb[sv.id]or sv.id==game.JobId then
+continue
+end
+local pc=sv.playing or 0
+local mp=sv.maxPlayers or ps.MaxPlayers
+local sa=mp-pc
+if pc<mn or sa<ms then
+continue
+end
+if pc>mx then
+continue
+end
+if pc>hp then
+hp=pc
+end
+local pr=pc*100
+if vs[sv.id]then
+local ta=os.time()-vs[sv.id].timestamp
+if ta<1800 then
+pr=pr-500
+elseif ta<3600 then
+pr=pr-200
+end
+else
+pr=pr+100
+end
+local io=mp*0.7
+if math.abs(pc-io)<mp*0.2 then
+pr=pr+50
+end
+table.insert(cd,{server=sv,priority=pr,playerCount=pc})
+end
+table.sort(cd,function(a,b)
+return a.priority>b.priority
+end)
+if #cd>0 then
+bs=cd[1].server
+return bs,cd[1].priority,hp
+end
+return nil,0,hp
+end
+
+local ft={}
+local tg=nil
+local rc=0
+
+ts.TeleportInitFailed:Connect(function(pl,tr,em)
+if pl==lp then
+local fr=tr.Name
+if fr=="GameEnded"or fr=="GameFull"or fr=="Unauthorized"then
+if rc<mr then
+rc=rc+1
+an("Finding alternative... ("..rc.."/"..mr..")",0.4)
+if tg and tg.id then
+ft[tg.id]=true
+end
+spawn(function()
+wait(1)
+th()
+end)
+else
+an("No server found after "..mr.." attempts.",1)
+end
+else
+an("Teleport failed: "..fr,1)
+end
+end
+end)
+
+function th()
+an("Initializing search...",0.05)
+local vs=lv()
+ac(vs)
+an("Fetching server list...",0.1)
+local al=ga()
+if #al==0 then
+an("No servers available.",1)
+return
+end
+an("Analyzing "..#al.." servers...",0.4)
+local tg,sp,hf=fh(al,vs,ft)
+local at=0
+while not tg and at<3 do
+at=at+1
+an("Expanding search... ("..at.."/3)",0.6)
+if at>=2 then
+vs={}
+end
+local om=mn
+mn=math.max(1,mn-(at*3))
+tg,sp,hf=fh(al,vs,ft)
+mn=om
+end
+if tg then
+local pc=tg.playing
+local sa=(tg.maxPlayers or ps.MaxPlayers)-pc
+an("Found server: "..pc.." players",0.9)
+wait(0.8)
+an("Joining server...",1)
+local s,e=pcall(function()
+ts:TeleportToPlaceInstance(game.PlaceId,tg.id,lp)
+end)
+if not s and rc<mr then
+rc=rc+1
+ft[tg.id]=true
+an("Connection failed. Retrying...",0.5)
+spawn(function()
+wait(1)
+th()
+end)
+end
+else
+an("No suitable servers found.",1)
+end
+end
+
+rb.MouseButton1Click:Connect(function()
+rc=0
+ft={}
+an("Restarting search...",0.05)
+spawn(th)
+end)
+
+bf.Size=UDim2.new(0,240,0,90)
+bf.Position=UDim2.new(0.5,-120,0.05,10)
+bf.BackgroundTransparency=1
+
+local ea=tw:Create(bf,TweenInfo.new(0.8,es,ed),{Size=UDim2.new(0,280,0,110),Position=UDim2.new(0.5,-140,0.05,0),BackgroundTransparency=0.7})
+ea:Play()
+
+spawn(function()
+wait(0.5)
+th()
+end)
+
     end
 })
 
