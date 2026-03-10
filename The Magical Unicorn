@@ -19190,10 +19190,6 @@ local EmoteGUI = Tabs.Keybinds:AddButton({
     Description = "",
 })
 local EmoteGUI = Tabs.Keybinds:AddButton({
-    Title = "Z to Face Fuck",
-    Description = "",
-})
-local EmoteGUI = Tabs.Keybinds:AddButton({
     Title = "Left Click For Blue Portal",
     Description = "",
 })
