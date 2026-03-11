@@ -19234,18 +19234,6 @@ animate.walk.WalkAnim.AnimationId = "rbxassetid://81902773529444"
 })
 
 local IYAdmin = Tabs.Emotes:AddButton({
-    Title = "Monster",
-    Description = "Become a monster",
-
-    Callback = function()
---[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
-loadstring(game:HttpGet("https://raw.githubusercontent.com/egoropeez13-ui/FE-Demogorgon-R15-Anim/refs/heads/main/FE"))()
-    end
-})
-
-local IYAdmin = Tabs.Emotes:AddButton({
     Title = "Tall Creature",
     Description = "Be Tall",
 
@@ -19273,26 +19261,6 @@ animate.idle.Animation2.AnimationId = "rbxassetid://91916385599385"
 animate.jump.JumpAnim.AnimationId = "rbxassetid://111946345092187"
 animate.run.RunAnim.AnimationId = "rbxassetid://134411626334329"
 animate.walk.WalkAnim.AnimationId = "rbxassetid://134010853417610"
-    end
-})
-
-local IYAdmin = Tabs.Emotes:AddButton({
-    Title = "Jumpscare",
-    Description = "Scary animations",
-
-    Callback = function()
---[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
-
-local animate = game.Players.LocalPlayer.Character.Animate
-animate.climb.ClimbAnim.AnimationId = "rbxassetid://76789605330908"
-animate.fall.FallAnim.AnimationId = "rbxassetid://90186662669187"
-animate.idle.Animation1.AnimationId = "rbxassetid://124850920906462"
-animate.idle.Animation2.AnimationId = "rbxassetid://115936110044341"
-animate.jump.JumpAnim.AnimationId = "rbxassetid://107050614591332"
-animate.run.RunAnim.AnimationId = "rbxassetid://3489173414"
-animate.walk.WalkAnim.AnimationId = "rbxassetid://130656380253826"
     end
 })
 
