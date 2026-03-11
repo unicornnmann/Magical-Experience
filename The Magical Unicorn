@@ -1,3 +1,330 @@
+pcall(function()
+	if queue_on_teleport then
+		local ok, src = pcall(readfile, "TheMagicalUnicorn.lua")
+		if ok and src then
+			queue_on_teleport(src)
+		end
+	end
+end)
+
+do  
+	local _lsMarketplace = game:GetService("MarketplaceService")
+	local _lsRunService = game:GetService("RunService")
+
+	local DECAL_ID = "74058076070086"
+	local SOUND_ID = "rbxassetid://3292075199"
+	local FALLBACK_NAME = "PINK FLUFFY UNICORN"
+	local LOADING_DURATION = 4
+	local POST_LOAD_DELAY = 1
+
+	local _lsComplete = false
+
+	local function getThemeColors()
+		return {
+			primary = Color3.fromRGB(255, 182, 193),
+			secondary = Color3.fromRGB(230, 150, 180),
+			accent = Color3.fromRGB(255, 215, 235),
+			sparkle = Color3.fromRGB(255, 240, 250),
+			text = Color3.fromRGB(255, 255, 255)
+		}
+	end
+
+	local function getRealGameName()
+		if game.GameId == 0 or game.PlaceId == 0 then return FALLBACK_NAME end
+		local success, info = pcall(function()
+			return _lsMarketplace:GetProductInfo(game.PlaceId)
+		end)
+		if success and info and info.Name then
+			return info.Name
+		else
+			return game.Name
+		end
+	end
+
+	local function showLoadingScreen()
+		local player = game.Players.LocalPlayer
+		local playerGui = player:WaitForChild("PlayerGui")
+
+		local existing = playerGui:FindFirstChild("MagicalLoadingScreen")
+		if existing then existing:Destroy() end
+
+		local colors = getThemeColors()
+		local realGameName = getRealGameName()
+
+		local gui = Instance.new("ScreenGui")
+		gui.Name = "MagicalLoadingScreen"
+		gui.Parent = playerGui
+		gui.ResetOnSpawn = false
+		gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+		gui.IgnoreGuiInset = true
+
+		local background = Instance.new("Frame")
+		background.Size = UDim2.new(1, 0, 1, 0)
+		background.BackgroundColor3 = colors.primary
+		background.BackgroundTransparency = 0.15
+		background.BorderSizePixel = 0
+		background.Parent = gui
+
+		local gradientOverlay = Instance.new("UIGradient")
+		gradientOverlay.Color = ColorSequence.new({
+			ColorSequenceKeypoint.new(0, colors.sparkle),
+			ColorSequenceKeypoint.new(0.3, colors.primary),
+			ColorSequenceKeypoint.new(0.7, colors.secondary),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 140, 160))
+		})
+		gradientOverlay.Rotation = 45
+		gradientOverlay.Parent = background
+
+		local blurOverlay = Instance.new("ImageLabel")
+		blurOverlay.Size = UDim2.new(1, 0, 1, 0)
+		blurOverlay.BackgroundTransparency = 1
+		blurOverlay.Image = "rbxassetid://3570695787"
+		blurOverlay.ImageColor3 = colors.accent
+		blurOverlay.ImageTransparency = 0.7
+		blurOverlay.ScaleType = Enum.ScaleType.Slice
+		blurOverlay.SliceCenter = Rect.new(100, 100, 100, 100)
+		blurOverlay.Parent = gui
+
+		local mainContainer = Instance.new("Frame")
+		mainContainer.Size = UDim2.new(0, 700, 0, 320)
+		mainContainer.Position = UDim2.new(0.5, -350, 0.5, -160)
+		mainContainer.BackgroundTransparency = 1
+		mainContainer.Parent = gui
+
+		local leftPanel = Instance.new("Frame")
+		leftPanel.Size = UDim2.new(0.4, -20, 1, 0)
+		leftPanel.BackgroundTransparency = 1
+		leftPanel.ZIndex = 2
+		leftPanel.Parent = mainContainer
+
+		local logoBox = Instance.new("Frame")
+		logoBox.Size = UDim2.new(0, 220, 0, 220)
+		logoBox.Position = UDim2.new(0.5, -110, 0.5, -110)
+		logoBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		logoBox.BackgroundTransparency = 0.85
+		logoBox.ZIndex = 2
+		logoBox.Parent = leftPanel
+
+		local boxCorner = Instance.new("UICorner")
+		boxCorner.CornerRadius = UDim.new(0, 24)
+		boxCorner.Parent = logoBox
+
+		local boxStroke = Instance.new("UIStroke")
+		boxStroke.Color = colors.sparkle
+		boxStroke.Thickness = 2
+		boxStroke.Transparency = 0.4
+		boxStroke.Parent = logoBox
+
+		local unicornImage = Instance.new("ImageLabel")
+		unicornImage.Name = "UnicornImage"
+		unicornImage.Size = UDim2.new(0.8, 0, 0.8, 0)
+		unicornImage.Position = UDim2.new(0.1, 0, 0.1, 0)
+		unicornImage.BackgroundTransparency = 1
+		unicornImage.Image = "rbxassetid://" .. DECAL_ID
+		unicornImage.ScaleType = Enum.ScaleType.Fit
+		unicornImage.ZIndex = 2
+		unicornImage.Parent = logoBox
+
+		local rightPanel = Instance.new("Frame")
+		rightPanel.Size = UDim2.new(0.6, -20, 1, 0)
+		rightPanel.Position = UDim2.new(0.4, 20, 0, 0)
+		rightPanel.BackgroundTransparency = 1
+		rightPanel.ZIndex = 2
+		rightPanel.Parent = mainContainer
+
+		local decalCenter = 0.5
+
+		local loadingIntoText = Instance.new("TextLabel")
+		loadingIntoText.Name = "LoadingIntoText"
+		loadingIntoText.Size = UDim2.new(1, 0, 0, 30)
+		loadingIntoText.Position = UDim2.new(0, 0, decalCenter - 0.25, -15)
+		loadingIntoText.BackgroundTransparency = 1
+		loadingIntoText.Text = "LOADING INTO..."
+		loadingIntoText.TextColor3 = colors.sparkle
+		loadingIntoText.TextSize = 18
+		loadingIntoText.Font = Enum.Font.GothamBold
+		loadingIntoText.TextStrokeTransparency = 0.2
+		loadingIntoText.TextStrokeColor3 = colors.secondary
+		loadingIntoText.TextXAlignment = Enum.TextXAlignment.Left
+		loadingIntoText.ZIndex = 3
+		loadingIntoText.Parent = rightPanel
+
+		local gameNameLabel = Instance.new("TextLabel")
+		gameNameLabel.Name = "GameNameLabel"
+		gameNameLabel.Size = UDim2.new(1, 0, 0, 50)
+		gameNameLabel.Position = UDim2.new(0, 0, decalCenter - 0.20, -10)
+		gameNameLabel.BackgroundTransparency = 1
+		gameNameLabel.Text = realGameName
+		gameNameLabel.TextColor3 = colors.text
+		gameNameLabel.Font = Enum.Font.GothamBlack
+		gameNameLabel.TextScaled = true
+		gameNameLabel.TextStrokeTransparency = 0
+		gameNameLabel.TextStrokeColor3 = colors.secondary
+		gameNameLabel.TextXAlignment = Enum.TextXAlignment.Left
+		gameNameLabel.ZIndex = 3
+		gameNameLabel.Parent = rightPanel
+
+		local textSizeConstraint = Instance.new("UITextSizeConstraint")
+		textSizeConstraint.MaxTextSize = 42
+		textSizeConstraint.Parent = gameNameLabel
+
+		local loadingText = Instance.new("TextLabel")
+		loadingText.Size = UDim2.new(1, 0, 0, 30)
+		loadingText.Position = UDim2.new(0, 0, decalCenter - 0.02, -10)
+		loadingText.BackgroundTransparency = 1
+		loadingText.Text = "PREPARING MAGICAL EXPERIENCE"
+		loadingText.TextColor3 = colors.text
+		loadingText.TextSize = 18
+		loadingText.Font = Enum.Font.Gotham
+		loadingText.TextStrokeTransparency = 0.3
+		loadingText.TextStrokeColor3 = colors.primary
+		loadingText.TextXAlignment = Enum.TextXAlignment.Left
+		loadingText.ZIndex = 3
+		loadingText.Parent = rightPanel
+
+		local loadingBarContainer = Instance.new("Frame")
+		loadingBarContainer.Size = UDim2.new(0.9, 0, 0, 12)
+		loadingBarContainer.Position = UDim2.new(0, 0, decalCenter + 0.08, 0)
+		loadingBarContainer.BackgroundColor3 = Color3.fromRGB(200, 140, 160)
+		loadingBarContainer.BackgroundTransparency = 0.5
+		loadingBarContainer.BorderSizePixel = 0
+		loadingBarContainer.ZIndex = 3
+		loadingBarContainer.Parent = rightPanel
+
+		local barCorner = Instance.new("UICorner")
+		barCorner.CornerRadius = UDim.new(0, 6)
+		barCorner.Parent = loadingBarContainer
+
+		local loadingBarFill = Instance.new("Frame")
+		loadingBarFill.Size = UDim2.new(0, 0, 1, 0)
+		loadingBarFill.BackgroundColor3 = colors.sparkle
+		loadingBarFill.BorderSizePixel = 0
+		loadingBarFill.ZIndex = 3
+		loadingBarFill.Parent = loadingBarContainer
+
+		local fillCorner = Instance.new("UICorner")
+		fillCorner.CornerRadius = UDim.new(0, 6)
+		fillCorner.Parent = loadingBarFill
+
+		local percentageText = Instance.new("TextLabel")
+		percentageText.Size = UDim2.new(1, 0, 0, 50)
+		percentageText.Position = UDim2.new(0, 0, decalCenter + 0.15, 0)
+		percentageText.BackgroundTransparency = 1
+		percentageText.Text = "0%"
+		percentageText.TextColor3 = colors.text
+		percentageText.TextSize = 42
+		percentageText.Font = Enum.Font.GothamBlack
+		percentageText.TextStrokeTransparency = 0.2
+		percentageText.TextStrokeColor3 = colors.secondary
+		percentageText.TextXAlignment = Enum.TextXAlignment.Left
+		percentageText.ZIndex = 3
+		percentageText.Parent = rightPanel
+
+		local floatingParticles = {}
+		for i = 1, 12 do
+			local particle = Instance.new("ImageLabel")
+			particle.Size = UDim2.new(0, math.random(6, 14), 0, math.random(6, 14))
+			particle.Position = UDim2.new(math.random(), math.random(-150, 150), math.random(), math.random(-150, 150))
+			particle.BackgroundTransparency = 1
+			particle.Image = "rbxassetid://3570695787"
+			particle.ImageColor3 = colors.accent
+			particle.ImageTransparency = 0.7
+			particle.Rotation = math.random(0, 360)
+			particle.ZIndex = 1
+			particle.Parent = mainContainer
+			table.insert(floatingParticles, particle)
+		end
+
+		local loadingSound = Instance.new("Sound")
+		loadingSound.SoundId = SOUND_ID
+		loadingSound.Volume = 0.5
+		loadingSound.Looped = true
+		loadingSound.Parent = gui
+		loadingSound:Play()
+
+		local connection
+		local startTime = tick()
+		local isDisappearing = false
+		local isWaitingAfterLoad = false
+		local disappearStartTime
+		local waitStartTime
+		local dotTime = 0
+
+		connection = _lsRunService.Heartbeat:Connect(function(deltaTime)
+			if isDisappearing then
+				local elapsed = tick() - disappearStartTime
+				local disappearDuration = 1.2
+				local progress = math.min(elapsed / disappearDuration, 1)
+				local opacity = progress
+
+				unicornImage.ImageTransparency = opacity
+				logoBox.BackgroundTransparency = 0.85 + (opacity * 0.15)
+				boxStroke.Transparency = 0.4 + (opacity * 0.6)
+				loadingIntoText.TextTransparency = opacity
+				loadingIntoText.TextStrokeTransparency = 0.2 + (opacity * 0.8)
+				gameNameLabel.TextTransparency = opacity
+				gameNameLabel.TextStrokeTransparency = opacity
+				loadingText.TextTransparency = opacity
+				loadingText.TextStrokeTransparency = 0.3 + (opacity * 0.7)
+				loadingBarContainer.BackgroundTransparency = 0.5 + (opacity * 0.5)
+				loadingBarFill.BackgroundTransparency = opacity
+				percentageText.TextTransparency = opacity
+				percentageText.TextStrokeTransparency = 0.2 + (opacity * 0.8)
+				background.BackgroundTransparency = 0.15 + (opacity * 0.85)
+				blurOverlay.ImageTransparency = 0.7 + (opacity * 0.3)
+
+				for _, particle in ipairs(floatingParticles) do
+					particle.ImageTransparency = 0.7 + (opacity * 0.3)
+				end
+
+				loadingSound.Volume = 0.5 * (1 - progress)
+
+				if progress >= 1 then
+					loadingSound:Stop()
+					loadingSound:Destroy()
+					connection:Disconnect()
+					gui:Destroy()
+					_lsComplete = true
+				end
+			elseif isWaitingAfterLoad then
+				local elapsed = tick() - waitStartTime
+				dotTime += deltaTime * 3
+				for i, particle in ipairs(floatingParticles) do
+					particle.Position = particle.Position + UDim2.new(0, math.sin(dotTime + i) * 0.4, 0, math.cos(dotTime + i) * 0.4)
+					particle.Rotation = particle.Rotation + 0.6
+				end
+				if elapsed >= POST_LOAD_DELAY then
+					isDisappearing = true
+					disappearStartTime = tick()
+				end
+			else
+				local elapsed = tick() - startTime
+				local progress = math.min(elapsed / LOADING_DURATION, 1)
+				dotTime += deltaTime * 3
+
+				loadingBarFill.Size = UDim2.new(progress, 0, 1, 0)
+				percentageText.Text = math.floor(progress * 100) .. "%"
+
+				local dotCount = math.floor((math.sin(dotTime) + 1) * 1.5) + 1
+				loadingText.Text = "PREPARING MAGICAL EXPERIENCE" .. string.rep(".", dotCount)
+
+				for i, particle in ipairs(floatingParticles) do
+					particle.Position = particle.Position + UDim2.new(0, math.sin(dotTime + i) * 0.4, 0, math.cos(dotTime + i) * 0.4)
+					particle.Rotation = particle.Rotation + 0.6
+				end
+
+				if progress >= 1 then
+					isWaitingAfterLoad = true
+					waitStartTime = tick()
+				end
+			end
+		end)
+	end
+
+	showLoadingScreen()
+	repeat task.wait() until _lsComplete
+end
+
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local UserInputService = game:GetService("UserInputService")
