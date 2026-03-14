@@ -21762,253 +21762,33 @@ end)
 local Section = Tabs.Workspace:AddSection("Camera/Fly")
 
 local IYAdmin = Tabs.Workspace:AddButton({
-    Title = "Directional Fly",
+    Title = "R to Tp",
     Description = "Flys in the direction your looking",
 
     Callback = function()
---[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
--- Universal Rainbow Dash - Toggle Mode (2026 Edition)
--- Press E or click button to START/STOP Dash
--- Limited to ~10 studs TOTAL distance
--- Leaves rainbow trail (~1.8s duration)
--- Works on all executors
-
 local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
-
 local player = Players.LocalPlayer
-local DASH_MAX_DISTANCE = 10      -- Total max distance in studs
-local DASH_SPEED = 120            -- Speed (studs/sec)
-local TRAIL_DURATION = 1.8
-
-local isDashing = false
-local totalTraveled = 0
-local startPos = nil
-local linVel = nil
-local dashConnection = nil
-
--- Rainbow colors
-local rainbowColors = {
-    Color3.fromRGB(255, 0, 0),
-    Color3.fromRGB(255, 127, 0),
-    Color3.fromRGB(255, 255, 0),
-    Color3.fromRGB(0, 255, 0),
-    Color3.fromRGB(0, 0, 255),
-    Color3.fromRGB(75, 0, 130),
-    Color3.fromRGB(148, 0, 211)
-}
-
--- ────────────────────────────────────────────────
---                GUI Setup
--- ────────────────────────────────────────────────
-
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "RainbowDashGUI"
-ScreenGui.ResetOnSpawn = false
-ScreenGui.Parent = player:WaitForChild("PlayerGui")
-
-local MainFrame = Instance.new("Frame")
-MainFrame.Name = "MainFrame"
-MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
-MainFrame.BorderSizePixel = 0
-MainFrame.Position = UDim2.new(0.02, 0, 0.3, 0)
-MainFrame.Size = UDim2.new(0, 200, 0, 120)
-MainFrame.Active = true
-MainFrame.Draggable = true
-
-local UICorner = Instance.new("UICorner")
-UICorner.CornerRadius = UDim.new(0, 12)
-UICorner.Parent = MainFrame
-
-local UIStroke = Instance.new("UIStroke")
-UIStroke.Color = Color3.fromRGB(100, 100, 255)
-UIStroke.Thickness = 2
-UIStroke.Parent = MainFrame
-
-local TitleLabel = Instance.new("TextLabel")
-TitleLabel.Parent = MainFrame
-TitleLabel.BackgroundTransparency = 1
-TitleLabel.Size = UDim2.new(1, 0, 0, 30)
-TitleLabel.Font = Enum.Font.GothamBold
-TitleLabel.Text = "🦄 Unicorn Dash"
-TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-TitleLabel.TextScaled = true
-TitleLabel.Position = UDim2.new(0, 0, 0, 5)
-
-local DashButton = Instance.new("TextButton")
-DashButton.Parent = MainFrame
-DashButton.BackgroundColor3 = Color3.fromRGB(100, 150, 255)
-DashButton.BorderSizePixel = 0
-DashButton.Position = UDim2.new(0.1, 0, 0.35, 0)
-DashButton.Size = UDim2.new(0.8, 0, 0, 45)
-DashButton.Font = Enum.Font.GothamBold
-DashButton.Text = "START DASH (R)"
-DashButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-DashButton.TextScaled = true
-
-local ButtonCorner = Instance.new("UICorner")
-ButtonCorner.CornerRadius = UDim.new(0, 10)
-ButtonCorner.Parent = DashButton
-
-local DistanceLabel = Instance.new("TextLabel")
-DistanceLabel.Parent = MainFrame
-DistanceLabel.BackgroundTransparency = 1
-DistanceLabel.Position = UDim2.new(0, 0, 0.75, 0)
-DistanceLabel.Size = UDim2.new(1, 0, 0.25, 0)
-DistanceLabel.Font = Enum.Font.GothamBold
-DistanceLabel.Text = ""
-DistanceLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
-DistanceLabel.TextScaled = true
-
--- ────────────────────────────────────────────────
---                  DASH FUNCTIONS
--- ────────────────────────────────────────────────
-
-local function createRainbowTrail(part)
-    local trail = Instance.new("Trail")
-    trail.Color = ColorSequence.new(rainbowColors)
-    trail.Lifetime = TRAIL_DURATION
-    trail.MinLength = 0.08
-    trail.WidthScale = NumberSequence.new({NumberSequenceKeypoint.new(0, 1.3), NumberSequenceKeypoint.new(1, 0)})
-    trail.Transparency = NumberSequence.new({NumberSequenceKeypoint.new(0, 0.15), NumberSequenceKeypoint.new(1, 1)})
-    trail.LightEmission = 0.35
-    trail.LightInfluence = 0
-    trail.FaceCamera = true
-    trail.Enabled = true
-
-    local a0 = Instance.new("Attachment", part)
-    a0.Position = Vector3.new(0, -1.4, 0)
-    local a1 = Instance.new("Attachment", part)
-    a1.Position = Vector3.new(0, -2.6, 0)
-
-    trail.Attachment0 = a0
-    trail.Attachment1 = a1
-    trail.Parent = part
-
-    task.delay(TRAIL_DURATION + 0.6, function()
-        if trail then trail:Destroy() end
-        if a0 then a0:Destroy() end
-        if a1 then a1:Destroy() end
-    end)
+local mouse = player:GetMouse()
+local VERTICAL_OFFSET = 3
+local function teleport()
+	local character = player.Character
+	if not character then return end
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	local rootPart = character:FindFirstChild("HumanoidRootPart")
+	if not humanoid or humanoid.Health <= 0 or not rootPart then return end
+	local target = mouse.Hit
+	if not target then return end
+	local teleportPosition = target.Position + Vector3.new(0, VERTICAL_OFFSET, 0)
+	rootPart.CFrame = CFrame.new(teleportPosition)
 end
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if gameProcessed then return end
 
-local function stopDash()
-    isDashing = false
-    totalTraveled = 0
-    
-    if linVel then 
-        linVel:Destroy() 
-        linVel = nil 
-    end
-    
-    if dashConnection then
-        dashConnection:Disconnect()
-        dashConnection = nil
-    end
-    
-    -- Reset GUI
-    DashButton.Text = "START DASH (R)"
-    DashButton.BackgroundColor3 = Color3.fromRGB(100, 150, 255)
-    DistanceLabel.Text = ""
-    DistanceLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
-end
-
-local function toggleDash()
-    local char = player.Character
-    if not char then return end
-    
-    local hrp = char:FindFirstChild("HumanoidRootPart") or char:FindFirstChildWhichIsA("BasePart", true)
-    if not hrp then return end
-    
-    local humanoid = char:FindFirstChildOfClass("Humanoid")
-    if not humanoid or humanoid.Health <= 0 then return end
-    
-    if isDashing then
-        -- STOP DASH
-        stopDash()
-        print("🦄 Dash stopped!")
-    else
-        -- START DASH
-        isDashing = true
-        totalTraveled = 0
-        startPos = hrp.Position
-        
-        local lookVector = workspace.CurrentCamera.CFrame.LookVector * Vector3.new(1, 0, 1)
-        if lookVector.Magnitude < 0.01 then 
-            lookVector = hrp.CFrame.LookVector * Vector3.new(1, 0, 1) 
-        end
-        lookVector = lookVector.Unit
-        
-        -- Apply velocity
-        linVel = Instance.new("LinearVelocity")
-        linVel.Attachment0 = hrp:FindFirstChild("RootAttachment") or Instance.new("Attachment", hrp)
-        linVel.VectorVelocity = lookVector * DASH_SPEED
-        linVel.MaxForce = math.huge
-        linVel.Parent = hrp
-        
-        -- Create trails
-        local parts = {hrp}
-        if char:FindFirstChild("LowerTorso") then table.insert(parts, char.LowerTorso) end
-        if char:FindFirstChild("UpperTorso") then table.insert(parts, char.UpperTorso) end
-        
-        for _, p in ipairs(parts) do
-            createRainbowTrail(p)
-        end
-        
-        -- Update GUI
-        DashButton.Text = "STOP DASH (R)"
-        DashButton.BackgroundColor3 = Color3.fromRGB(255, 100, 100)
-        DistanceLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
-        
-        -- Distance tracking
-        dashConnection = RunService.Heartbeat:Connect(function()
-            if not isDashing or not hrp.Parent then 
-                stopDash()
-                return 
-            end
-            
-            local currentPos = hrp.Position
-            totalTraveled = (currentPos - startPos).Magnitude
-            
-            DistanceLabel.Text = string.format("Distance: %.1f/10 studs", totalTraveled)
-            
-            -- Auto-stop at 10 studs
-            if totalTraveled >= DASH_MAX_DISTANCE then
-                stopDash()
-                print("🦄 Max distance reached!")
-            end
-        end)
-        
-        print("🦄 Dash started!")
-    end
-end
-
--- ────────────────────────────────────────────────
---                  EVENT BINDINGS
--- ────────────────────────────────────────────────
-
-DashButton.MouseButton1Click:Connect(toggleDash)
-
-UserInputService.InputBegan:Connect(function(input, gp)
-    if gp then return end
-    if input.KeyCode == Enum.KeyCode.R then
-        toggleDash()
-    end
+	if input.KeyCode == Enum.KeyCode.R then
+		teleport()
+	end
 end)
-
--- Clean up on death/respawn
-Players.PlayerRemoving:Connect(function(plr)
-    if plr == player then stopDash() end
-end)
-
-player.CharacterRemoving:Connect(stopDash)
-
-print("🦄 Unicorn Dash TOGGLE loaded! Press E or click to START/STOP")
-print("Auto-stops at 10 studs distance")
     end
 })
 
