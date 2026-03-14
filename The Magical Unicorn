@@ -18913,6 +18913,126 @@ local turnSpeed = 0.06
 })
 
 local IYAdmin = Tabs.Assets:AddButton({
+    Title = "Toy Car",
+    Description = "Be Very Careful When Driving",
+
+    Callback = function()
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+
+local lp = game.Players.LocalPlayer
+local char = lp.Character or lp.CharacterAdded:Wait()
+local root = char:WaitForChild("HumanoidRootPart")
+local uis = game:GetService("UserInputService")
+
+char.Humanoid.WalkSpeed = 0
+
+
+local rr = Instance.new("Part")
+rr.Name = "roadroller"
+rr.Parent = workspace
+rr.Size = Vector3.new(8, 10, 12) 
+rr.CFrame = root.CFrame
+rr.CanCollide = true
+
+pcall(function()
+    rr.CollisionFidelity = Enum.CollisionFidelity.PreciseConvexDecomposition
+end)
+
+local m = Instance.new("SpecialMesh", rr)
+m.MeshId = "rbxassetid://4103976133"
+m.TextureId = "rbxassetid://4103976240"
+m.Scale = Vector3.new(1, 1, 1) 
+
+local w = Instance.new("Weld", rr)
+w.Part0 = rr
+w.Part1 = root
+w.C0 = CFrame.new(0, 0, 0)
+
+
+local hum = Instance.new("Sound", rr)
+hum.SoundId = "rbxassetid://6799591495"
+hum.Looped = true
+hum.Volume = 0.5
+hum:Play()
+
+local moveSfx = Instance.new("Sound", rr)
+moveSfx.SoundId = "rbxassetid://"
+moveSfx.Looped = true
+moveSfx.Volume = 0.8
+
+
+local speed = 1.2
+local turnSpeed = 0.06
+
+task.spawn(function()
+    while rr and rr.Parent do
+        task.wait()
+        
+     
+        if uis:IsKeyDown(Enum.KeyCode.R) then
+            local ex = Instance.new("Explosion", workspace)
+            ex.Position = rr.Position
+            ex.BlastRadius = 20
+            rr:Destroy()
+            char.Humanoid.WalkSpeed = 16
+            break
+        end
+
+        local isMoving = false
+        
+        if uis:IsKeyDown(Enum.KeyCode.W) then
+            rr.CFrame = rr.CFrame * CFrame.new(0, 0, -speed)
+            isMoving = true
+        elseif uis:IsKeyDown(Enum.KeyCode.S) then
+            rr.CFrame = rr.CFrame * CFrame.new(0, 0, speed)
+            isMoving = true
+        end
+        
+        if uis:IsKeyDown(Enum.KeyCode.A) then
+            rr.CFrame = rr.CFrame * CFrame.Angles(0, turnSpeed, 0)
+            isMoving = true
+        elseif uis:IsKeyDown(Enum.KeyCode.D) then
+            rr.CFrame = rr.CFrame * CFrame.Angles(0, -turnSpeed, 0)
+            isMoving = true
+        end
+        
+        if isMoving and not moveSfx.IsPlaying then
+            moveSfx:Play()
+        elseif not isMoving and moveSfx.IsPlaying then
+            moveSfx:Stop()
+        end
+        
+       
+        local parts = rr:GetTouchingParts()
+        for _, p in pairs(parts) do
+            if not p:IsDescendantOf(char) and p ~= rr and p.Name ~= "Baseplate" then
+                p.Anchored = false
+                
+                
+                local dir = (p.Position - rr.Position).Unit
+                p.Velocity = (dir + Vector3.new(0, 0.7, 0)) * 180
+                p.RotVelocity = Vector3.new(math.random(-60, 60), math.random(-60, 60), math.random(-60, 60))
+                
+                if not p:FindFirstChild("HitSfx") then
+                    local s = Instance.new("Sound", p)
+                    s.Name = "kaBOOM"
+                    s.SoundId = "rbxassetid://140278004623742"
+                    s.Volume = 0.4
+                    s:Play()
+                    game:GetService("Debris"):AddItem(s, 2)
+                end
+            end
+        end
+    end
+end)
+
+
+    end
+})
+
+local IYAdmin = Tabs.Assets:AddButton({
     Title = "Redbull Car",
     Description = "Spawns a Car",
 
