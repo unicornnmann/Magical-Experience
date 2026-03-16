@@ -10183,15 +10183,6 @@ end
     end
 })
 
-local IYAdmin = Tabs.Exploits:AddButton({
-    Title = "Shotgun",
-    Description = "Gives You A Shotgun",
-
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))();
-    end
-})
-
 local IYAdmin = Tabs.Tools:AddButton({
     Title = "Minecraft Tools",
     Description = "Build And Break",
