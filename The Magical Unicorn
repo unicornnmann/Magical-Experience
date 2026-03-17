@@ -24907,7 +24907,9 @@ end
     end
 })
 
-loadstring(game:HttpGet("https://pastebin.com/raw/1ac03YW8"))()
+loadstring(game:HttpGet("https://pastebin.com/raw/1ac03YW8"))();
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/scroder-nesise/DayToNight-Cycle/refs/heads/main/Cycle"))()
 
 local IYAdmin = Tabs.Shaders:AddButton({
     Title = "FullBright",
