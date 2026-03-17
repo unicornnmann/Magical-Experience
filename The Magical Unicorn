@@ -15998,6 +15998,15 @@ insertModel(94613191055940)
 })
 
 local IYAdmin = Tabs.Assets:AddButton({
+    Title = "Dance Floor",
+    Description = "Spawns Corner Of Map",
+
+    Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Dance-Floor/refs/heads/main/Fancy%20Dancey"))()
+    end
+})
+
+local IYAdmin = Tabs.Assets:AddButton({
     Title = "Stage",
     Description = "Spawns a stage with seats",
 
