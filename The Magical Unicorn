@@ -24907,35 +24907,7 @@ end
     end
 })
 
-loadstring(game:HttpGet("https://pastebin.com/raw/1ac03YW8"))();
-
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "RejoinGui"
-screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
-local rejoinButton = Instance.new("TextButton")
-rejoinButton.Name = "RejoinButton"
-rejoinButton.Text = "Rejoin!"
-rejoinButton.Size = UDim2.new(0, 110, 0, 50)
-rejoinButton.Position = UDim2.new(1, -300, 0, -55)
-rejoinButton.AnchorPoint = Vector2.new(1, 0)
-rejoinButton.BackgroundColor3 = Color3.fromRGB(214, 13, 214)
-rejoinButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-rejoinButton.Font = Enum.Font.SourceSansBold
-rejoinButton.TextSize = 18
-rejoinButton.Parent = screenGui
-
-local cornerRadius = Instance.new("UICorner")
-cornerRadius.CornerRadius = UDim.new(0, 8)
-cornerRadius.Parent = rejoinButton
-
-local function rejoinGame()
-    loadstring(game:HttpGet("https://pastefy.app/o2sjxeTZ/raw"))()
-end
-
-rejoinButton.MouseButton1Click:Connect(rejoinGame)
-
- -- What are you doing in raw?
+loadstring(game:HttpGet("https://pastebin.com/raw/1ac03YW8"))()
 
 local IYAdmin = Tabs.Shaders:AddButton({
     Title = "FullBright",
