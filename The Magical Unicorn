@@ -127,14 +127,27 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/UniAdmin
     end
 })
 
+local Section = Tabs.Player:AddSection("Vc Bypass")
+
 local IYAdmin = Tabs.Player:AddButton({
-    Title = "VC BYPASS",
-    Description = "Bypass The Roblox Voicechat Filter",
+    Title = "VC BYPASS NEW",
+    Description = "You Must Use Velocity",
+
+    Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/0riginalWarrior/Stalkie/refs/heads/main/vcbypass.lua"))()
+    end
+})
+
+local IYAdmin = Tabs.Player:AddButton({
+    Title = "VC BYPASS OLD",
+    Description = "Works On Older Version",
 
     Callback = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Vc-Bypass/refs/heads/main/Voicechat%20Bypasser"))()
     end
 })
+
+local Section = Tabs.Player:AddSection("Anti Cheat")
 
 local IYAdmin = Tabs.Player:AddButton({
     Title = "ANTI BAN",
@@ -144,6 +157,8 @@ local IYAdmin = Tabs.Player:AddButton({
         loadstring(game:HttpGet("https://raw.githubusercontent.com/SystemSecRoblox/SystemSec/refs/heads/main/main.lua"))()
     end
 })
+
+local Section = Tabs.Player:AddSection("Speed/Jump/Other")
 
 -- [[ Player Section ]]
 local WalkspeedSlider = Tabs.Player:AddSlider("Slider", {
