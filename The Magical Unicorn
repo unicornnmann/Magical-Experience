@@ -11757,15 +11757,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Treehous
 })
 
 local IYAdmin = Tabs.Assets:AddButton({
-    Title = "Park",
-    Description = "Spawns a Park",
-
-    Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Carpark/refs/heads/main/Carpark"))()
-    end
-})
-
-local IYAdmin = Tabs.Assets:AddButton({
     Title = "Strip Club",
     Description = "Unicorn Touchy Time",
 
