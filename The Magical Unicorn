@@ -1,3 +1,21 @@
+```lua
+Player.OnTeleport:Connect(function()
+    if QueueTeleport then
+        for _ = 1, 2 do
+            QueueTeleport('loadstring(game:HttpGet("https://yourscoper.vercel.app/scripts/scoper.lua"))()');
+        end
+    end
+end)
+
+Players.PlayerRemoving:Connect(function(Parameter)
+    if Parameter == Player then
+        for _ = 1, 2 do
+            QueueTeleport('loadstring(game:HttpGet("https://yourscoper.vercel.app/scripts/scoper.lua"))()');
+        end
+    end
+end)
+```
+
 loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Loading-Animation/refs/heads/main/Unicorn"))()
 
 if not game:IsLoaded() then
