@@ -1,5 +1,9 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Loading-Animation/refs/heads/main/Unicorn"))()
 
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
+
 local QueueTeleport = queue_on_teleport or queueonteleport
 
 -- Create the ScreenGui
