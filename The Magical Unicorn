@@ -1,3 +1,5 @@
+local QueueTeleport           = queue_on_teleport or queueonteleport
+
 ```lua
 Player.OnTeleport:Connect(function()
     if QueueTeleport then
