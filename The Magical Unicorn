@@ -14865,6 +14865,15 @@ local EmoteGUI = Tabs.Emotes:AddButton({
     end
 })
 
+local IYAdmin = Tabs.Emotes:AddButton({
+    Title = "AK UGCS",
+    Description = "Skidded Ak Ugc",
+
+    Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Ak-Admin-Ugc/refs/heads/main/Ugc"))()
+    end
+})
+
 local EmoteGUI = Tabs.Keybinds:AddButton({
     Title = "K to Open/Close",
     Description = "",
