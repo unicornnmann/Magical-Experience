@@ -1,5 +1,7 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Loading-Animation/refs/heads/main/Unicorn"))()
 
+local QueueTeleport = queue_on_teleport or queueonteleport
+
 -- Create the ScreenGui
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "AdminActiveGUI"
@@ -14865,15 +14867,6 @@ local EmoteGUI = Tabs.Emotes:AddButton({
     end
 })
 
-local IYAdmin = Tabs.Emotes:AddButton({
-    Title = "AK UGCS",
-    Description = "Skidded Ak Ugc",
-
-    Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Ak-Admin-Ugc/refs/heads/main/Ugc"))()
-    end
-})
-
 local EmoteGUI = Tabs.Keybinds:AddButton({
     Title = "K to Open/Close",
     Description = "",
@@ -14980,3 +14973,19 @@ local IYAdmin = Tabs.Exploits:AddButton({
         loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))();
     end
 })
+
+game:GetService("Players").LocalPlayer.OnTeleport:Connect(function()
+    if QueueTeleport then
+        for _ = 1, 2 do
+            QueueTeleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Magical-Experience/refs/heads/main/The%20Magical%20Unicorn"))()');
+        end
+    end
+end)
+
+game:GetService("Players").PlayerRemoving:Connect(function(Parameter)
+    if Parameter == game:GetService("Players").LocalPlayer then
+        for _ = 1, 2 do
+            QueueTeleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Magical-Experience/refs/heads/main/The%20Magical%20Unicorn"))()');
+        end
+    end
+end)
