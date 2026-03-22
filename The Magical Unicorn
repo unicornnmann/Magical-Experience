@@ -136,7 +136,7 @@ local Tabs = {
 Window:SelectTab(1)
 
 local IYAdmin = Tabs.Player:AddButton({
-    Title = "Day And Nigh Cycle",
+    Title = "Day And Night Cycle",
     Description = "Dynamic Time Of Day",
 
     Callback = function()
