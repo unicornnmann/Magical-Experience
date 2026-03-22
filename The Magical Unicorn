@@ -1,5 +1,7 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Loading-Animation/refs/heads/main/Unicorn"))()
 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Treehouse/refs/heads/main/Treehouse"))()
+
 --[[
 	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
 ]]
