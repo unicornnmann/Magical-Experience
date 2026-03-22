@@ -1,5 +1,20 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Loading-Animation/refs/heads/main/Unicorn"))()
 
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+game:GetService("StarterGui"):SetCore("SendNotification",{
+Title = "Magical Experience!",
+Text = "Discord Link Copied To Clipboard", 
+
+Button1 = "Close",
+Duration = 1 
+})
+
+if setclipboard then
+    setclipboard("https://discord.gg/wBvQumC4") -- change text to whatever you want
+end
+
 -- Create the ScreenGui
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "AdminActiveGUI"
