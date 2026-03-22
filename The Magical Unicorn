@@ -119,6 +119,15 @@ local Tabs = {
 Window:SelectTab(1)
 
 local IYAdmin = Tabs.Player:AddButton({
+    Title = "Day And Nigh Cycle",
+    Description = "Dynamic Time Of Day",
+
+    Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Day-To-Night/refs/heads/main/Cycle"))()
+    end
+})
+
+local IYAdmin = Tabs.Player:AddButton({
     Title = "UNIADMIN",
     Description = "Click ] To Open And Type - cmds to open search menu",
 
@@ -14950,8 +14959,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Tool-Siz
 })
 
 loadstring(game:HttpGet("https://pastebin.com/raw/1ac03YW8"))();
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Day-To-Night/refs/heads/main/Cycle"))()
 
 local IYAdmin = Tabs.Shaders:AddButton({
     Title = "FullBright",
