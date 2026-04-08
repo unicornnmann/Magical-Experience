@@ -153,38 +153,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/UniAdmin
     end
 })
 
-local Section = Tabs.Player:AddSection("Vc Bypass")
-
-local IYAdmin = Tabs.Player:AddButton({
-    Title = "Scoper's VC Bypass",
-    Description = "You Must Use Velocity",
-
-    Callback = function()
-        local Script = {};
-
-        function Script.Load(Url)
-            local success, error = pcall(function()
-                loadstring(Game:HttpGet(Url))();
-            end)
-
-            if not success then
-                return
-            end
-        end
-
-        Script.Load("https://yourscoper.vercel.app/scripts/voicechatbypass/main.lua");
-    end
-})
-
-local IYAdmin = Tabs.Player:AddButton({
-    Title = "VC BYPASS OLD",
-    Description = "Works On Older Version",
-
-    Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Vc-Bypass/refs/heads/main/Voicechat%20Bypasser"))()
-    end
-})
-
 local Section = Tabs.Player:AddSection("Anti Cheat")
 
 local IYAdmin = Tabs.Player:AddButton({
