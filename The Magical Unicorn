@@ -14018,8 +14018,8 @@ loadstring(game:HttpGet('https://onyxv2.vercel.app/main.lua'))()
 })
 
 local IYAdmin = Tabs.Workspace:AddButton({
-    Title = "ZG Admin",
-    Description = "DaMonk The Goat",
+    Title = "Novoline",
+    Description = "Gladihus The Goat",
 
     Callback = function()
 loadstring(game:HttpGet("https://pastebin.com/raw/fRnnhbAw"))()
