@@ -153,14 +153,15 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/UniAdmin
     end
 })
 
-local Section = Tabs.Player:AddSection("Anti Cheat")
+local Section = Tabs.Player:AddSection("Vc Bypass")
 
 local IYAdmin = Tabs.Player:AddButton({
-    Title = "ANTI BAN",
-    Description = "Secures Your Game Session",
+    Title = "VC BYPASS",
+    Description = "Xeno/Solara Not Supported",
 
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/SystemSecRoblox/SystemSec/refs/heads/main/main.lua"))()
+getgenv().SCRIPT_KEY = "KEYLESS"
+loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/d1344fdffb6e839857e16642403fd6619eb00b95ad39d19d0196b383988b99d9/download"))()
     end
 })
 
