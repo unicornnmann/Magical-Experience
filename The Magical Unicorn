@@ -14022,7 +14022,7 @@ local IYAdmin = Tabs.Workspace:AddButton({
     Description = "Gladihus The Goat",
 
     Callback = function()
-loadstring(game:HttpGet("https://pastebin.com/raw/fRnnhbAw"))()
+loadstring(game:HttpGet("https://novoline.pro"))()
     end
 })
 
