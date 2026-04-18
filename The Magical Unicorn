@@ -165,6 +165,15 @@ loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/d1344fdf
     end
 })
 
+local IYAdmin = Tabs.Player:AddButton({
+    Title = "Reanimation",
+    Description = "Magical Experience",
+
+    Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Reanimation/refs/heads/main/Obf"))()
+    end
+})
+
 local Section = Tabs.Player:AddSection("Speed/Jump/Other")
 
 -- [[ Player Section ]]
