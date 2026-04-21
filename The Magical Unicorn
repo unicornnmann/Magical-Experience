@@ -1,5 +1,6 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Loading-Animation/refs/heads/main/Unicorn"))()
 
+loadstring(game:HttpGet('https://raw.githubusercontent.com/unicornnmann/Ducks/refs/heads/main/Ducks'))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Treehouse/refs/heads/main/Treehouse"))()
 
 --[[
