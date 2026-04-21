@@ -1,3 +1,5 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Loading-Animation/refs/heads/main/Unicorn"))()
+
 -- made by mys
 local faggot = game.Players.LocalPlayer
 local cunt = faggot.Character or faggot.CharacterAdded:Wait()
@@ -20,7 +22,6 @@ if cunt then
     end
 end
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Loading-Animation/refs/heads/main/Unicorn"))(
 loadstring(game:HttpGet('https://raw.githubusercontent.com/unicornnmann/Ducks/refs/heads/main/Ducks'))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Treehouse/refs/heads/main/Treehouse"))()
 
