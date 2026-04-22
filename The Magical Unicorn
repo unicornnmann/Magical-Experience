@@ -175,6 +175,16 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Reanimat
     end
 })
 
+local IYAdmin = Tabs.Player:AddButton({
+    Title = "Emote GUI",
+    Description = "E Dancers",
+
+    Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/E-dance/refs/heads/main/E%20Dance%20Gui"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe/main/obf_11l7Y131YqJjZ31QmV5L8pI23V02b3191sEg26E75472Wl78Vi8870jRv5txZyL1.lua.txt"))()
+    end
+})
+
 local Section = Tabs.Player:AddSection("Speed/Jump/Other")
 
 -- [[ Player Section ]]
@@ -14037,23 +14047,12 @@ loadstring(game:HttpGet("https://novoline.pro"))()
     end
 })
 
-local Section = Tabs.Workspace:AddSection("Anti Lag")
-
 local IYAdmin = Tabs.Workspace:AddButton({
-    Title = "Anti Pause",
-    Description = "Removes Pause Screen",
+    Title = "Empty Tools",
+    Description = "Good For Shaders",
 
     Callback = function()
-
--- ANTI-GAMEPLAY PAUSED SCREEN
-local GuiService = game:GetService("GuiService")
-local RunService = game:GetService("RunService")
-
--- 1. Disable the built-in pause GUI immediately
-GuiService:SetGameplayPausedNotificationEnabled(false)
-
-
-print("Gameplay Paused Screen Disabled.")
+loadstring(game:HttpGet("https://raw.githubusercontent.com/likelysmith/EmptyTools/main/script"))()
     end
 })
 
@@ -14783,91 +14782,6 @@ local EmoteGUI = Tabs.Emotes:AddButton({
     Callback = function()
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ReliefScript/cat-animation-cracked/refs/heads/main/loader.lua"))()
-    end
-})
-
-local IYAdmin = Tabs.Emotes:AddButton({
-    Title = "E girl",
-    Description = "Move Like an E girl",
-
-    Callback = function()
-
-local animate = game.Players.LocalPlayer.Character.Animate
-animate.climb.ClimbAnim.AnimationId = "rbxassetid://129301741044313"
-animate.fall.FallAnim.AnimationId = "rbxassetid://123691927890594"
-animate.idle.Animation1.AnimationId = "rbxassetid://91469902979273"
-animate.idle.Animation2.AnimationId = "rbxassetid://127234839786939"
-animate.jump.JumpAnim.AnimationId = "rbxassetid://115952229051580"
-animate.run.RunAnim.AnimationId = "rbxassetid://85475131476587"
-animate.walk.WalkAnim.AnimationId = "rbxassetid://81902773529444"
-    end
-})
-
-local IYAdmin = Tabs.Emotes:AddButton({
-    Title = "Tall Creature",
-    Description = "Be Tall",
-
-    Callback = function()
-
-local animate = game.Players.LocalPlayer.Character.Animate
-animate.climb.ClimbAnim.AnimationId = "rbxassetid://128642113698397"
-animate.fall.FallAnim.AnimationId = "rbxassetid://128642113698397"
-animate.idle.Animation1.AnimationId = "rbxassetid://115268975352566"
-animate.idle.Animation2.AnimationId = "rbxassetid://91916385599385"
-animate.jump.JumpAnim.AnimationId = "rbxassetid://111946345092187"
-animate.run.RunAnim.AnimationId = "rbxassetid://134411626334329"
-animate.walk.WalkAnim.AnimationId = "rbxassetid://134010853417610"
-    end
-})
-
-local IYAdmin = Tabs.Emotes:AddButton({
-    Title = "Zombie",
-    Description = "Walk Like a zombie",
-
-    Callback = function()
-
-local animate = game.Players.LocalPlayer.Character.Animate
-animate.climb.ClimbAnim.AnimationId = "rbxassetid://131814798893284"
-animate.fall.FallAnim.AnimationId = "rbxassetid://115589281955367"
-animate.idle.Animation1.AnimationId = "rbxassetid://121831732895886"
-animate.idle.Animation2.AnimationId = "rbxassetid://90645753807851"
-animate.jump.JumpAnim.AnimationId = "rbxassetid://115952229051580"
-animate.run.RunAnim.AnimationId = "rbxassetid://71458129866080"
-animate.walk.WalkAnim.AnimationId = "rbxassetid://79198522419741"
-    end
-})
-
-local IYAdmin = Tabs.Emotes:AddButton({
-    Title = "Dog Reanimation",
-    Description = "Become a Dog",
-
-    Callback = function()
-
-local animate = game.Players.LocalPlayer.Character.Animate
-animate.climb.ClimbAnim.AnimationId = "rbxassetid://103215260920828"
-animate.fall.FallAnim.AnimationId = "rbxassetid://116112330726818"
-animate.idle.Animation1.AnimationId = "rbxassetid://101144965088870"
-animate.idle.Animation2.AnimationId = "rbxassetid://133293399236816"
-animate.jump.JumpAnim.AnimationId = "rbxassetid://73316722542430"
-animate.run.RunAnim.AnimationId = "rbxassetid://108643905430753"
-animate.walk.WalkAnim.AnimationId = "rbxassetid://133333456631617"
-    end
-})
-
-local IYAdmin = Tabs.Emotes:AddButton({
-    Title = "Happy Guy",
-    Description = "Very Happy",
-
-    Callback = function()
-
-local animate = game.Players.LocalPlayer.Character.Animate
-animate.climb.ClimbAnim.AnimationId = "rbxassetid://82587632175618"
-animate.fall.FallAnim.AnimationId = "rbxassetid://110319921537712"
-animate.idle.Animation1.AnimationId = "rbxassetid://132984592941585"
-animate.idle.Animation2.AnimationId = "rbxassetid://124200992648318"
-animate.jump.JumpAnim.AnimationId = "rbxassetid://83380602503991"
-animate.run.RunAnim.AnimationId = "rbxassetid://90449724957683"
-animate.walk.WalkAnim.AnimationId = "rbxassetid://106767496454996"
     end
 })
 
