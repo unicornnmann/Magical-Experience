@@ -1,9 +1,10 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Loading-Animation/refs/heads/main/Unicorn"))()
+
 if game:IsLoaded() then else game.Loaded:Wait() end
 game.Players.LocalPlayer.OnTeleport:Connect(function()
     queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/unicornnmann/Magical-Experience/refs/heads/main/The%20Magical%20Unicorn'))()")
 end)
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Loading-Animation/refs/heads/main/Unicorn"))()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/unicornnmann/Join-Users/refs/heads/main/User%20Joiner'))()
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/unicornnmann/Treehouse/refs/heads/main/Treehouse"))()
